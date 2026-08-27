@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,6 +14,74 @@
             text-align: center;
         }
 
+        /* 상단 메뉴 */
+        .top-menu {
+            width: 100%;
+            background: #222;
+            padding: 15px 0;
+            text-align: left;
+        }
+
+        .menu-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .menu-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .menu-button:hover {
+            background: #444;
+            border-radius: 8px;
+        }
+
+        /* 하위 메뉴 */
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 140px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .submenu button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            background: white;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submenu button:hover {
+            background: #f0f0f0;
+        }
+
+        /* 스케줄러 메뉴 클릭 시 하위 메뉴 표시 */
+        .menu-item.active .submenu {
+            display: block;
+        }
+
+        /* 메인 화면 */
         .box {
             margin: 120px auto;
             max-width: 700px;
@@ -29,15 +98,158 @@
             font-size: 18px;
             color: #666;
         }
+
+        /* 스케줄러 화면 */
+        .scheduler {
+            display: none;
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+        }
+
+        .scheduler h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .scheduler-content {
+            padding: 50px 20px;
+            background: #f5f5f5;
+            border-radius: 15px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .back-button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .back-button:hover {
+            background: #444;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="box">
+    <!-- 상단 메뉴 -->
+    <div class="top-menu">
+        <div class="menu-container">
+
+            <div class="menu-item" id="schedulerMenu">
+                <button class="menu-button" onclick="toggleSchedulerMenu()">
+                    스케줄러
+                </button>
+
+                <div class="submenu">
+                    <button onclick="openScheduler('daily')">
+                        일퀘
+                    </button>
+
+                    <button onclick="openScheduler('boss')">
+                        보스
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- 메인 화면 -->
+    <div class="box" id="home">
         <h1>안녕하세요 👋</h1>
         <p>나의 첫 번째 홈페이지입니다.</p>
     </div>
 
+
+    <!-- 일퀘 화면 -->
+    <div class="scheduler" id="dailyScheduler">
+        <h2>일퀘 스케줄러</h2>
+
+        <div class="scheduler-content">
+            일일 퀘스트 내용을 이곳에 추가할 예정입니다.
+        </div>
+
+        <button class="back-button" onclick="goHome()">
+            홈으로
+        </button>
+    </div>
+
+
+    <!-- 보스 화면 -->
+    <div class="scheduler" id="bossScheduler">
+        <h2>보스 스케줄러</h2>
+
+        <div class="scheduler-content">
+            보스 스케줄 및 정보를 이곳에 추가할 예정입니다.
+        </div>
+
+        <button class="back-button" onclick="goHome()">
+            홈으로
+        </button>
+    </div>
+
+
+    <script>
+        // 스케줄러 하위 메뉴 열기/닫기
+        function toggleSchedulerMenu() {
+            const menu = document.getElementById("schedulerMenu");
+            menu.classList.toggle("active");
+        }
+
+
+        // 일퀘 / 보스 화면 열기
+        function openScheduler(type) {
+
+            // 모든 화면 숨기기
+            document.getElementById("home").style.display = "none";
+            document.getElementById("dailyScheduler").style.display = "none";
+            document.getElementById("bossScheduler").style.display = "none";
+
+            // 선택한 화면 열기
+            if (type === "daily") {
+                document.getElementById("dailyScheduler").style.display = "block";
+            }
+
+            if (type === "boss") {
+                document.getElementById("bossScheduler").style.display = "block";
+            }
+
+            // 메뉴 닫기
+            document.getElementById("schedulerMenu").classList.remove("active");
+        }
+
+
+        // 홈으로 돌아가기
+        function goHome() {
+            document.getElementById("home").style.display = "block";
+            document.getElementById("dailyScheduler").style.display = "none";
+            document.getElementById("bossScheduler").style.display = "none";
+        }
+
+
+        // 화면 다른 곳을 클릭하면 메뉴 닫기
+        document.addEventListener("click", function(event) {
+
+            const menu = document.getElementById("schedulerMenu");
+
+            if (!menu.contains(event.target)) {
+                menu.classList.remove("active");
+            }
+
+        });
+    </script>
+
 </body>
 </html>
+```
