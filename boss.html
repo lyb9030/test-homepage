@@ -193,6 +193,16 @@
             position: relative;
             height: 62px;
             word-break: keep-all;
+            cursor: grab;
+        }
+
+        .boss-header:active {
+            cursor: grabbing;
+        }
+
+        .boss-header.dragging,
+        .character-row.dragging {
+            opacity: 0.45;
         }
 
         .boss-name {
@@ -229,7 +239,7 @@
 
         .value-input {
             width: 100%;
-            max-width: 78px;
+            max-width: 110px;
             padding: 5px 2px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -269,6 +279,14 @@
             vertical-align: middle;
             font-weight: bold;
             word-break: break-all;
+        }
+
+        .character-row {
+            cursor: grab;
+        }
+
+        .character-row:active {
+            cursor: grabbing;
         }
 
         .profit-row th,
@@ -318,7 +336,7 @@
             }
 
             .value-input {
-                max-width: 72px;
+                max-width: 105px;
                 font-size: 11px;
             }
         }
@@ -412,8 +430,13 @@
 
             <div class="guide">
                 • 보스는 가로 방향, 캐릭터는 세로 방향으로 표시됩니다.
+                <br>
+                • 보스와 캐릭터는 드래그하여 순서를 변경할 수 있습니다.
+                <br>
                 • 결정값은 표에서 직접 수정할 수 있습니다.
+                <br>
                 • O / X를 클릭하여 격파 여부를 변경할 수 있습니다.
+                <br>
                 • 모든 기록과 결정값은 목요일~수요일 주차별로 저장됩니다.
             </div>
 
@@ -635,7 +658,10 @@
         function updateBossValue(bossIndex, input) {
             let value =
                 Number(
-                    input.value.replace(/,/g, "")
+                    input.value
+                        .replace(/,/g, "")
+                        .replace(/만\s*메소/g, "")
+                        .trim()
                 );
 
             if (
@@ -686,6 +712,159 @@
             return Number(number).toLocaleString("ko-KR");
         }
 
+        function formatDecisionValue(number) {
+            return `${formatNumber(number)} 만 메소`;
+        }
+
+        /* ------------------------------
+           보스 드래그 앤 드롭
+        ------------------------------ */
+
+        let draggedBossIndex = null;
+
+        function setupBossDrag(th, index) {
+            th.draggable = true;
+
+            th.addEventListener("dragstart", event => {
+                draggedBossIndex = index;
+
+                th.classList.add("dragging");
+
+                event.dataTransfer.effectAllowed = "move";
+                event.dataTransfer.setData(
+                    "text/plain",
+                    String(index)
+                );
+            });
+
+            th.addEventListener("dragend", () => {
+                th.classList.remove("dragging");
+                draggedBossIndex = null;
+            });
+
+            th.addEventListener("dragover", event => {
+                event.preventDefault();
+
+                if (
+                    draggedBossIndex === null ||
+                    draggedBossIndex === index
+                ) {
+                    return;
+                }
+
+                event.dataTransfer.dropEffect = "move";
+            });
+
+            th.addEventListener("drop", event => {
+                event.preventDefault();
+
+                const fromIndex = draggedBossIndex;
+                const toIndex = index;
+
+                if (
+                    fromIndex === null ||
+                    fromIndex === toIndex
+                ) {
+                    return;
+                }
+
+                moveBoss(fromIndex, toIndex);
+            });
+        }
+
+        function moveBoss(fromIndex, toIndex) {
+            const movedBoss =
+                data.bosses.splice(fromIndex, 1)[0];
+
+            data.bosses.splice(toIndex, 0, movedBoss);
+
+            data.characters.forEach(character => {
+                const movedStatus =
+                    character.status.splice(fromIndex, 1)[0];
+
+                character.status.splice(
+                    toIndex,
+                    0,
+                    movedStatus
+                );
+            });
+
+            saveData();
+            renderTable();
+        }
+
+        /* ------------------------------
+           캐릭터 드래그 앤 드롭
+        ------------------------------ */
+
+        let draggedCharacterIndex = null;
+
+        function setupCharacterDrag(row, index) {
+            row.draggable = true;
+
+            row.addEventListener("dragstart", event => {
+                draggedCharacterIndex = index;
+
+                row.classList.add("dragging");
+
+                event.dataTransfer.effectAllowed = "move";
+                event.dataTransfer.setData(
+                    "text/plain",
+                    String(index)
+                );
+            });
+
+            row.addEventListener("dragend", () => {
+                row.classList.remove("dragging");
+                draggedCharacterIndex = null;
+            });
+
+            row.addEventListener("dragover", event => {
+                event.preventDefault();
+
+                if (
+                    draggedCharacterIndex === null ||
+                    draggedCharacterIndex === index
+                ) {
+                    return;
+                }
+
+                event.dataTransfer.dropEffect = "move";
+            });
+
+            row.addEventListener("drop", event => {
+                event.preventDefault();
+
+                const fromIndex =
+                    draggedCharacterIndex;
+
+                const toIndex = index;
+
+                if (
+                    fromIndex === null ||
+                    fromIndex === toIndex
+                ) {
+                    return;
+                }
+
+                moveCharacter(fromIndex, toIndex);
+            });
+        }
+
+        function moveCharacter(fromIndex, toIndex) {
+            const movedCharacter =
+                data.characters.splice(fromIndex, 1)[0];
+
+            data.characters.splice(
+                toIndex,
+                0,
+                movedCharacter
+            );
+
+            saveData();
+            renderTable();
+        }
+
         function renderTable() {
             normalizeData();
 
@@ -719,6 +898,8 @@
                 th.className =
                     "boss-header";
 
+                setupBossDrag(th, index);
+
                 const name =
                     document.createElement("span");
 
@@ -740,8 +921,13 @@
                 deleteButton.textContent =
                     "삭제";
 
+                deleteButton.draggable = false;
+
                 deleteButton.onclick =
-                    () => deleteBoss(index);
+                    event => {
+                        event.stopPropagation();
+                        deleteBoss(index);
+                    };
 
                 th.appendChild(name);
                 th.appendChild(deleteButton);
@@ -779,12 +965,14 @@
                     "value-input";
 
                 input.value =
-                    formatNumber(boss.value);
+                    formatDecisionValue(boss.value);
 
                 input.addEventListener(
                     "focus",
                     () => {
-                        input.value = boss.value;
+                        input.value =
+                            formatNumber(boss.value);
+
                         input.select();
                     }
                 );
@@ -792,7 +980,10 @@
                 input.addEventListener(
                     "blur",
                     () => {
-                        updateBossValue(index, input);
+                        updateBossValue(
+                            index,
+                            input
+                        );
                     }
                 );
 
@@ -815,6 +1006,14 @@
                 (character, characterIndex) => {
                     const row =
                         document.createElement("tr");
+
+                    row.className =
+                        "character-row";
+
+                    setupCharacterDrag(
+                        row,
+                        characterIndex
+                    );
 
                     const nameCell =
                         document.createElement("td");
@@ -840,11 +1039,16 @@
                     deleteButton.textContent =
                         "삭제";
 
+                    deleteButton.draggable = false;
+
                     deleteButton.onclick =
-                        () =>
+                        event => {
+                            event.stopPropagation();
+
                             deleteCharacter(
                                 characterIndex
                             );
+                        };
 
                     nameCell.appendChild(nameSpan);
                     nameCell.appendChild(deleteButton);
@@ -862,6 +1066,8 @@
                             button.type =
                                 "button";
 
+                            button.draggable = false;
+
                             const isDone =
                                 character.status &&
                                 character.status[bossIndex] === true;
@@ -878,11 +1084,14 @@
                                 );
 
                             button.onclick =
-                                () =>
+                                event => {
+                                    event.stopPropagation();
+
                                     toggleStatus(
                                         characterIndex,
                                         bossIndex
                                     );
+                                };
 
                             cell.appendChild(button);
                             row.appendChild(cell);
