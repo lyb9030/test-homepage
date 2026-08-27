@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보스 스케줄러</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        .top-menu {
+            width: 100%;
+            background: #222;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .home-button,
+        .menu-button {
+            display: inline-block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .home-button:hover,
+        .menu-button:hover {
+            background: #444;
+        }
+
+        .menu-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .menu-item.active .submenu {
+            display: block;
+        }
+
+        .submenu a {
+            display: block;
+            padding: 18px 20px;
+            color: #222;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+        }
+
+        .submenu a:last-child {
+            border-bottom: none;
+        }
+
+        .submenu a:hover {
+            background: #f5f5f5;
+            padding-left: 25px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .scheduler-box {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            margin: 0 0 20px;
+            font-size: 32px;
+        }
+
+        .week-info {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .add-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .add-area input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .add-area input:focus {
+            border-color: #888;
+        }
+
+        .add-area button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .add-area button:hover {
+            background: #444;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .character-header {
+            min-width: 160px;
+        }
+
+        .boss-header {
+            min-width: 140px;
+        }
+
+        .boss-name {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .delete-boss {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 5px;
+            background: #eee;
+            color: #666;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .delete-boss:hover,
+        .delete-character:hover {
+            background: #ddd;
+        }
+
+        .value-input {
+            width: 100%;
+            max-width: 120px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .status-button {
+            width: 44px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .status-button.done {
+            background: #222;
+            color: white;
+        }
+
+        .status-button.not-done {
+            background: #eee;
+            color: #888;
+        }
+
+        .status-button:hover {
+            opacity: 0.75;
+        }
+
+        .character-name {
+            font-weight: bold;
+        }
+
+        .delete-character {
+            margin-left: 8px;
+            padding: 5px 8px;
+            border: none;
+            border-radius: 5px;
+            background: #eee;
+            color: #666;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .profit-row th,
+        .profit-row td {
+            background: #fafafa;
+            font-weight: bold;
+        }
+
+        .total-profit {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #f0f0f0;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .guide {
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+            .scheduler-box {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .add-area {
+                grid-template-columns: 1fr;
+            }
+
+            .add-area button {
+                width: 100%;
+            }
+
+            .home-button,
+            .menu-button {
+                padding: 14px 12px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-menu">
+        <div class="menu-container">
+
+            <a href="index.html" class="home-button">홈</a>
+
+            <div class="menu-item" id="schedulerMenu">
+                <button class="menu-button" onclick="toggleSchedulerMenu()">
+                    스케줄러 ▼
+                </button>
+
+                <div class="submenu">
+                    <a href="daily.html">일퀘</a>
+                    <a href="boss.html">보스</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="scheduler-box">
+
+            <h1>보스 스케줄러</h1>
+
+            <div class="week-info" id="weekInfo">
+                주차 정보를 불러오는 중...
+            </div>
+
+            <div class="add-area">
+                <input
+                    type="text"
+                    id="characterInput"
+                    placeholder="캐릭터명을 입력하세요"
+                    maxlength="20"
+                >
+
+                <input
+                    type="text"
+                    id="bossInput"
+                    placeholder="보스명 / 결정값 입력"
+                    maxlength="20"
+                >
+
+                <button type="button" onclick="addItems()">
+                    추가
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead id="bossHeader"></thead>
+                    <tbody id="bossTable"></tbody>
+                </table>
+            </div>
+
+            <div class="total-profit" id="totalProfit">
+                이번 주 총 수익: 0
+            </div>
+
+            <div class="guide">
+                • 보스는 가로 방향, 캐릭터는 세로 방향으로 표시됩니다.<br>
+                • 결정값은 보스별로 직접 입력하고 수정할 수 있습니다.<br>
+                • O / X 버튼을 클릭하여 격파 여부를 변경할 수 있습니다.<br>
+                • 모든 기록과 결정값은 목요일~수요일 주차별로 저장됩니다.
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function getWeekStart(date) {
+            const result = new Date(date);
+            const day = result.getDay();
+
+            let difference = day - 4;
+
+            if (difference < 0) {
+                difference += 7;
+            }
+
+            result.setDate(result.getDate() - difference);
+            result.setHours(0, 0, 0, 0);
+
+            return result;
+        }
+
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+
+            return `${year}.${month}.${day}`;
+        }
+
+        const weekKey = formatDate(getWeekStart(new Date()));
+        const storageKey = "bossScheduler_" + weekKey;
+
+        let data = {
+            characters: [],
+            bosses: []
+        };
+
+        try {
+            const saved = localStorage.getItem(storageKey);
+
+            if (saved) {
+                const parsed = JSON.parse(saved);
+
+                if (parsed && Array.isArray(parsed.characters) && Array.isArray(parsed.bosses)) {
+                    data = parsed;
+                }
+            }
+        } catch (error) {
+            console.error("저장 데이터를 불러오지 못했습니다.", error);
+        }
+
+        function normalizeData() {
+            data.characters.forEach(character => {
+                if (!Array.isArray(character.status)) {
+                    character.status = [];
+                }
+
+                while (character.status.length < data.bosses.length) {
+                    character.status.push(false);
+                }
+
+                character.status = character.status.slice(0, data.bosses.length);
+            });
+
+            data.bosses.forEach(boss => {
+                if (typeof boss.value !== "number" || Number.isNaN(boss.value)) {
+                    boss.value = 0;
+                }
+            });
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(data));
+            } catch (error) {
+                console.error("데이터 저장에 실패했습니다.", error);
+            }
+        }
+
+        function displayWeek() {
+            const start = getWeekStart(new Date());
+            const end = new Date(start);
+
+            end.setDate(start.getDate() + 6);
+
+            document.getElementById("weekInfo").textContent =
+                `${formatDate(start)} (목) ~ ${formatDate(end)} (수)`;
+        }
+
+        function addCharacter(name) {
+            data.characters.push({
+                name: name,
+                status: data.bosses.map(() => false)
+            });
+        }
+
+        function addBoss(name, value) {
+            data.bosses.push({
+                name: name,
+                value: value
+            });
+
+            data.characters.forEach(character => {
+                character.status.push(false);
+            });
+        }
+
+        function addItems() {
+            const characterInput = document.getElementById("characterInput");
+            const bossInput = document.getElementById("bossInput");
+
+            const characterName = characterInput.value.trim();
+            const bossText = bossInput.value.trim();
+
+            if (characterName !== "") {
+                addCharacter(characterName);
+                characterInput.value = "";
+            }
+
+            if (bossText !== "") {
+                const parts = bossText.split(",");
+
+                const bossName = parts[0].trim();
+                const valueText = parts.length > 1 ? parts[1].trim() : "0";
+                const value = Number(valueText.replace(/,/g, ""));
+
+                if (bossName !== "") {
+                    addBoss(
+                        bossName,
+                        Number.isFinite(value) ? value : 0
+                    );
+                }
+
+                bossInput.value = "";
+            }
+
+            if (characterName === "" && bossText === "") {
+                alert("캐릭터명 또는 보스명을 입력해주세요.");
+                return;
+            }
+
+            saveData();
+            renderTable();
+        }
+
+        function deleteCharacter(index) {
+            const character = data.characters[index];
+
+            if (!character) {
+                return;
+            }
+
+            if (!confirm(`"${character.name}" 캐릭터를 삭제할까요?`)) {
+                return;
+            }
+
+            data.characters.splice(index, 1);
+            saveData();
+            renderTable();
+        }
+
+        function deleteBoss(index) {
+            const boss = data.bosses[index];
+
+            if (!boss) {
+                return;
+            }
+
+            if (!confirm(`"${boss.name}" 보스를 삭제할까요?`)) {
+                return;
+            }
+
+            data.bosses.splice(index, 1);
+
+            data.characters.forEach(character => {
+                character.status.splice(index, 1);
+            });
+
+            saveData();
+            renderTable();
+        }
+
+        function toggleStatus(characterIndex, bossIndex) {
+            const character = data.characters[characterIndex];
+
+            if (!character) {
+                return;
+            }
+
+            if (!Array.isArray(character.status)) {
+                character.status = [];
+            }
+
+            character.status[bossIndex] =
+                !Boolean(character.status[bossIndex]);
+
+            saveData();
+            renderTable();
+        }
+
+        function updateBossValue(bossIndex, input) {
+            let value = Number(input.value.replace(/,/g, ""));
+
+            if (!Number.isFinite(value) || value < 0) {
+                value = 0;
+            }
+
+            data.bosses[bossIndex].value = value;
+
+            saveData();
+            renderTable();
+        }
+
+        function calculateBossProfit(bossIndex) {
+            const boss = data.bosses[bossIndex];
+
+            if (!boss) {
+                return 0;
+            }
+
+            let count = 0;
+
+            data.characters.forEach(character => {
+                if (character.status && character.status[bossIndex] === true) {
+                    count++;
+                }
+            });
+
+            return boss.value * count;
+        }
+
+        function calculateTotalProfit() {
+            let total = 0;
+
+            data.bosses.forEach((boss, index) => {
+                total += calculateBossProfit(index);
+            });
+
+            return total;
+        }
+
+        function formatNumber(number) {
+            return Number(number).toLocaleString("ko-KR");
+        }
+
+        function renderTable() {
+            normalizeData();
+
+            const header = document.getElementById("bossHeader");
+            const table = document.getElementById("bossTable");
+
+            header.innerHTML = "";
+            table.innerHTML = "";
+
+            const headerRow = document.createElement("tr");
+
+            const corner = document.createElement("th");
+            corner.className = "character-header";
+            corner.textContent = "캐릭터 ＼ 보스";
+            headerRow.appendChild(corner);
+
+            data.bosses.forEach((boss, index) => {
+                const th = document.createElement("th");
+                th.className = "boss-header";
+
+                const name = document.createElement("span");
+                name.className = "boss-name";
+                name.textContent = boss.name;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.type = "button";
+                deleteButton.className = "delete-boss";
+                deleteButton.textContent = "삭제";
+                deleteButton.onclick = () => deleteBoss(index);
+
+                th.appendChild(name);
+                th.appendChild(deleteButton);
+                headerRow.appendChild(th);
+            });
+
+            header.appendChild(headerRow);
+
+            const valueRow = document.createElement("tr");
+            valueRow.className = "profit-row";
+
+            const valueTitle = document.createElement("th");
+            valueTitle.textContent = "결정값";
+            valueRow.appendChild(valueTitle);
+
+            data.bosses.forEach((boss, index) => {
+                const td = document.createElement("td");
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.className = "value-input";
+                input.value = formatNumber(boss.value);
+
+                input.addEventListener("focus", () => {
+                    input.value = boss.value;
+                    input.select();
+                });
+
+                input.addEventListener("blur", () => {
+                    updateBossValue(index, input);
+                });
+
+                input.addEventListener("keydown", event => {
+                    if (event.key === "Enter") {
+                        input.blur();
+                    }
+                });
+
+                td.appendChild(input);
+                valueRow.appendChild(td);
+            });
+
+            table.appendChild(valueRow);
+
+            data.characters.forEach((character, characterIndex) => {
+                const row = document.createElement("tr");
+
+                const nameCell = document.createElement("td");
+
+                const nameSpan = document.createElement("span");
+                nameSpan.className = "character-name";
+                nameSpan.textContent = character.name;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.type = "button";
+                deleteButton.className = "delete-character";
+                deleteButton.textContent = "삭제";
+                deleteButton.onclick = () => deleteCharacter(characterIndex);
+
+                nameCell.appendChild(nameSpan);
+                nameCell.appendChild(deleteButton);
+                row.appendChild(nameCell);
+
+                data.bosses.forEach((boss, bossIndex) => {
+                    const cell = document.createElement("td");
+
+                    const button = document.createElement("button");
+                    button.type = "button";
+
+                    const isDone =
+                        character.status &&
+                        character.status[bossIndex] === true;
+
+                    button.textContent = isDone ? "O" : "X";
+                    button.className =
+                        "status-button " +
+                        (isDone ? "done" : "not-done");
+
+                    button.onclick = () =>
+                        toggleStatus(characterIndex, bossIndex);
+
+                    cell.appendChild(button);
+                    row.appendChild(cell);
+                });
+
+                table.appendChild(row);
+            });
+
+            const profitRow = document.createElement("tr");
+            profitRow.className = "profit-row";
+
+            const profitTitle = document.createElement("th");
+            profitTitle.textContent = "총 수익";
+            profitRow.appendChild(profitTitle);
+
+            data.bosses.forEach((boss, index) => {
+                const td = document.createElement("td");
+                td.textContent = formatNumber(
+                    calculateBossProfit(index)
+                );
+                profitRow.appendChild(td);
+            });
+
+            table.appendChild(profitRow);
+
+            document.getElementById("totalProfit").textContent =
+                `이번 주 총 수익: ${formatNumber(calculateTotalProfit())}`;
+        }
+
+        function toggleSchedulerMenu() {
+            const menu = document.getElementById("schedulerMenu");
+            menu.classList.toggle("active");
+        }
+
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("schedulerMenu");
+
+            if (!menu.contains(event.target)) {
+                menu.classList.remove("active");
+            }
+        });
+
+        document.getElementById("characterInput").addEventListener(
+            "keydown",
+            function(event) {
+                if (event.key === "Enter") {
+                    document.getElementById("bossInput").focus();
+                }
+            }
+        );
+
+        document.getElementById("bossInput").addEventListener(
+            "keydown",
+            function(event) {
+                if (event.key === "Enter") {
+                    addItems();
+                }
+            }
+        );
+
+        displayWeek();
+        renderTable();
+    </script>
+
+</body>
+</html>
