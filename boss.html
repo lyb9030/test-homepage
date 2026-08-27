@@ -115,13 +115,17 @@
         }
 
         .add-area {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
+            display: flex;
             gap: 8px;
             margin-bottom: 18px;
+            align-items: center;
         }
 
-        .add-area input {
+        .character-add-area input {
+            flex: 0 1 320px;
+        }
+
+        .add-area input[type="text"] {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #ddd;
@@ -130,7 +134,8 @@
             outline: none;
         }
 
-        .add-area input:focus {
+        .add-area input:focus,
+        .difficulty-dropdown:focus {
             border-color: #888;
         }
 
@@ -147,7 +152,6 @@
         .add-area button:hover {
             background: #444;
         }
-
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -191,7 +195,7 @@
 
         .boss-header {
             position: relative;
-            height: 62px;
+            min-height: 62px;
             word-break: keep-all;
             cursor: grab;
         }
@@ -210,6 +214,22 @@
             margin-bottom: 4px;
             line-height: 1.15;
             word-break: break-word;
+        }
+
+        .difficulty-row th,
+        .difficulty-row td {
+            background: #fafafa;
+        }
+
+        .difficulty-select {
+            width: 100%;
+            padding: 5px 2px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
         }
 
         .delete-boss,
@@ -233,17 +253,9 @@
             background: #fafafa;
         }
 
-        .value-row th:first-child {
-            background: #fafafa;
-        }
-
-        .value-input {
-            width: 100%;
-            max-width: 110px;
-            padding: 5px 2px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
+        .value-display {
+            display: inline-block;
+            white-space: nowrap;
             font-size: 12px;
         }
 
@@ -341,6 +353,16 @@
             }
         }
 
+        @media (max-width: 900px) {
+            .add-area {
+                flex-wrap: wrap;
+            }
+
+            .character-add-area input {
+                flex: 1 1 220px;
+            }
+        }
+
         @media (max-width: 700px) {
             .scheduler-box {
                 padding: 16px;
@@ -351,10 +373,15 @@
             }
 
             .add-area {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: stretch;
             }
 
             .add-area button {
+                width: 100%;
+            }
+
+            .character-add-area input {
                 width: 100%;
             }
 
@@ -397,7 +424,7 @@
                 주차 정보를 불러오는 중...
             </div>
 
-            <div class="add-area">
+            <div class="add-area character-add-area">
                 <input
                     type="text"
                     id="characterInput"
@@ -405,15 +432,8 @@
                     maxlength="20"
                 >
 
-                <input
-                    type="text"
-                    id="bossInput"
-                    placeholder="보스명"
-                    maxlength="20"
-                >
-
-                <button type="button" onclick="addItems()">
-                    추가
+                <button type="button" onclick="addCharacterFromInput()">
+                    캐릭터 추가
                 </button>
             </div>
 
@@ -425,15 +445,17 @@
             </div>
 
             <div class="total-profit" id="totalProfit">
-                이번 주 총 수익: 0
+                이번 주 총 수익: 0 만 메소
             </div>
 
             <div class="guide">
-                • 보스는 가로 방향, 캐릭터는 세로 방향으로 표시됩니다.
+                • 보스는 고정 목록으로 표시되며, 가로 방향으로 드래그하여 순서를 변경할 수 있습니다.
                 <br>
-                • 보스와 캐릭터는 드래그하여 순서를 변경할 수 있습니다.
+                • 보스 열을 드래그하면 난이도, 결정값, O/X 기록이 함께 이동합니다.
                 <br>
-                • 결정값은 표에서 직접 수정할 수 있습니다.
+                • 보스별 난이도와 결정값은 고정값으로 설정되어 있습니다.
+                <br>
+                • 난이도를 선택하면 해당 난이도의 결정값으로 계산됩니다.
                 <br>
                 • O / X를 클릭하여 격파 여부를 변경할 수 있습니다.
                 <br>
@@ -444,6 +466,26 @@
     </div>
 
     <script>
+        const FIXED_BOSSES = [
+            { name: "자쿰", difficulties: [{ name: "카오스", value: 808 }] },
+            { name: "블러드퀸", difficulties: [{ name: "카오스", value: 814 }] },
+            { name: "반반", difficulties: [{ name: "카오스", value: 815 }] },
+            { name: "피에르", difficulties: [{ name: "카오스", value: 817 }] },
+            { name: "매그너스", difficulties: [{ name: "하드", value: 856 }] },
+            { name: "벨룸", difficulties: [{ name: "카오스", value: 928 }] },
+            { name: "파풀라투스", difficulties: [{ name: "카오스", value: 1310 }] },
+            { name: "스우", difficulties: [{ name: "노말", value: 1670 }, { name: "하드", value: 5150 }] },
+            { name: "데미안", difficulties: [{ name: "노말", value: 1750 }, { name: "하드", value: 4890 }] },
+            { name: "슬라임", difficulties: [{ name: "노말", value: 2550 }, { name: "카오스", value: 6980 }] },
+            { name: "루시드", difficulties: [{ name: "이지", value: 2980 }, { name: "노말", value: 3560 }, { name: "하드", value: 6290 }] },
+            { name: "윌", difficulties: [{ name: "이지", value: 3230 }, { name: "노말", value: 4110 }, { name: "하드", value: 7710 }] },
+            { name: "더스크", difficulties: [{ name: "노말", value: 4400 }, { name: "카오스", value: 6980 }] },
+            { name: "듄켈", difficulties: [{ name: "노말", value: 4750 }, { name: "하드", value: 9440 }] },
+            { name: "진힐라", difficulties: [{ name: "노말", value: 7120 }, { name: "하드", value: 10600 }] },
+            { name: "세렌", difficulties: [{ name: "노말", value: 23900 }, { name: "하드", value: 35600 }] },
+            { name: "칼로스", difficulties: [{ name: "이지", value: 28000 }] },
+        ];
+
         function getWeekStart(date) {
             const result = new Date(date);
             const day = result.getDay();
@@ -473,7 +515,14 @@
 
         let data = {
             characters: [],
-            bosses: []
+            bosses: FIXED_BOSSES.map(boss => ({
+                name: boss.name,
+                difficulties: boss.difficulties.map(item => ({
+                    name: item.name,
+                    value: item.value
+                })),
+                selectedDifficulty: boss.difficulties[0].name
+            }))
         };
 
         try {
@@ -484,10 +533,54 @@
 
                 if (
                     parsed &&
-                    Array.isArray(parsed.characters) &&
+                    Array.isArray(parsed.characters)
+                ) {
+                    data.characters = parsed.characters;
+                }
+
+                if (
+                    parsed &&
                     Array.isArray(parsed.bosses)
                 ) {
-                    data = parsed;
+                    const savedBossMap =
+                        new Map(
+                            parsed.bosses.map(boss => [
+                                boss.name,
+                                boss
+                            ])
+                        );
+
+                    data.bosses =
+                        FIXED_BOSSES.map(fixedBoss => {
+                            const savedBoss =
+                                savedBossMap.get(
+                                    fixedBoss.name
+                                );
+
+                            const fixedDifficulties =
+                                fixedBoss.difficulties.map(
+                                    difficulty => ({
+                                        name: difficulty.name,
+                                        value: difficulty.value
+                                    })
+                                );
+
+                            const selectedDifficulty =
+                                savedBoss &&
+                                fixedDifficulties.some(
+                                    difficulty =>
+                                        difficulty.name ===
+                                        savedBoss.selectedDifficulty
+                                )
+                                    ? savedBoss.selectedDifficulty
+                                    : fixedDifficulties[0].name;
+
+                            return {
+                                name: fixedBoss.name,
+                                difficulties: fixedDifficulties,
+                                selectedDifficulty
+                            };
+                        });
                 }
             }
         } catch (error) {
@@ -495,26 +588,76 @@
         }
 
         function normalizeData() {
+            data.bosses.forEach(boss => {
+                /* 기존 단일 결정값 데이터가 있으면 기본 난이도로 변환 */
+                if (!Array.isArray(boss.difficulties)) {
+                    const oldValue =
+                        typeof boss.value === "number"
+                            ? boss.value
+                            : 0;
+
+                    boss.difficulties = [
+                        {
+                            name: "기본",
+                            value: oldValue
+                        }
+                    ];
+
+                    boss.selectedDifficulty = "기본";
+                    delete boss.value;
+                }
+
+                if (!boss.selectedDifficulty) {
+                    boss.selectedDifficulty =
+                        boss.difficulties[0]?.name || "기본";
+                }
+
+                if (boss.difficulties.length === 0) {
+                    boss.difficulties.push({
+                        name: "기본",
+                        value: 0
+                    });
+
+                    boss.selectedDifficulty = "기본";
+                }
+
+                boss.difficulties.forEach(difficulty => {
+                    if (
+                        typeof difficulty.value !== "number" ||
+                        Number.isNaN(difficulty.value)
+                    ) {
+                        difficulty.value = 0;
+                    }
+                });
+
+                if (
+                    !boss.difficulties.some(
+                        difficulty =>
+                            difficulty.name === boss.selectedDifficulty
+                    )
+                ) {
+                    boss.selectedDifficulty =
+                        boss.difficulties[0].name;
+                }
+            });
+
             data.characters.forEach(character => {
                 if (!Array.isArray(character.status)) {
                     character.status = [];
                 }
 
-                while (character.status.length < data.bosses.length) {
+                while (
+                    character.status.length <
+                    data.bosses.length
+                ) {
                     character.status.push(false);
                 }
 
                 character.status =
-                    character.status.slice(0, data.bosses.length);
-            });
-
-            data.bosses.forEach(boss => {
-                if (
-                    typeof boss.value !== "number" ||
-                    Number.isNaN(boss.value)
-                ) {
-                    boss.value = 0;
-                }
+                    character.status.slice(
+                        0,
+                        data.bosses.length
+                    );
             });
         }
 
@@ -546,47 +689,21 @@
             });
         }
 
-        function addBoss(name) {
-            data.bosses.push({
-                name: name,
-                value: 0
-            });
-
-            data.characters.forEach(character => {
-                character.status.push(false);
-            });
-        }
-
-        function addItems() {
+        function addCharacterFromInput() {
             const characterInput =
                 document.getElementById("characterInput");
-
-            const bossInput =
-                document.getElementById("bossInput");
 
             const characterName =
                 characterInput.value.trim();
 
-            const bossName =
-                bossInput.value.trim();
-
-            if (
-                characterName === "" &&
-                bossName === ""
-            ) {
-                alert("캐릭터명 또는 보스명을 입력해주세요.");
+            if (characterName === "") {
+                alert("캐릭터명을 입력해주세요.");
                 return;
             }
 
-            if (characterName !== "") {
-                addCharacter(characterName);
-                characterInput.value = "";
-            }
+            addCharacter(characterName);
 
-            if (bossName !== "") {
-                addBoss(bossName);
-                bossInput.value = "";
-            }
+            characterInput.value = "";
 
             saveData();
             renderTable();
@@ -612,33 +729,47 @@
             renderTable();
         }
 
-        function deleteBoss(index) {
-            const boss = data.bosses[index];
+        function getSelectedBossDifficulty(boss) {
+            return boss.difficulties.find(
+                difficulty =>
+                    difficulty.name ===
+                    boss.selectedDifficulty
+            );
+        }
+
+        function getSelectedBossValue(boss) {
+            const difficulty =
+                getSelectedBossDifficulty(boss);
+
+            return difficulty
+                ? difficulty.value
+                : 0;
+        }
+
+        function updateBossDifficulty(
+            bossIndex,
+            difficultyName
+        ) {
+            const boss =
+                data.bosses[bossIndex];
 
             if (!boss) {
                 return;
             }
 
-            if (
-                !confirm(
-                    `"${boss.name}" 보스를 삭제할까요?`
-                )
-            ) {
-                return;
-            }
-
-            data.bosses.splice(index, 1);
-
-            data.characters.forEach(character => {
-                character.status.splice(index, 1);
-            });
+            boss.selectedDifficulty =
+                difficultyName;
 
             saveData();
             renderTable();
         }
 
-        function toggleStatus(characterIndex, bossIndex) {
-            const character = data.characters[characterIndex];
+        function toggleStatus(
+            characterIndex,
+            bossIndex
+        ) {
+            const character =
+                data.characters[characterIndex];
 
             if (!character) {
                 return;
@@ -649,40 +780,24 @@
             }
 
             character.status[bossIndex] =
-                !Boolean(character.status[bossIndex]);
-
-            saveData();
-            renderTable();
-        }
-
-        function updateBossValue(bossIndex, input) {
-            let value =
-                Number(
-                    input.value
-                        .replace(/,/g, "")
-                        .replace(/만\s*메소/g, "")
-                        .trim()
+                !Boolean(
+                    character.status[bossIndex]
                 );
-
-            if (
-                !Number.isFinite(value) ||
-                value < 0
-            ) {
-                value = 0;
-            }
-
-            data.bosses[bossIndex].value = value;
 
             saveData();
             renderTable();
         }
 
         function calculateBossProfit(bossIndex) {
-            const boss = data.bosses[bossIndex];
+            const boss =
+                data.bosses[bossIndex];
 
             if (!boss) {
                 return 0;
             }
+
+            const value =
+                getSelectedBossValue(boss);
 
             let count = 0;
 
@@ -695,15 +810,18 @@
                 }
             });
 
-            return boss.value * count;
+            return value * count;
         }
 
         function calculateTotalProfit() {
             let total = 0;
 
-            data.bosses.forEach((boss, index) => {
-                total += calculateBossProfit(index);
-            });
+            data.bosses.forEach(
+                (boss, index) => {
+                    total +=
+                        calculateBossProfit(index);
+                }
+            );
 
             return total;
         }
@@ -725,69 +843,105 @@
         function setupBossDrag(th, index) {
             th.draggable = true;
 
-            th.addEventListener("dragstart", event => {
-                draggedBossIndex = index;
+            th.addEventListener(
+                "dragstart",
+                event => {
+                    draggedBossIndex = index;
 
-                th.classList.add("dragging");
+                    th.classList.add("dragging");
 
-                event.dataTransfer.effectAllowed = "move";
-                event.dataTransfer.setData(
-                    "text/plain",
-                    String(index)
-                );
-            });
+                    event.dataTransfer.effectAllowed =
+                        "move";
 
-            th.addEventListener("dragend", () => {
-                th.classList.remove("dragging");
-                draggedBossIndex = null;
-            });
-
-            th.addEventListener("dragover", event => {
-                event.preventDefault();
-
-                if (
-                    draggedBossIndex === null ||
-                    draggedBossIndex === index
-                ) {
-                    return;
+                    event.dataTransfer.setData(
+                        "text/plain",
+                        String(index)
+                    );
                 }
+            );
 
-                event.dataTransfer.dropEffect = "move";
-            });
-
-            th.addEventListener("drop", event => {
-                event.preventDefault();
-
-                const fromIndex = draggedBossIndex;
-                const toIndex = index;
-
-                if (
-                    fromIndex === null ||
-                    fromIndex === toIndex
-                ) {
-                    return;
+            th.addEventListener(
+                "dragend",
+                () => {
+                    th.classList.remove("dragging");
+                    draggedBossIndex = null;
                 }
+            );
 
-                moveBoss(fromIndex, toIndex);
-            });
+            th.addEventListener(
+                "dragover",
+                event => {
+                    event.preventDefault();
+
+                    if (
+                        draggedBossIndex === null ||
+                        draggedBossIndex === index
+                    ) {
+                        return;
+                    }
+
+                    event.dataTransfer.dropEffect =
+                        "move";
+                }
+            );
+
+            th.addEventListener(
+                "drop",
+                event => {
+                    event.preventDefault();
+
+                    const fromIndex =
+                        draggedBossIndex;
+
+                    const toIndex =
+                        index;
+
+                    if (
+                        fromIndex === null ||
+                        fromIndex === toIndex
+                    ) {
+                        return;
+                    }
+
+                    moveBoss(
+                        fromIndex,
+                        toIndex
+                    );
+                }
+            );
         }
 
-        function moveBoss(fromIndex, toIndex) {
+        function moveBoss(
+            fromIndex,
+            toIndex
+        ) {
             const movedBoss =
-                data.bosses.splice(fromIndex, 1)[0];
+                data.bosses.splice(
+                    fromIndex,
+                    1
+                )[0];
 
-            data.bosses.splice(toIndex, 0, movedBoss);
+            data.bosses.splice(
+                toIndex,
+                0,
+                movedBoss
+            );
 
-            data.characters.forEach(character => {
-                const movedStatus =
-                    character.status.splice(fromIndex, 1)[0];
+            data.characters.forEach(
+                character => {
+                    const movedStatus =
+                        character.status.splice(
+                            fromIndex,
+                            1
+                        )[0];
 
-                character.status.splice(
-                    toIndex,
-                    0,
-                    movedStatus
-                );
-            });
+                    character.status.splice(
+                        toIndex,
+                        0,
+                        movedStatus
+                    );
+                }
+            );
 
             saveData();
             renderTable();
@@ -799,61 +953,90 @@
 
         let draggedCharacterIndex = null;
 
-        function setupCharacterDrag(row, index) {
+        function setupCharacterDrag(
+            row,
+            index
+        ) {
             row.draggable = true;
 
-            row.addEventListener("dragstart", event => {
-                draggedCharacterIndex = index;
+            row.addEventListener(
+                "dragstart",
+                event => {
+                    draggedCharacterIndex =
+                        index;
 
-                row.classList.add("dragging");
+                    row.classList.add("dragging");
 
-                event.dataTransfer.effectAllowed = "move";
-                event.dataTransfer.setData(
-                    "text/plain",
-                    String(index)
-                );
-            });
+                    event.dataTransfer.effectAllowed =
+                        "move";
 
-            row.addEventListener("dragend", () => {
-                row.classList.remove("dragging");
-                draggedCharacterIndex = null;
-            });
-
-            row.addEventListener("dragover", event => {
-                event.preventDefault();
-
-                if (
-                    draggedCharacterIndex === null ||
-                    draggedCharacterIndex === index
-                ) {
-                    return;
+                    event.dataTransfer.setData(
+                        "text/plain",
+                        String(index)
+                    );
                 }
+            );
 
-                event.dataTransfer.dropEffect = "move";
-            });
-
-            row.addEventListener("drop", event => {
-                event.preventDefault();
-
-                const fromIndex =
-                    draggedCharacterIndex;
-
-                const toIndex = index;
-
-                if (
-                    fromIndex === null ||
-                    fromIndex === toIndex
-                ) {
-                    return;
+            row.addEventListener(
+                "dragend",
+                () => {
+                    row.classList.remove("dragging");
+                    draggedCharacterIndex = null;
                 }
+            );
 
-                moveCharacter(fromIndex, toIndex);
-            });
+            row.addEventListener(
+                "dragover",
+                event => {
+                    event.preventDefault();
+
+                    if (
+                        draggedCharacterIndex === null ||
+                        draggedCharacterIndex === index
+                    ) {
+                        return;
+                    }
+
+                    event.dataTransfer.dropEffect =
+                        "move";
+                }
+            );
+
+            row.addEventListener(
+                "drop",
+                event => {
+                    event.preventDefault();
+
+                    const fromIndex =
+                        draggedCharacterIndex;
+
+                    const toIndex =
+                        index;
+
+                    if (
+                        fromIndex === null ||
+                        fromIndex === toIndex
+                    ) {
+                        return;
+                    }
+
+                    moveCharacter(
+                        fromIndex,
+                        toIndex
+                    );
+                }
+            );
         }
 
-        function moveCharacter(fromIndex, toIndex) {
+        function moveCharacter(
+            fromIndex,
+            toIndex
+        ) {
             const movedCharacter =
-                data.characters.splice(fromIndex, 1)[0];
+                data.characters.splice(
+                    fromIndex,
+                    1
+                )[0];
 
             data.characters.splice(
                 toIndex,
@@ -869,10 +1052,14 @@
             normalizeData();
 
             const header =
-                document.getElementById("bossHeader");
+                document.getElementById(
+                    "bossHeader"
+                );
 
             const table =
-                document.getElementById("bossTable");
+                document.getElementById(
+                    "bossTable"
+                );
 
             header.innerHTML = "";
             table.innerHTML = "";
@@ -891,51 +1078,118 @@
 
             headerRow.appendChild(corner);
 
-            data.bosses.forEach((boss, index) => {
-                const th =
-                    document.createElement("th");
+            data.bosses.forEach(
+                (boss, index) => {
+                    const th =
+                        document.createElement("th");
 
-                th.className =
-                    "boss-header";
+                    th.className =
+                        "boss-header";
 
-                setupBossDrag(th, index);
+                    setupBossDrag(
+                        th,
+                        index
+                    );
 
-                const name =
-                    document.createElement("span");
+                    const name =
+                        document.createElement("span");
 
-                name.className =
-                    "boss-name";
+                    name.className =
+                        "boss-name";
 
-                name.textContent =
-                    boss.name;
+                    name.textContent =
+                        boss.name;
 
-                const deleteButton =
-                    document.createElement("button");
+                    th.appendChild(name);
 
-                deleteButton.type =
-                    "button";
-
-                deleteButton.className =
-                    "delete-boss";
-
-                deleteButton.textContent =
-                    "삭제";
-
-                deleteButton.draggable = false;
-
-                deleteButton.onclick =
-                    event => {
-                        event.stopPropagation();
-                        deleteBoss(index);
-                    };
-
-                th.appendChild(name);
-                th.appendChild(deleteButton);
-
-                headerRow.appendChild(th);
-            });
+                    headerRow.appendChild(th);
+                }
+            );
 
             header.appendChild(headerRow);
+
+            const difficultyRow =
+                document.createElement("tr");
+
+            difficultyRow.className =
+                "difficulty-row";
+
+            const difficultyTitle =
+                document.createElement("th");
+
+            difficultyTitle.textContent =
+                "난이도";
+
+            difficultyRow.appendChild(
+                difficultyTitle
+            );
+
+            data.bosses.forEach(
+                (boss, index) => {
+                    const td =
+                        document.createElement("td");
+
+                    const select =
+                        document.createElement("select");
+
+                    select.className =
+                        "difficulty-select";
+
+                    boss.difficulties.forEach(
+                        difficulty => {
+                            const option =
+                                document.createElement("option");
+
+                            option.value =
+                                difficulty.name;
+
+                            option.textContent =
+                                difficulty.name;
+
+                            if (
+                                difficulty.name ===
+                                boss.selectedDifficulty
+                            ) {
+                                option.selected =
+                                    true;
+                            }
+
+                            select.appendChild(option);
+                        }
+                    );
+
+                    select.addEventListener(
+                        "change",
+                        () => {
+                            updateBossDifficulty(
+                                index,
+                                select.value
+                            );
+                        }
+                    );
+
+                    select.addEventListener(
+                        "mousedown",
+                        event => {
+                            event.stopPropagation();
+                        }
+                    );
+
+                    select.addEventListener(
+                        "click",
+                        event => {
+                            event.stopPropagation();
+                        }
+                    );
+
+                    td.appendChild(select);
+                    difficultyRow.appendChild(td);
+                }
+            );
+
+            table.appendChild(
+                difficultyRow
+            );
 
             const valueRow =
                 document.createElement("tr");
@@ -949,61 +1203,40 @@
             valueTitle.textContent =
                 "결정값";
 
-            valueRow.appendChild(valueTitle);
+            valueRow.appendChild(
+                valueTitle
+            );
 
-            data.bosses.forEach((boss, index) => {
-                const td =
-                    document.createElement("td");
+            data.bosses.forEach(
+                (boss, index) => {
+                    const td =
+                        document.createElement("td");
 
-                const input =
-                    document.createElement("input");
+                    const value =
+                        document.createElement("span");
 
-                input.type =
-                    "text";
+                    value.className =
+                        "value-display";
 
-                input.className =
-                    "value-input";
-
-                input.value =
-                    formatDecisionValue(boss.value);
-
-                input.addEventListener(
-                    "focus",
-                    () => {
-                        input.value =
-                            formatNumber(boss.value);
-
-                        input.select();
-                    }
-                );
-
-                input.addEventListener(
-                    "blur",
-                    () => {
-                        updateBossValue(
-                            index,
-                            input
+                    value.textContent =
+                        formatDecisionValue(
+                            getSelectedBossValue(boss)
                         );
-                    }
-                );
 
-                input.addEventListener(
-                    "keydown",
-                    event => {
-                        if (event.key === "Enter") {
-                            input.blur();
-                        }
-                    }
-                );
+                    td.appendChild(value);
+                    valueRow.appendChild(td);
+                }
+            );
 
-                td.appendChild(input);
-                valueRow.appendChild(td);
-            });
-
-            table.appendChild(valueRow);
+            table.appendChild(
+                valueRow
+            );
 
             data.characters.forEach(
-                (character, characterIndex) => {
+                (
+                    character,
+                    characterIndex
+                ) => {
                     const row =
                         document.createElement("tr");
 
@@ -1039,7 +1272,8 @@
                     deleteButton.textContent =
                         "삭제";
 
-                    deleteButton.draggable = false;
+                    deleteButton.draggable =
+                        false;
 
                     deleteButton.onclick =
                         event => {
@@ -1050,13 +1284,23 @@
                             );
                         };
 
-                    nameCell.appendChild(nameSpan);
-                    nameCell.appendChild(deleteButton);
+                    nameCell.appendChild(
+                        nameSpan
+                    );
 
-                    row.appendChild(nameCell);
+                    nameCell.appendChild(
+                        deleteButton
+                    );
+
+                    row.appendChild(
+                        nameCell
+                    );
 
                     data.bosses.forEach(
-                        (boss, bossIndex) => {
+                        (
+                            boss,
+                            bossIndex
+                        ) => {
                             const cell =
                                 document.createElement("td");
 
@@ -1066,14 +1310,19 @@
                             button.type =
                                 "button";
 
-                            button.draggable = false;
+                            button.draggable =
+                                false;
 
                             const isDone =
                                 character.status &&
-                                character.status[bossIndex] === true;
+                                character.status[
+                                    bossIndex
+                                ] === true;
 
                             button.textContent =
-                                isDone ? "O" : "X";
+                                isDone
+                                    ? "O"
+                                    : "X";
 
                             button.className =
                                 "status-button " +
@@ -1093,12 +1342,19 @@
                                     );
                                 };
 
-                            cell.appendChild(button);
-                            row.appendChild(cell);
+                            cell.appendChild(
+                                button
+                            );
+
+                            row.appendChild(
+                                cell
+                            );
                         }
                     );
 
-                    table.appendChild(row);
+                    table.appendChild(
+                        row
+                    );
                 }
             );
 
@@ -1114,30 +1370,34 @@
             profitTitle.textContent =
                 "총 수익";
 
-            profitRow.appendChild(profitTitle);
+            profitRow.appendChild(
+                profitTitle
+            );
 
             data.bosses.forEach(
                 (boss, index) => {
                     const td =
                         document.createElement("td");
 
-td.textContent =
-    formatDecisionValue(
-        calculateBossProfit(index)
-    );
+                    td.textContent =
+                        formatDecisionValue(
+                            calculateBossProfit(index)
+                        );
 
                     profitRow.appendChild(td);
                 }
             );
 
-            table.appendChild(profitRow);
+            table.appendChild(
+                profitRow
+            );
 
             document.getElementById(
                 "totalProfit"
             ).textContent =
-`이번 주 총 수익: ${formatDecisionValue(
-    calculateTotalProfit()
-)}`;
+                `이번 주 총 수익: ${formatDecisionValue(
+                    calculateTotalProfit()
+                )}`;
         }
 
         function toggleSchedulerMenu() {
@@ -1157,8 +1417,14 @@ td.textContent =
                         "schedulerMenu"
                     );
 
-                if (!menu.contains(event.target)) {
-                    menu.classList.remove("active");
+                if (
+                    !menu.contains(
+                        event.target
+                    )
+                ) {
+                    menu.classList.remove(
+                        "active"
+                    );
                 }
             }
         );
@@ -1168,21 +1434,11 @@ td.textContent =
         ).addEventListener(
             "keydown",
             function(event) {
-                if (event.key === "Enter") {
-                    document
-                        .getElementById("bossInput")
-                        .focus();
-                }
-            }
-        );
-
-        document.getElementById(
-            "bossInput"
-        ).addEventListener(
-            "keydown",
-            function(event) {
-                if (event.key === "Enter") {
-                    addItems();
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+                    addCharacterFromInput();
                 }
             }
         );
