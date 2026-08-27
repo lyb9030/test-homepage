@@ -216,11 +216,6 @@
             word-break: break-word;
         }
 
-        .difficulty-row th,
-        .difficulty-row td {
-            background: #fafafa;
-        }
-
         .difficulty-select {
             width: 100%;
             padding: 5px 2px;
@@ -444,7 +439,7 @@
             <div class="guide">
                 • 보스는 고정 목록으로 표시되며, 가로 방향으로 드래그하여 순서를 변경할 수 있습니다.
                 <br>
-                • 보스 열을 드래그하면 난이도, 결정값, O/X 기록이 함께 이동합니다.
+                • 보스 열을 드래그하면 난이도 설정과 O/X 기록이 함께 이동합니다.
                 <br>
                 • 각 캐릭터별로 보스 난이도를 개별 선택할 수 있습니다.
                 <br>
@@ -1098,77 +1093,6 @@
             });
 
             header.appendChild(headerRow);
-
-            const difficultyRow =
-                document.createElement("tr");
-
-            difficultyRow.className =
-                "difficulty-row";
-
-            const difficultyTitle =
-                document.createElement("th");
-
-            difficultyTitle.textContent =
-                "가능 난이도";
-
-            difficultyRow.appendChild(
-                difficultyTitle
-            );
-
-            data.bosses.forEach(boss => {
-                const td =
-                    document.createElement("td");
-
-                td.textContent =
-                    boss.difficulties
-                        .map(
-                            difficulty =>
-                                difficulty.name
-                        )
-                        .join(" / ");
-
-                difficultyRow.appendChild(td);
-            });
-
-            table.appendChild(difficultyRow);
-
-            const valueRow =
-                document.createElement("tr");
-
-            valueRow.className =
-                "value-row";
-
-            const valueTitle =
-                document.createElement("th");
-
-            valueTitle.textContent =
-                "결정값";
-
-            valueRow.appendChild(valueTitle);
-
-            data.bosses.forEach(boss => {
-                const td =
-                    document.createElement("td");
-
-                const value =
-                    document.createElement("span");
-
-                value.className =
-                    "value-display";
-
-                value.textContent =
-                    boss.difficulties
-                        .map(
-                            difficulty =>
-                                `${difficulty.name} ${formatDecisionValue(difficulty.value)}`
-                        )
-                        .join(" / ");
-
-                td.appendChild(value);
-                valueRow.appendChild(td);
-            });
-
-            table.appendChild(valueRow);
 
             data.characters.forEach(
                 (character, characterIndex) => {
