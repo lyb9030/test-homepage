@@ -1121,10 +1121,10 @@
                     const td =
                         document.createElement("td");
 
-                    td.textContent =
-                        formatNumber(
-                            calculateBossProfit(index)
-                        );
+td.textContent =
+    formatDecisionValue(
+        calculateBossProfit(index)
+    );
 
                     profitRow.appendChild(td);
                 }
@@ -1135,9 +1135,9 @@
             document.getElementById(
                 "totalProfit"
             ).textContent =
-                `이번 주 총 수익: ${formatNumber(
-                    calculateTotalProfit()
-                )}`;
+`이번 주 총 수익: ${formatDecisionValue(
+    calculateTotalProfit()
+)}`;
         }
 
         function toggleSchedulerMenu() {
