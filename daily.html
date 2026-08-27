@@ -49,6 +49,18 @@
         background: #444;
     }
 
+.home-button {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 15px 20px;
+}
+
+.home-button:hover {
+    background: #444;
+}
+    
     /* 하위 메뉴 */
     .submenu {
         display: none;
@@ -248,9 +260,13 @@
 ```
 <!-- 상단 메뉴 -->
 <div class="top-menu">
-    <div class="menu-container">
+<div class="menu-container">
 
-        <div class="menu-item" id="schedulerMenu">
+    <a href="index.html" class="home-button">
+        홈
+    </a>
+
+    <div class="menu-item" id="schedulerMenu">
 
             <button class="menu-button" onclick="toggleSchedulerMenu()">
                 스케줄러 ▼
