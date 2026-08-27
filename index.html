@@ -1,253 +1,500 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Homepage</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            text-align: center;
-        }
+<title>My Homepage</title>
 
-        /* 상단 메뉴 */
-        .top-menu {
-            width: 100%;
-            background: #222;
-            padding: 15px 0;
-            text-align: left;
-        }
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        color: #222;
+    }
+
+
+    /* =========================
+       상단 메뉴
+    ========================= */
+
+    .top-menu {
+        width: 100%;
+        background: #222;
+    }
+
+    .menu-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+    }
+
+
+    /* 홈 */
+
+    .home-button {
+        display: inline-block;
+
+        padding: 15px 20px;
+
+        color: white;
+        text-decoration: none;
+
+        font-size: 18px;
+    }
+
+    .home-button:hover {
+        background: #444;
+    }
+
+
+    /* 스케줄러 */
+
+    .menu-item {
+        position: relative;
+        display: inline-block;
+    }
+
+    .menu-button {
+        background: none;
+        border: none;
+
+        color: white;
+
+        font-size: 18px;
+
+        padding: 15px 20px;
+
+        cursor: pointer;
+    }
+
+    .menu-button:hover {
+        background: #444;
+    }
+
+
+    /* =========================
+       스케줄러 하위 메뉴
+    ========================= */
+
+    .submenu {
+        display: none;
+
+        position: absolute;
+
+        top: calc(100% + 8px);
+        left: 0;
+
+        width: 220px;
+
+        background: white;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.15);
+
+        overflow: hidden;
+
+        z-index: 100;
+    }
+
+    .menu-item.active .submenu {
+        display: block;
+    }
+
+
+    .submenu a {
+        display: block;
+
+        padding: 18px 20px;
+
+        color: #222;
+
+        text-decoration: none;
+
+        text-align: left;
+
+        font-size: 17px;
+
+        font-weight: bold;
+
+        border-bottom: 1px solid #eee;
+
+        transition:
+            background 0.2s,
+            padding-left 0.2s;
+    }
+
+    .submenu a:last-child {
+        border-bottom: none;
+    }
+
+    .submenu a:hover {
+        background: #f5f5f5;
+
+        padding-left: 25px;
+    }
+
+
+    /* =========================
+       홈 화면
+    ========================= */
+
+    .home-container {
+        max-width: 1100px;
+
+        margin: 70px auto;
+
+        padding: 0 20px;
+    }
+
+
+    /* 환영 영역 */
+
+    .welcome {
+        margin-bottom: 40px;
+
+        text-align: left;
+    }
+
+    .welcome h1 {
+        margin: 0 0 12px;
+
+        font-size: 42px;
+    }
+
+    .welcome p {
+        margin: 0;
+
+        color: #666;
+
+        font-size: 18px;
+    }
+
+
+    /* =========================
+       기능 카드
+    ========================= */
+
+    .card-container {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 25px;
+    }
+
+
+    .feature-card {
+        display: block;
+
+        padding: 35px;
+
+        background: white;
+
+        border-radius: 20px;
+
+        text-decoration: none;
+
+        color: #222;
+
+        box-shadow:
+            0 5px 20px rgba(0, 0, 0, 0.05);
+
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+    }
+
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+
+    .card-icon {
+        font-size: 42px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .feature-card h2 {
+        margin: 0 0 10px;
+
+        font-size: 27px;
+    }
+
+
+    .feature-card p {
+        margin: 0 0 25px;
+
+        color: #666;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    .card-link {
+        font-size: 15px;
+
+        font-weight: bold;
+
+        color: #555;
+    }
+
+
+    /* =========================
+       모바일
+    ========================= */
+
+    @media (max-width: 700px) {
 
         .menu-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 10px;
         }
 
-        .menu-item {
-            position: relative;
-            display: inline-block;
-        }
-
+        .home-button,
         .menu-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
+            padding: 14px 12px;
 
-        .menu-button:hover {
-            background: #444;
-            border-radius: 8px;
-        }
-
-        /* 하위 메뉴 */
-        .submenu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            min-width: 140px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            overflow: hidden;
-            z-index: 100;
-        }
-
-        .submenu button {
-            display: block;
-            width: 100%;
-            padding: 12px 20px;
-            border: none;
-            background: white;
-            text-align: left;
             font-size: 16px;
-            cursor: pointer;
         }
 
-        .submenu button:hover {
-            background: #f0f0f0;
+
+        .home-container {
+            margin: 45px auto;
         }
 
-        /* 스케줄러 메뉴 클릭 시 하위 메뉴 표시 */
-        .menu-item.active .submenu {
-            display: block;
-        }
 
-        /* 메인 화면 */
-        .box {
-            margin: 120px auto;
-            max-width: 700px;
-            padding: 50px;
-            background: white;
-            border-radius: 20px;
-        }
-
-        h1 {
-            font-size: 42px;
-        }
-
-        p {
-            font-size: 18px;
-            color: #666;
-        }
-
-        /* 스케줄러 화면 */
-        .scheduler {
-            display: none;
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-        }
-
-        .scheduler h2 {
+        .welcome h1 {
             font-size: 32px;
-            margin-bottom: 30px;
         }
 
-        .scheduler-content {
-            padding: 50px 20px;
-            background: #f5f5f5;
-            border-radius: 15px;
-            color: #666;
-            font-size: 18px;
+        .welcome p {
+            font-size: 16px;
         }
 
-        .back-button {
-            margin-top: 30px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            background: #222;
-            color: white;
-            cursor: pointer;
-            font-size: 15px;
+
+        .card-container {
+            grid-template-columns: 1fr;
+
+            gap: 18px;
         }
 
-        .back-button:hover {
-            background: #444;
+
+        .feature-card {
+            padding: 28px;
         }
-    </style>
+
+    }
+</style>
+
 </head>
 
 <body>
 
-    <!-- 상단 메뉴 -->
-    <div class="top-menu">
-        <div class="menu-container">
+<!-- =========================
+     상단 메뉴
+========================= -->
 
-<div class="menu-item" id="schedulerMenu">
-    <button class="menu-button" onclick="toggleSchedulerMenu()">
-        스케줄러
-    </button>
+<div class="top-menu">
 
-    <div class="submenu">
-        <a href="daily.html">
-            일퀘
+    <div class="menu-container">
+
+        <a
+            href="index.html"
+            class="home-button"
+        >
+            홈
         </a>
 
-        <a href="boss.html">
-            보스
-        </a>
+
+        <div
+            class="menu-item"
+            id="schedulerMenu"
+        >
+
+            <button
+                class="menu-button"
+                onclick="toggleSchedulerMenu()"
+            >
+                스케줄러 ▼
+            </button>
+
+
+            <div class="submenu">
+
+                <a href="daily.html">
+                    일퀘
+                </a>
+
+                <a href="boss.html">
+                    보스
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
+
 </div>
 
-        </div>
-    </div>
 
 
-    <!-- 메인 화면 -->
-    <div class="box" id="home">
-        <h1>안녕하세요 👋</h1>
-        <p>나의 첫 번째 홈페이지입니다.</p>
-    </div>
+<!-- =========================
+     홈 화면
+========================= -->
+
+<main class="home-container">
 
 
-    <!-- 일퀘 화면 -->
-    <div class="scheduler" id="dailyScheduler">
-        <h2>일퀘 스케줄러</h2>
+    <!-- 환영 문구 -->
 
-        <div class="scheduler-content">
-            일일 퀘스트 내용을 이곳에 추가할 예정입니다.
-        </div>
+    <section class="welcome">
 
-        <button class="back-button" onclick="goHome()">
-            홈으로
-        </button>
-    </div>
+        <h1>
+            안녕하세요 👋
+        </h1>
 
+        <p>
+            나의 첫 번째 홈페이지입니다.
+        </p>
 
-    <!-- 보스 화면 -->
-    <div class="scheduler" id="bossScheduler">
-        <h2>보스 스케줄러</h2>
-
-        <div class="scheduler-content">
-            보스 스케줄 및 정보를 이곳에 추가할 예정입니다.
-        </div>
-
-        <button class="back-button" onclick="goHome()">
-            홈으로
-        </button>
-    </div>
+    </section>
 
 
-    <script>
-        // 스케줄러 하위 메뉴 열기/닫기
-        function toggleSchedulerMenu() {
-            const menu = document.getElementById("schedulerMenu");
-            menu.classList.toggle("active");
-        }
+
+    <!-- 기능 카드 -->
+
+    <section class="card-container">
 
 
-        // 일퀘 / 보스 화면 열기
-        function openScheduler(type) {
+        <!-- 일퀘 -->
 
-            // 모든 화면 숨기기
-            document.getElementById("home").style.display = "none";
-            document.getElementById("dailyScheduler").style.display = "none";
-            document.getElementById("bossScheduler").style.display = "none";
+        <a
+            href="daily.html"
+            class="feature-card"
+        >
 
-            // 선택한 화면 열기
-            if (type === "daily") {
-                document.getElementById("dailyScheduler").style.display = "block";
+            <div class="card-icon">
+                📋
+            </div>
+
+            <h2>
+                일퀘
+            </h2>
+
+            <p>
+                캐릭터별 일일 퀘스트를
+                관리할 수 있습니다.
+            </p>
+
+            <div class="card-link">
+                일퀘 스케줄러 바로가기 →
+            </div>
+
+        </a>
+
+
+
+        <!-- 보스 -->
+
+        <a
+            href="boss.html"
+            class="feature-card"
+        >
+
+            <div class="card-icon">
+                👑
+            </div>
+
+            <h2>
+                보스
+            </h2>
+
+            <p>
+                보스 출현 일정과
+                진행 상황을 관리할 수 있습니다.
+            </p>
+
+            <div class="card-link">
+                보스 스케줄러 바로가기 →
+            </div>
+
+        </a>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     JavaScript
+========================= -->
+
+<script>
+
+    function toggleSchedulerMenu() {
+
+        const menu =
+            document.getElementById(
+                "schedulerMenu"
+            );
+
+        menu.classList.toggle(
+            "active"
+        );
+
+    }
+
+
+    /* 메뉴 바깥 클릭 시 닫기 */
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const menu =
+                document.getElementById(
+                    "schedulerMenu"
+                );
+
+
+            if (
+                !menu.contains(
+                    event.target
+                )
+            ) {
+
+                menu.classList.remove(
+                    "active"
+                );
+
             }
 
-            if (type === "boss") {
-                document.getElementById("bossScheduler").style.display = "block";
-            }
-
-            // 메뉴 닫기
-            document.getElementById("schedulerMenu").classList.remove("active");
         }
+    );
 
-
-        // 홈으로 돌아가기
-        function goHome() {
-            document.getElementById("home").style.display = "block";
-            document.getElementById("dailyScheduler").style.display = "none";
-            document.getElementById("bossScheduler").style.display = "none";
-        }
-
-
-        // 화면 다른 곳을 클릭하면 메뉴 닫기
-        document.addEventListener("click", function(event) {
-
-            const menu = document.getElementById("schedulerMenu");
-
-            if (!menu.contains(event.target)) {
-                menu.classList.remove("active");
-            }
-
-        });
-    </script>
+</script>
 
 </body>
 </html>
