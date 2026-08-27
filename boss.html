@@ -23,18 +23,18 @@
         }
 
         .menu-container {
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 12px;
         }
 
         .home-button,
         .menu-button {
             display: inline-block;
-            padding: 15px 20px;
+            padding: 13px 18px;
             color: white;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 17px;
         }
 
         .menu-button {
@@ -56,11 +56,11 @@
         .submenu {
             display: none;
             position: absolute;
-            top: calc(100% + 8px);
+            top: calc(100% + 6px);
             left: 0;
-            width: 220px;
+            width: 190px;
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             z-index: 100;
@@ -72,10 +72,10 @@
 
         .submenu a {
             display: block;
-            padding: 18px 20px;
+            padding: 15px 18px;
             color: #222;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
             border-bottom: 1px solid #eee;
         }
@@ -86,49 +86,47 @@
 
         .submenu a:hover {
             background: #f5f5f5;
-            padding-left: 25px;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
+            width: min(98vw, 1600px);
+            margin: 30px auto;
         }
 
         .scheduler-box {
             background: white;
-            padding: 35px;
-            border-radius: 20px;
+            padding: 24px;
+            border-radius: 16px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
         h1 {
-            margin: 0 0 20px;
-            font-size: 32px;
+            margin: 0 0 15px;
+            font-size: 30px;
         }
 
         .week-info {
-            margin-bottom: 30px;
-            padding: 15px;
+            margin-bottom: 18px;
+            padding: 12px;
             background: #f5f5f5;
-            border-radius: 10px;
-            font-size: 17px;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: bold;
         }
 
         .add-area {
             display: grid;
             grid-template-columns: 1fr 1fr auto;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 8px;
+            margin-bottom: 18px;
         }
 
         .add-area input {
             width: 100%;
-            padding: 12px;
+            padding: 10px 12px;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 7px;
+            font-size: 15px;
             outline: none;
         }
 
@@ -137,13 +135,13 @@
         }
 
         .add-area button {
-            padding: 12px 20px;
+            padding: 10px 18px;
             border: none;
-            border-radius: 8px;
+            border-radius: 7px;
             background: #222;
             color: white;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .add-area button:hover {
@@ -151,20 +149,25 @@
         }
 
         .table-wrapper {
+            width: 100%;
             overflow-x: auto;
+            overflow-y: visible;
         }
 
         table {
             width: 100%;
-            min-width: 800px;
+            min-width: 1100px;
+            table-layout: fixed;
             border-collapse: collapse;
         }
 
         th,
         td {
             border: 1px solid #ddd;
-            padding: 10px 8px;
+            padding: 5px 3px;
             text-align: center;
+            vertical-align: middle;
+            font-size: 13px;
         }
 
         th {
@@ -172,28 +175,42 @@
             font-weight: bold;
         }
 
-        .character-header {
-            min-width: 160px;
+        th:first-child,
+        td:first-child {
+            width: 115px;
+            position: sticky;
+            left: 0;
+            z-index: 3;
+            background: white;
+        }
+
+        th:first-child {
+            background: #f0f0f0;
+            z-index: 5;
         }
 
         .boss-header {
-            min-width: 140px;
+            position: relative;
+            height: 62px;
+            word-break: keep-all;
         }
 
         .boss-name {
             display: block;
-            margin-bottom: 8px;
-            font-size: 16px;
+            margin-bottom: 4px;
+            line-height: 1.15;
+            word-break: break-word;
         }
 
-        .delete-boss {
-            padding: 4px 8px;
+        .delete-boss,
+        .delete-character {
+            padding: 2px 5px;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             background: #eee;
             color: #666;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         .delete-boss:hover,
@@ -201,23 +218,32 @@
             background: #ddd;
         }
 
+        .value-row th,
+        .value-row td {
+            background: #fafafa;
+        }
+
+        .value-row th:first-child {
+            background: #fafafa;
+        }
+
         .value-input {
             width: 100%;
-            max-width: 120px;
-            padding: 8px;
+            max-width: 78px;
+            padding: 5px 2px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 5px;
             text-align: center;
-            font-size: 15px;
+            font-size: 12px;
         }
 
         .status-button {
-            width: 44px;
-            height: 36px;
+            width: 34px;
+            height: 30px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 17px;
+            font-size: 14px;
             font-weight: bold;
         }
 
@@ -236,50 +262,74 @@
         }
 
         .character-name {
+            display: inline-block;
+            max-width: 75px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
             font-weight: bold;
-        }
-
-        .delete-character {
-            margin-left: 8px;
-            padding: 5px 8px;
-            border: none;
-            border-radius: 5px;
-            background: #eee;
-            color: #666;
-            cursor: pointer;
-            font-size: 12px;
+            word-break: break-all;
         }
 
         .profit-row th,
         .profit-row td {
             background: #fafafa;
             font-weight: bold;
+            font-size: 12px;
+        }
+
+        .profit-row th:first-child,
+        .profit-row td:first-child {
+            background: #fafafa;
         }
 
         .total-profit {
-            margin-top: 25px;
-            padding: 18px;
-            border-radius: 10px;
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 8px;
             background: #f0f0f0;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             text-align: right;
         }
 
         .guide {
-            margin-top: 20px;
+            margin-top: 14px;
             color: #777;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 1400px) {
+            th,
+            td {
+                font-size: 12px;
+                padding: 4px 2px;
+            }
+
+            th:first-child,
+            td:first-child {
+                width: 125px;
+            }
+
+            .status-button {
+                width: 32px;
+                height: 28px;
+            }
+
+            .value-input {
+                max-width: 72px;
+                font-size: 11px;
+            }
         }
 
         @media (max-width: 700px) {
             .scheduler-box {
-                padding: 20px;
+                padding: 16px;
             }
 
             h1 {
-                font-size: 26px;
+                font-size: 25px;
             }
 
             .add-area {
@@ -292,8 +342,8 @@
 
             .home-button,
             .menu-button {
-                padding: 14px 12px;
-                font-size: 16px;
+                padding: 12px 10px;
+                font-size: 15px;
             }
         }
     </style>
@@ -333,14 +383,14 @@
                 <input
                     type="text"
                     id="characterInput"
-                    placeholder="캐릭터명을 입력하세요"
+                    placeholder="캐릭터명"
                     maxlength="20"
                 >
 
                 <input
                     type="text"
                     id="bossInput"
-                    placeholder="보스명 / 결정값 입력"
+                    placeholder="보스명"
                     maxlength="20"
                 >
 
@@ -361,9 +411,9 @@
             </div>
 
             <div class="guide">
-                • 보스는 가로 방향, 캐릭터는 세로 방향으로 표시됩니다.<br>
-                • 결정값은 보스별로 직접 입력하고 수정할 수 있습니다.<br>
-                • O / X 버튼을 클릭하여 격파 여부를 변경할 수 있습니다.<br>
+                • 보스는 가로 방향, 캐릭터는 세로 방향으로 표시됩니다.
+                • 결정값은 표에서 직접 수정할 수 있습니다.
+                • O / X를 클릭하여 격파 여부를 변경할 수 있습니다.
                 • 모든 기록과 결정값은 목요일~수요일 주차별로 저장됩니다.
             </div>
 
@@ -409,7 +459,11 @@
             if (saved) {
                 const parsed = JSON.parse(saved);
 
-                if (parsed && Array.isArray(parsed.characters) && Array.isArray(parsed.bosses)) {
+                if (
+                    parsed &&
+                    Array.isArray(parsed.characters) &&
+                    Array.isArray(parsed.bosses)
+                ) {
                     data = parsed;
                 }
             }
@@ -427,11 +481,15 @@
                     character.status.push(false);
                 }
 
-                character.status = character.status.slice(0, data.bosses.length);
+                character.status =
+                    character.status.slice(0, data.bosses.length);
             });
 
             data.bosses.forEach(boss => {
-                if (typeof boss.value !== "number" || Number.isNaN(boss.value)) {
+                if (
+                    typeof boss.value !== "number" ||
+                    Number.isNaN(boss.value)
+                ) {
                     boss.value = 0;
                 }
             });
@@ -439,7 +497,10 @@
 
         function saveData() {
             try {
-                localStorage.setItem(storageKey, JSON.stringify(data));
+                localStorage.setItem(
+                    storageKey,
+                    JSON.stringify(data)
+                );
             } catch (error) {
                 console.error("데이터 저장에 실패했습니다.", error);
             }
@@ -462,10 +523,10 @@
             });
         }
 
-        function addBoss(name, value) {
+        function addBoss(name) {
             data.bosses.push({
                 name: name,
-                value: value
+                value: 0
             });
 
             data.characters.forEach(character => {
@@ -474,37 +535,34 @@
         }
 
         function addItems() {
-            const characterInput = document.getElementById("characterInput");
-            const bossInput = document.getElementById("bossInput");
+            const characterInput =
+                document.getElementById("characterInput");
 
-            const characterName = characterInput.value.trim();
-            const bossText = bossInput.value.trim();
+            const bossInput =
+                document.getElementById("bossInput");
+
+            const characterName =
+                characterInput.value.trim();
+
+            const bossName =
+                bossInput.value.trim();
+
+            if (
+                characterName === "" &&
+                bossName === ""
+            ) {
+                alert("캐릭터명 또는 보스명을 입력해주세요.");
+                return;
+            }
 
             if (characterName !== "") {
                 addCharacter(characterName);
                 characterInput.value = "";
             }
 
-            if (bossText !== "") {
-                const parts = bossText.split(",");
-
-                const bossName = parts[0].trim();
-                const valueText = parts.length > 1 ? parts[1].trim() : "0";
-                const value = Number(valueText.replace(/,/g, ""));
-
-                if (bossName !== "") {
-                    addBoss(
-                        bossName,
-                        Number.isFinite(value) ? value : 0
-                    );
-                }
-
+            if (bossName !== "") {
+                addBoss(bossName);
                 bossInput.value = "";
-            }
-
-            if (characterName === "" && bossText === "") {
-                alert("캐릭터명 또는 보스명을 입력해주세요.");
-                return;
             }
 
             saveData();
@@ -518,7 +576,11 @@
                 return;
             }
 
-            if (!confirm(`"${character.name}" 캐릭터를 삭제할까요?`)) {
+            if (
+                !confirm(
+                    `"${character.name}" 캐릭터를 삭제할까요?`
+                )
+            ) {
                 return;
             }
 
@@ -534,7 +596,11 @@
                 return;
             }
 
-            if (!confirm(`"${boss.name}" 보스를 삭제할까요?`)) {
+            if (
+                !confirm(
+                    `"${boss.name}" 보스를 삭제할까요?`
+                )
+            ) {
                 return;
             }
 
@@ -567,9 +633,15 @@
         }
 
         function updateBossValue(bossIndex, input) {
-            let value = Number(input.value.replace(/,/g, ""));
+            let value =
+                Number(
+                    input.value.replace(/,/g, "")
+                );
 
-            if (!Number.isFinite(value) || value < 0) {
+            if (
+                !Number.isFinite(value) ||
+                value < 0
+            ) {
                 value = 0;
             }
 
@@ -589,7 +661,10 @@
             let count = 0;
 
             data.characters.forEach(character => {
-                if (character.status && character.status[bossIndex] === true) {
+                if (
+                    character.status &&
+                    character.status[bossIndex] === true
+                ) {
                     count++;
                 }
             });
@@ -614,69 +689,121 @@
         function renderTable() {
             normalizeData();
 
-            const header = document.getElementById("bossHeader");
-            const table = document.getElementById("bossTable");
+            const header =
+                document.getElementById("bossHeader");
+
+            const table =
+                document.getElementById("bossTable");
 
             header.innerHTML = "";
             table.innerHTML = "";
 
-            const headerRow = document.createElement("tr");
+            const headerRow =
+                document.createElement("tr");
 
-            const corner = document.createElement("th");
-            corner.className = "character-header";
-            corner.textContent = "캐릭터 ＼ 보스";
+            const corner =
+                document.createElement("th");
+
+            corner.className =
+                "character-header";
+
+            corner.textContent =
+                "캐릭터 ＼ 보스";
+
             headerRow.appendChild(corner);
 
             data.bosses.forEach((boss, index) => {
-                const th = document.createElement("th");
-                th.className = "boss-header";
+                const th =
+                    document.createElement("th");
 
-                const name = document.createElement("span");
-                name.className = "boss-name";
-                name.textContent = boss.name;
+                th.className =
+                    "boss-header";
 
-                const deleteButton = document.createElement("button");
-                deleteButton.type = "button";
-                deleteButton.className = "delete-boss";
-                deleteButton.textContent = "삭제";
-                deleteButton.onclick = () => deleteBoss(index);
+                const name =
+                    document.createElement("span");
+
+                name.className =
+                    "boss-name";
+
+                name.textContent =
+                    boss.name;
+
+                const deleteButton =
+                    document.createElement("button");
+
+                deleteButton.type =
+                    "button";
+
+                deleteButton.className =
+                    "delete-boss";
+
+                deleteButton.textContent =
+                    "삭제";
+
+                deleteButton.onclick =
+                    () => deleteBoss(index);
 
                 th.appendChild(name);
                 th.appendChild(deleteButton);
+
                 headerRow.appendChild(th);
             });
 
             header.appendChild(headerRow);
 
-            const valueRow = document.createElement("tr");
-            valueRow.className = "profit-row";
+            const valueRow =
+                document.createElement("tr");
 
-            const valueTitle = document.createElement("th");
-            valueTitle.textContent = "결정값";
+            valueRow.className =
+                "value-row";
+
+            const valueTitle =
+                document.createElement("th");
+
+            valueTitle.textContent =
+                "결정값";
+
             valueRow.appendChild(valueTitle);
 
             data.bosses.forEach((boss, index) => {
-                const td = document.createElement("td");
+                const td =
+                    document.createElement("td");
 
-                const input = document.createElement("input");
-                input.type = "text";
-                input.className = "value-input";
-                input.value = formatNumber(boss.value);
+                const input =
+                    document.createElement("input");
 
-                input.addEventListener("focus", () => {
-                    input.value = boss.value;
-                    input.select();
-                });
+                input.type =
+                    "text";
 
-                input.addEventListener("blur", () => {
-                    updateBossValue(index, input);
-                });
+                input.className =
+                    "value-input";
 
-                input.addEventListener("keydown", event => {
-                    if (event.key === "Enter") {
-                        input.blur();
+                input.value =
+                    formatNumber(boss.value);
+
+                input.addEventListener(
+                    "focus",
+                    () => {
+                        input.value = boss.value;
+                        input.select();
                     }
-                });
+                );
+
+                input.addEventListener(
+                    "blur",
+                    () => {
+                        updateBossValue(index, input);
+                    }
+                );
+
+                input.addEventListener(
+                    "keydown",
+                    event => {
+                        if (event.key === "Enter") {
+                            input.blur();
+                        }
+                    }
+                );
 
                 td.appendChild(input);
                 valueRow.appendChild(td);
@@ -684,94 +811,165 @@
 
             table.appendChild(valueRow);
 
-            data.characters.forEach((character, characterIndex) => {
-                const row = document.createElement("tr");
+            data.characters.forEach(
+                (character, characterIndex) => {
+                    const row =
+                        document.createElement("tr");
 
-                const nameCell = document.createElement("td");
+                    const nameCell =
+                        document.createElement("td");
 
-                const nameSpan = document.createElement("span");
-                nameSpan.className = "character-name";
-                nameSpan.textContent = character.name;
+                    const nameSpan =
+                        document.createElement("span");
 
-                const deleteButton = document.createElement("button");
-                deleteButton.type = "button";
-                deleteButton.className = "delete-character";
-                deleteButton.textContent = "삭제";
-                deleteButton.onclick = () => deleteCharacter(characterIndex);
+                    nameSpan.className =
+                        "character-name";
 
-                nameCell.appendChild(nameSpan);
-                nameCell.appendChild(deleteButton);
-                row.appendChild(nameCell);
+                    nameSpan.textContent =
+                        character.name;
 
-                data.bosses.forEach((boss, bossIndex) => {
-                    const cell = document.createElement("td");
+                    const deleteButton =
+                        document.createElement("button");
 
-                    const button = document.createElement("button");
-                    button.type = "button";
+                    deleteButton.type =
+                        "button";
 
-                    const isDone =
-                        character.status &&
-                        character.status[bossIndex] === true;
+                    deleteButton.className =
+                        "delete-character";
 
-                    button.textContent = isDone ? "O" : "X";
-                    button.className =
-                        "status-button " +
-                        (isDone ? "done" : "not-done");
+                    deleteButton.textContent =
+                        "삭제";
 
-                    button.onclick = () =>
-                        toggleStatus(characterIndex, bossIndex);
+                    deleteButton.onclick =
+                        () =>
+                            deleteCharacter(
+                                characterIndex
+                            );
 
-                    cell.appendChild(button);
-                    row.appendChild(cell);
-                });
+                    nameCell.appendChild(nameSpan);
+                    nameCell.appendChild(deleteButton);
 
-                table.appendChild(row);
-            });
+                    row.appendChild(nameCell);
 
-            const profitRow = document.createElement("tr");
-            profitRow.className = "profit-row";
+                    data.bosses.forEach(
+                        (boss, bossIndex) => {
+                            const cell =
+                                document.createElement("td");
 
-            const profitTitle = document.createElement("th");
-            profitTitle.textContent = "총 수익";
+                            const button =
+                                document.createElement("button");
+
+                            button.type =
+                                "button";
+
+                            const isDone =
+                                character.status &&
+                                character.status[bossIndex] === true;
+
+                            button.textContent =
+                                isDone ? "O" : "X";
+
+                            button.className =
+                                "status-button " +
+                                (
+                                    isDone
+                                        ? "done"
+                                        : "not-done"
+                                );
+
+                            button.onclick =
+                                () =>
+                                    toggleStatus(
+                                        characterIndex,
+                                        bossIndex
+                                    );
+
+                            cell.appendChild(button);
+                            row.appendChild(cell);
+                        }
+                    );
+
+                    table.appendChild(row);
+                }
+            );
+
+            const profitRow =
+                document.createElement("tr");
+
+            profitRow.className =
+                "profit-row";
+
+            const profitTitle =
+                document.createElement("th");
+
+            profitTitle.textContent =
+                "총 수익";
+
             profitRow.appendChild(profitTitle);
 
-            data.bosses.forEach((boss, index) => {
-                const td = document.createElement("td");
-                td.textContent = formatNumber(
-                    calculateBossProfit(index)
-                );
-                profitRow.appendChild(td);
-            });
+            data.bosses.forEach(
+                (boss, index) => {
+                    const td =
+                        document.createElement("td");
+
+                    td.textContent =
+                        formatNumber(
+                            calculateBossProfit(index)
+                        );
+
+                    profitRow.appendChild(td);
+                }
+            );
 
             table.appendChild(profitRow);
 
-            document.getElementById("totalProfit").textContent =
-                `이번 주 총 수익: ${formatNumber(calculateTotalProfit())}`;
+            document.getElementById(
+                "totalProfit"
+            ).textContent =
+                `이번 주 총 수익: ${formatNumber(
+                    calculateTotalProfit()
+                )}`;
         }
 
         function toggleSchedulerMenu() {
-            const menu = document.getElementById("schedulerMenu");
+            const menu =
+                document.getElementById(
+                    "schedulerMenu"
+                );
+
             menu.classList.toggle("active");
         }
 
-        document.addEventListener("click", function(event) {
-            const menu = document.getElementById("schedulerMenu");
-
-            if (!menu.contains(event.target)) {
-                menu.classList.remove("active");
-            }
-        });
-
-        document.getElementById("characterInput").addEventListener(
-            "keydown",
+        document.addEventListener(
+            "click",
             function(event) {
-                if (event.key === "Enter") {
-                    document.getElementById("bossInput").focus();
+                const menu =
+                    document.getElementById(
+                        "schedulerMenu"
+                    );
+
+                if (!menu.contains(event.target)) {
+                    menu.classList.remove("active");
                 }
             }
         );
 
-        document.getElementById("bossInput").addEventListener(
+        document.getElementById(
+            "characterInput"
+        ).addEventListener(
+            "keydown",
+            function(event) {
+                if (event.key === "Enter") {
+                    document
+                        .getElementById("bossInput")
+                        .focus();
+                }
+            }
+        );
+
+        document.getElementById(
+            "bossInput"
+        ).addEventListener(
             "keydown",
             function(event) {
                 if (event.key === "Enter") {
