@@ -902,35 +902,6 @@
             return `${formatNumber(number)} 만 메소`;
         }
 
-            data.characters.forEach(character => {
-                const movedStatus =
-                    character.status.splice(
-                        fromIndex,
-                        1
-                    )[0];
-
-                character.status.splice(
-                    toIndex,
-                    0,
-                    movedStatus
-                );
-
-                const movedDifficulty =
-                    character.difficulties.splice(
-                        fromIndex,
-                        1
-                    )[0];
-
-                character.difficulties.splice(
-                    toIndex,
-                    0,
-                    movedDifficulty
-                );
-            });
-
-            saveData();
-            renderTable();
-        }
 
         let draggedCharacterIndex = null;
 
