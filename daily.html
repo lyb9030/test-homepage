@@ -28,18 +28,18 @@
         }
 
         .menu-container {
-            max-width: 1100px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 12px;
         }
 
         .home-button,
         .menu-button {
             display: inline-block;
+            padding: 13px 18px;
             color: white;
             text-decoration: none;
-            font-size: 18px;
-            padding: 15px 20px;
+            font-size: 17px;
         }
 
         .menu-button {
@@ -58,19 +58,15 @@
             display: inline-block;
         }
 
-        /* =========================
-           스케줄러 하위 메뉴
-        ========================= */
-
         .submenu {
             display: none;
             position: absolute;
-            top: 100%;
+            top: calc(100% + 6px);
             left: 0;
-            min-width: 140px;
+            width: 190px;
             background: white;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             z-index: 100;
         }
@@ -81,49 +77,49 @@
 
         .submenu a {
             display: block;
-            padding: 12px 20px;
+            padding: 15px 18px;
             color: #222;
             text-decoration: none;
-            text-align: left;
             font-size: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+        }
+
+        .submenu a:last-child {
+            border-bottom: none;
         }
 
         .submenu a:hover {
-            background: #f0f0f0;
+            background: #f5f5f5;
         }
 
         /* =========================
-           메인 컨테이너
+           전체 영역
         ========================= */
 
         .container {
-            max-width: 1100px;
-            margin: 50px auto;
-            padding: 0 20px;
+            width: min(98vw, 1600px);
+            margin: 30px auto;
         }
 
         .scheduler-box {
             background: white;
-            padding: 35px;
-            border-radius: 20px;
+            padding: 24px;
+            border-radius: 16px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
         h1 {
-            margin-top: 0;
-            font-size: 32px;
+            margin: 0 0 15px;
+            font-size: 30px;
         }
 
-        /* =========================
-           주차 정보
-        ========================= */
-
         .week-info {
-            margin: 20px 0 30px;
-            padding: 15px;
+            margin-bottom: 24px;
+            padding: 12px;
             background: #f5f5f5;
-            border-radius: 10px;
-            font-size: 17px;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: bold;
         }
 
@@ -132,62 +128,71 @@
         ========================= */
 
         .schedule-section {
-            margin-top: 35px;
+            margin-top: 30px;
         }
 
         .schedule-section:first-of-type {
             margin-top: 0;
         }
 
-        .section-title {
-            margin: 0 0 15px;
-            padding: 12px 15px;
-            background: #f0f0f0;
-            border-radius: 10px;
-            font-size: 21px;
+        .schedule-title {
+            margin: 0 0 18px;
+            padding: 11px 15px;
+            background: #eeeeee;
+            border-radius: 9px;
+            font-size: 22px;
             font-weight: bold;
         }
 
-        .section-subtitle {
-            margin: -5px 0 15px;
-            color: #777;
-            font-size: 13px;
+        .schedule-item {
+            margin-bottom: 28px;
+        }
+
+        .schedule-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-title {
+            margin-bottom: 9px;
+            font-size: 17px;
+            font-weight: bold;
         }
 
         /* =========================
-           캐릭터 추가
+           캐릭터 추가 영역
         ========================= */
 
-        .character-add {
+        .character-add-area {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 10px;
+            align-items: center;
         }
 
-        .character-add input {
-            flex: 1;
-            padding: 12px;
+        .character-add-area input {
+            width: 250px;
+            padding: 9px 11px;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 7px;
+            font-size: 14px;
             outline: none;
         }
 
-        .character-add input:focus {
+        .character-add-area input:focus {
             border-color: #888;
         }
 
-        .character-add button {
-            padding: 12px 20px;
+        .character-add-area button {
+            padding: 9px 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 7px;
             background: #222;
             color: white;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
         }
 
-        .character-add button:hover {
+        .character-add-area button:hover {
             background: #444;
         }
 
@@ -196,54 +201,100 @@
         ========================= */
 
         .table-wrapper {
+            width: 100%;
             overflow-x: auto;
         }
 
         table {
             width: 100%;
-            min-width: 750px;
             border-collapse: collapse;
+            table-layout: fixed;
+            min-width: 650px;
         }
 
         th,
         td {
-            border: 1px solid #ddd;
+            border: 1px solid #bbb;
+            padding: 6px 4px;
             text-align: center;
-            padding: 12px 8px;
+            vertical-align: middle;
+            font-size: 13px;
         }
 
         th {
-            background: #f0f0f0;
+            background: #eeeeee;
             font-weight: bold;
         }
 
-        th:first-child,
-        td:first-child {
-            width: 160px;
+        .character-column {
+            width: 150px;
+        }
+
+        .character-name {
+            display: inline-block;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .delete-character {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 19px;
+            height: 19px;
+
+            margin-left: 5px;
+            padding: 0;
+
+            border: 1px solid #ddd;
+            border-radius: 50%;
+
+            background: white;
+            color: #999;
+
+            cursor: pointer;
+
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .delete-character:hover {
+            background: #f0f0f0;
+            color: #555;
+            border-color: #bbb;
         }
 
         /* =========================
-           O / X 버튼
+           O / X
         ========================= */
 
         .status-button {
-            width: 42px;
-            height: 36px;
+            width: 38px;
+            height: 29px;
+
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
+
             cursor: pointer;
-            font-size: 17px;
+
+            font-size: 13px;
             font-weight: bold;
         }
 
         .status-button.done {
-            background: #222;
-            color: white;
+            background: #fff900;
+            color: #222;
         }
 
         .status-button.not-done {
-            background: #eee;
-            color: #888;
+            background: white;
+            color: #777;
         }
 
         .status-button:hover {
@@ -251,41 +302,36 @@
         }
 
         /* =========================
-           캐릭터 삭제
+           수로 점수
         ========================= */
 
-        .delete-button {
-            margin-left: 8px;
-            padding: 5px 8px;
-            border: none;
+        .score-input {
+            width: 100px;
+            padding: 6px 5px;
+
+            border: 1px solid #ddd;
             border-radius: 5px;
-            background: #eee;
-            color: #666;
-            cursor: pointer;
+
+            text-align: center;
+            font-size: 13px;
         }
 
-        .delete-button:hover {
-            background: #ddd;
-        }
-
-        /* =========================
-           구역 구분선
-        ========================= */
-
-        .section-divider {
-            margin: 40px 0 0;
-            border: none;
-            border-top: 1px solid #e5e5e5;
+        .score-input:focus {
+            outline: none;
+            border-color: #888;
         }
 
         /* =========================
-           안내 문구
+           안내문
         ========================= */
 
         .guide {
-            margin-top: 25px;
+            margin-top: 28px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+
             color: #777;
-            font-size: 14px;
+            font-size: 12px;
             line-height: 1.6;
         }
 
@@ -293,32 +339,40 @@
            모바일
         ========================= */
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
 
             .scheduler-box {
-                padding: 20px;
+                padding: 16px;
             }
 
             h1 {
-                font-size: 26px;
+                font-size: 25px;
             }
 
-            .section-title {
-                font-size: 19px;
+            .character-add-area {
+                flex-wrap: wrap;
             }
 
-            .character-add {
-                flex-direction: column;
-            }
-
-            .character-add button {
+            .character-add-area input {
                 width: 100%;
             }
 
-            .menu-button,
-            .home-button {
-                font-size: 16px;
-                padding: 14px;
+            .character-add-area button {
+                width: 100%;
+            }
+
+            .schedule-title {
+                font-size: 20px;
+            }
+
+            .character-column {
+                width: 120px;
+            }
+
+            .home-button,
+            .menu-button {
+                padding: 12px 10px;
+                font-size: 15px;
             }
         }
     </style>
@@ -367,14 +421,16 @@
 
 
     <!-- =========================
-         메인
+         본문
     ========================= -->
 
     <div class="container">
 
         <div class="scheduler-box">
 
-            <h1>일퀘 스케줄러</h1>
+            <h1>
+                일퀘 스케줄러
+            </h1>
 
             <div
                 class="week-info"
@@ -388,133 +444,328 @@
                  데일리 스케줄
             ========================= -->
 
-            <div class="schedule-section">
+            <section class="schedule-section">
 
-                <h2 class="section-title">
+                <h2 class="schedule-title">
                     데일리 스케줄
                 </h2>
 
-                <div class="section-subtitle">
-                    일일퀘스트 및 몬스터파크
+
+                <!-- 일일퀘스트 -->
+
+                <div class="schedule-item">
+
+                    <div class="item-title">
+                        1. 일일퀘스트
+                    </div>
+
+                    <div class="character-add-area">
+
+                        <input
+                            type="text"
+                            id="dailyQuestInput"
+                            placeholder="캐릭터명"
+                            maxlength="20"
+                        >
+
+                        <button
+                            type="button"
+                            onclick="addDailyQuestCharacter()"
+                        >
+                            캐릭터 추가
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th class="character-column">
+                                        캐릭터
+                                    </th>
+
+                                    <th>목</th>
+                                    <th>금</th>
+                                    <th>토</th>
+                                    <th>일</th>
+                                    <th>월</th>
+                                    <th>화</th>
+                                    <th>수</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="dailyQuestTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
+
                 </div>
 
 
-                <!-- 데일리 캐릭터 추가 -->
+                <!-- 몬스터파크 -->
 
-                <div class="character-add">
+                <div class="schedule-item">
 
-                    <input
-                        type="text"
-                        id="dailyCharacterInput"
-                        placeholder="데일리 캐릭터명을 입력하세요"
-                        maxlength="20"
-                    >
+                    <div class="item-title">
+                        2. 몬스터파크
+                    </div>
 
-                    <button
-                        type="button"
-                        onclick="addDailyCharacter()"
-                    >
-                        캐릭터 추가
-                    </button>
+                    <div class="character-add-area">
+
+                        <input
+                            type="text"
+                            id="monsterParkInput"
+                            placeholder="캐릭터명"
+                            maxlength="20"
+                        >
+
+                        <button
+                            type="button"
+                            onclick="addMonsterParkCharacter()"
+                        >
+                            캐릭터 추가
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th class="character-column">
+                                        캐릭터
+                                    </th>
+
+                                    <th>목</th>
+                                    <th>금</th>
+                                    <th>토</th>
+                                    <th>일</th>
+                                    <th>월</th>
+                                    <th>화</th>
+                                    <th>수</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="monsterParkTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
-
-                <!-- 데일리 표 -->
-
-                <div class="table-wrapper">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>캐릭터</th>
-                                <th>목</th>
-                                <th>금</th>
-                                <th>토</th>
-                                <th>일</th>
-                                <th>월</th>
-                                <th>화</th>
-                                <th>수</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="dailyCharacterTable">
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-
-            <hr class="section-divider">
+            </section>
 
 
             <!-- =========================
                  위클리 스케줄
             ========================= -->
 
-            <div class="schedule-section">
+            <section class="schedule-section">
 
-                <h2 class="section-title">
+                <h2 class="schedule-title">
                     위클리 스케줄
                 </h2>
 
-                <div class="section-subtitle">
-                    플래그, 수로, 에픽던전
+
+                <!-- 플래그 -->
+
+                <div class="schedule-item">
+
+                    <div class="item-title">
+                        1. 플래그
+                    </div>
+
+                    <div class="character-add-area">
+
+                        <input
+                            type="text"
+                            id="flagInput"
+                            placeholder="캐릭터명"
+                            maxlength="20"
+                        >
+
+                        <button
+                            type="button"
+                            onclick="addFlagCharacter()"
+                        >
+                            캐릭터 추가
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th class="character-column">
+                                        캐릭터
+                                    </th>
+
+                                    <th>
+                                        여부
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="flagTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
+
                 </div>
 
 
-                <!-- 위클리 캐릭터 추가 -->
+                <!-- 수로 -->
 
-                <div class="character-add">
+                <div class="schedule-item">
 
-                    <input
-                        type="text"
-                        id="weeklyCharacterInput"
-                        placeholder="위클리 캐릭터명을 입력하세요"
-                        maxlength="20"
-                    >
+                    <div class="item-title">
+                        2. 수로
+                    </div>
 
-                    <button
-                        type="button"
-                        onclick="addWeeklyCharacter()"
-                    >
-                        캐릭터 추가
-                    </button>
+                    <div class="character-add-area">
+
+                        <input
+                            type="text"
+                            id="waterwayInput"
+                            placeholder="캐릭터명"
+                            maxlength="20"
+                        >
+
+                        <button
+                            type="button"
+                            onclick="addWaterwayCharacter()"
+                        >
+                            캐릭터 추가
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th class="character-column">
+                                        캐릭터
+                                    </th>
+
+                                    <th>
+                                        점수
+                                    </th>
+
+                                    <th>
+                                        여부
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="waterwayTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
 
-                <!-- 위클리 표 -->
+                <!-- 에픽던전 -->
 
-                <div class="table-wrapper">
+                <div class="schedule-item">
 
-                    <table>
+                    <div class="item-title">
+                        3. 에픽던전
+                    </div>
 
-                        <thead>
+                    <div class="character-add-area">
 
-                            <tr>
-                                <th>캐릭터</th>
-                                <th>플래그</th>
-                                <th>수로</th>
-                                <th>에픽던전</th>
-                            </tr>
+                        <input
+                            type="text"
+                            id="epicDungeonInput"
+                            placeholder="캐릭터명"
+                            maxlength="20"
+                        >
 
-                        </thead>
+                        <button
+                            type="button"
+                            onclick="addEpicDungeonCharacter()"
+                        >
+                            캐릭터 추가
+                        </button>
 
-                        <tbody id="weeklyCharacterTable">
-                        </tbody>
+                    </div>
 
-                    </table>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th class="character-column">
+                                        캐릭터
+                                    </th>
+
+                                    <th>
+                                        여부
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="epicDungeonTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
-            </div>
+            </section>
 
 
             <!-- =========================
@@ -523,15 +774,25 @@
 
             <div class="guide">
 
-                • 데일리 스케줄과 위클리 스케줄의 캐릭터는 서로 독립적으로 관리됩니다.
+                • 데일리 스케줄은 목요일부터 수요일까지 요일별로 완료 여부를 기록합니다.
                 <br>
-                • 데일리 스케줄은 목요일~수요일 기준으로 매일 완료 여부를 기록합니다.
+
+                • 일일퀘스트와 몬스터파크의 캐릭터는 각각 별도로 관리됩니다.
                 <br>
-                • 위클리 스케줄은 목요일~수요일 주차별로 완료 여부를 기록합니다.
+
+                • 위클리 스케줄은 한 주간 완료 여부만 기록합니다.
                 <br>
-                • O / X 버튼을 클릭하여 완료 여부를 변경할 수 있습니다.
+
+                • 플래그, 수로, 에픽던전의 캐릭터는 각각 별도로 관리됩니다.
                 <br>
-                • 캐릭터 삭제 시 해당 스케줄에서만 삭제됩니다.
+
+                • 수로는 완료 여부와 함께 점수를 입력할 수 있습니다.
+                <br>
+
+                • 캐릭터 삭제는 캐릭터명 오른쪽의 × 버튼을 이용합니다.
+                <br>
+
+                • 데이터는 목요일~수요일 주차별로 자동 저장됩니다.
 
             </div>
 
@@ -542,10 +803,9 @@
 
     <script>
 
-        /* =========================
+        /* ==================================================
            주차 계산
-           목요일 ~ 수요일
-        ========================= */
+        ================================================== */
 
         function getWeekStart(date) {
 
@@ -577,10 +837,6 @@
         }
 
 
-        /* =========================
-           날짜 표시
-        ========================= */
-
         function formatDate(date) {
 
             const year =
@@ -600,36 +856,6 @@
         }
 
 
-        /* =========================
-           현재 주차 표시
-        ========================= */
-
-        function displayWeek() {
-
-            const today =
-                new Date();
-
-            const start =
-                getWeekStart(today);
-
-            const end =
-                new Date(start);
-
-            end.setDate(
-                start.getDate() + 6
-            );
-
-            document.getElementById(
-                "weekInfo"
-            ).textContent =
-                `${formatDate(start)} (목) ~ ${formatDate(end)} (수)`;
-        }
-
-
-        /* =========================
-           저장 키
-        ========================= */
-
         const weekKey =
             formatDate(
                 getWeekStart(
@@ -638,201 +864,279 @@
             );
 
 
-        const dailyStorageKey =
-            "dailyScheduler_" + weekKey;
-
-        const weeklyStorageKey =
-            "weeklyScheduler_" + weekKey;
+        const storageKey =
+            "dailyScheduler_" +
+            weekKey;
 
 
-        /* =========================
-           데일리 데이터
-        ========================= */
+        /* ==================================================
+           기본 데이터
+        ================================================== */
 
-        let dailyCharacters = [];
+        let data = {
 
+            dailyQuest: [],
 
-        try {
+            monsterPark: [],
 
-            const savedDailyData =
-                localStorage.getItem(
-                    dailyStorageKey
-                );
+            flag: [],
 
+            waterway: [],
 
-            if (savedDailyData) {
+            epicDungeon: []
 
-                const parsedDailyData =
-                    JSON.parse(
-                        savedDailyData
-                    );
+        };
 
 
-                if (
-                    Array.isArray(
-                        parsedDailyData
-                    )
-                ) {
-
-                    dailyCharacters =
-                        parsedDailyData;
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "데일리 저장 데이터를 불러오지 못했습니다.",
-                error
-            );
-
-            dailyCharacters = [];
-
-        }
-
-
-        /* =========================
-           위클리 데이터
-        ========================= */
-
-        let weeklyCharacters = [];
-
+        /* ==================================================
+           기존 데이터 불러오기
+        ================================================== */
 
         try {
 
-            const savedWeeklyData =
+            const saved =
                 localStorage.getItem(
-                    weeklyStorageKey
+                    storageKey
                 );
 
 
-            if (savedWeeklyData) {
+            if (saved) {
 
-                const parsedWeeklyData =
-                    JSON.parse(
-                        savedWeeklyData
-                    );
+                const parsed =
+                    JSON.parse(saved);
+
+
+                /*
+                 * 새로운 데이터 구조
+                 */
+
+                if (
+                    parsed &&
+                    Array.isArray(
+                        parsed.dailyQuest
+                    )
+                ) {
+                    data.dailyQuest =
+                        parsed.dailyQuest;
+                }
 
 
                 if (
+                    parsed &&
                     Array.isArray(
-                        parsedWeeklyData
+                        parsed.monsterPark
+                    )
+                ) {
+                    data.monsterPark =
+                        parsed.monsterPark;
+                }
+
+
+                if (
+                    parsed &&
+                    Array.isArray(
+                        parsed.flag
+                    )
+                ) {
+                    data.flag =
+                        parsed.flag;
+                }
+
+
+                if (
+                    parsed &&
+                    Array.isArray(
+                        parsed.waterway
+                    )
+                ) {
+                    data.waterway =
+                        parsed.waterway;
+                }
+
+
+                if (
+                    parsed &&
+                    Array.isArray(
+                        parsed.epicDungeon
+                    )
+                ) {
+                    data.epicDungeon =
+                        parsed.epicDungeon;
+                }
+
+
+                /*
+                 * 이전 버전 데이터 호환
+                 *
+                 * 이전 구조:
+                 * characters
+                 * characters[].days
+                 */
+
+                if (
+                    Array.isArray(
+                        parsed.characters
                     )
                 ) {
 
-                    weeklyCharacters =
-                        parsedWeeklyData;
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "위클리 저장 데이터를 불러오지 못했습니다.",
-                error
-            );
-
-            weeklyCharacters = [];
-
-        }
+                    const oldCharacters =
+                        parsed.characters;
 
 
-        /* =========================
-           데일리 데이터 정리
-        ========================= */
-
-        function normalizeDailyCharacters() {
-
-            dailyCharacters.forEach(
-                function(character) {
+                    /*
+                     * 새로운 데이터가 없는 경우에만
+                     * 기존 캐릭터를 일일퀘스트로 변환
+                     */
 
                     if (
-                        !Array.isArray(
-                            character.days
-                        )
+                        data.dailyQuest.length === 0
                     ) {
 
-                        character.days =
-                            [
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false
-                            ];
+                        data.dailyQuest =
+                            oldCharacters.map(
+                                character => ({
+
+                                    name:
+                                        character.name,
+
+                                    days:
+                                        normalizeDays(
+                                            character.days
+                                        )
+
+                                })
+                            );
 
                     }
 
+                }
 
-                    while (
-                        character.days.length < 7
-                    ) {
+            }
 
-                        character.days.push(
-                            false
-                        );
+        } catch (error) {
 
-                    }
+            console.error(
+                "저장 데이터를 불러오지 못했습니다.",
+                error
+            );
 
+        }
+
+
+        /* ==================================================
+           요일 데이터 정리
+        ================================================== */
+
+        function normalizeDays(days) {
+
+            if (!Array.isArray(days)) {
+
+                return [
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false
+                ];
+
+            }
+
+
+            const result =
+                days.slice(
+                    0,
+                    7
+                );
+
+
+            while (
+                result.length < 7
+            ) {
+
+                result.push(false);
+
+            }
+
+
+            return result.map(
+                value => Boolean(value)
+            );
+
+        }
+
+
+        /* ==================================================
+           데이터 정리
+        ================================================== */
+
+        function normalizeData() {
+
+            data.dailyQuest.forEach(
+                character => {
 
                     character.days =
-                        character.days.slice(
-                            0,
-                            7
+                        normalizeDays(
+                            character.days
                         );
 
                 }
             );
 
-        }
+
+            data.monsterPark.forEach(
+                character => {
+
+                    character.days =
+                        normalizeDays(
+                            character.days
+                        );
+
+                }
+            );
 
 
-        /* =========================
-           위클리 데이터 정리
-        ========================= */
+            data.flag.forEach(
+                character => {
 
-        function normalizeWeeklyCharacters() {
+                    character.done =
+                        Boolean(
+                            character.done
+                        );
 
-            weeklyCharacters.forEach(
-                function(character) {
+                }
+            );
+
+
+            data.waterway.forEach(
+                character => {
+
+                    character.done =
+                        Boolean(
+                            character.done
+                        );
+
 
                     if (
-                        !Array.isArray(
-                            character.status
-                        )
+                        character.score === undefined ||
+                        character.score === null
                     ) {
 
-                        character.status =
-                            [
-                                false,
-                                false,
-                                false
-                            ];
+                        character.score = "";
 
                     }
 
-
-                    while (
-                        character.status.length < 3
-                    ) {
-
-                        character.status.push(
-                            false
-                        );
-
-                    }
+                }
+            );
 
 
-                    character.status =
-                        character.status.slice(
-                            0,
-                            3
+            data.epicDungeon.forEach(
+                character => {
+
+                    character.done =
+                        Boolean(
+                            character.done
                         );
 
                 }
@@ -841,25 +1145,23 @@
         }
 
 
-        /* =========================
-           데일리 저장
-        ========================= */
+        /* ==================================================
+           저장
+        ================================================== */
 
-        function saveDailyCharacters() {
+        function saveData() {
 
             try {
 
                 localStorage.setItem(
-                    dailyStorageKey,
-                    JSON.stringify(
-                        dailyCharacters
-                    )
+                    storageKey,
+                    JSON.stringify(data)
                 );
 
             } catch (error) {
 
                 console.error(
-                    "데일리 데이터 저장에 실패했습니다.",
+                    "데이터 저장에 실패했습니다.",
                     error
                 );
 
@@ -868,42 +1170,42 @@
         }
 
 
-        /* =========================
-           위클리 저장
-        ========================= */
+        /* ==================================================
+           주차 표시
+        ================================================== */
 
-        function saveWeeklyCharacters() {
+        function displayWeek() {
 
-            try {
-
-                localStorage.setItem(
-                    weeklyStorageKey,
-                    JSON.stringify(
-                        weeklyCharacters
-                    )
+            const start =
+                getWeekStart(
+                    new Date()
                 );
 
-            } catch (error) {
+            const end =
+                new Date(start);
 
-                console.error(
-                    "위클리 데이터 저장에 실패했습니다.",
-                    error
-                );
+            end.setDate(
+                start.getDate() + 6
+            );
 
-            }
+
+            document.getElementById(
+                "weekInfo"
+            ).textContent =
+                `${formatDate(start)} (목) ~ ${formatDate(end)} (수)`;
 
         }
 
 
-        /* =========================
-           데일리 캐릭터 추가
-        ========================= */
+        /* ==================================================
+           캐릭터 추가 - 데일리
+        ================================================== */
 
-        function addDailyCharacter() {
+        function addDailyQuestCharacter() {
 
             const input =
                 document.getElementById(
-                    "dailyCharacterInput"
+                    "dailyQuestInput"
                 );
 
             const name =
@@ -913,7 +1215,7 @@
             if (name === "") {
 
                 alert(
-                    "데일리 캐릭터명을 입력해주세요."
+                    "캐릭터명을 입력해주세요."
                 );
 
                 input.focus();
@@ -923,7 +1225,7 @@
             }
 
 
-            dailyCharacters.push({
+            data.dailyQuest.push({
 
                 name: name,
 
@@ -940,26 +1242,22 @@
             });
 
 
-            saveDailyCharacters();
-
             input.value = "";
 
-            input.focus();
+            saveData();
 
-            renderDailyTable();
+            renderAll();
+
+            input.focus();
 
         }
 
 
-        /* =========================
-           위클리 캐릭터 추가
-        ========================= */
-
-        function addWeeklyCharacter() {
+        function addMonsterParkCharacter() {
 
             const input =
                 document.getElementById(
-                    "weeklyCharacterInput"
+                    "monsterParkInput"
                 );
 
             const name =
@@ -969,7 +1267,7 @@
             if (name === "") {
 
                 alert(
-                    "위클리 캐릭터명을 입력해주세요."
+                    "캐릭터명을 입력해주세요."
                 );
 
                 input.focus();
@@ -979,11 +1277,15 @@
             }
 
 
-            weeklyCharacters.push({
+            data.monsterPark.push({
 
                 name: name,
 
-                status: [
+                days: [
+                    false,
+                    false,
+                    false,
+                    false,
                     false,
                     false,
                     false
@@ -992,140 +1294,277 @@
             });
 
 
-            saveWeeklyCharacters();
-
             input.value = "";
+
+            saveData();
+
+            renderAll();
 
             input.focus();
 
-            renderWeeklyTable();
-
         }
 
 
-        /* =========================
-           데일리 캐릭터 삭제
-        ========================= */
+        /* ==================================================
+           캐릭터 추가 - 위클리
+        ================================================== */
 
-        function deleteDailyCharacter(index) {
+        function addFlagCharacter() {
 
-            const character =
-                dailyCharacters[index];
-
-
-            if (!character) {
-
-                return;
-
-            }
-
-
-            const result =
-                confirm(
-                    `"${character.name}" 데일리 캐릭터를 삭제할까요?`
+            const input =
+                document.getElementById(
+                    "flagInput"
                 );
 
-
-            if (!result) {
-
-                return;
-
-            }
+            const name =
+                input.value.trim();
 
 
-            dailyCharacters.splice(
-                index,
-                1
-            );
+            if (name === "") {
 
-            saveDailyCharacters();
-
-            renderDailyTable();
-
-        }
-
-
-        /* =========================
-           위클리 캐릭터 삭제
-        ========================= */
-
-        function deleteWeeklyCharacter(index) {
-
-            const character =
-                weeklyCharacters[index];
-
-
-            if (!character) {
-
-                return;
-
-            }
-
-
-            const result =
-                confirm(
-                    `"${character.name}" 위클리 캐릭터를 삭제할까요?`
+                alert(
+                    "캐릭터명을 입력해주세요."
                 );
 
-
-            if (!result) {
+                input.focus();
 
                 return;
 
             }
 
 
-            weeklyCharacters.splice(
-                index,
-                1
-            );
+            data.flag.push({
 
-            saveWeeklyCharacters();
+                name: name,
 
-            renderWeeklyTable();
+                done: false
+
+            });
+
+
+            input.value = "";
+
+            saveData();
+
+            renderAll();
+
+            input.focus();
 
         }
 
 
-        /* =========================
-           데일리 O / X 변경
-        ========================= */
+        function addWaterwayCharacter() {
 
-        function toggleDailyDay(
-            characterIndex,
-            dayIndex
-        ) {
+            const input =
+                document.getElementById(
+                    "waterwayInput"
+                );
 
-            const character =
-                dailyCharacters[
-                    characterIndex
-                ];
+            const name =
+                input.value.trim();
 
 
-            if (!character) {
+            if (name === "") {
+
+                alert(
+                    "캐릭터명을 입력해주세요."
+                );
+
+                input.focus();
 
                 return;
 
+            }
+
+
+            data.waterway.push({
+
+                name: name,
+
+                score: "",
+
+                done: false
+
+            });
+
+
+            input.value = "";
+
+            saveData();
+
+            renderAll();
+
+            input.focus();
+
+        }
+
+
+        function addEpicDungeonCharacter() {
+
+            const input =
+                document.getElementById(
+                    "epicDungeonInput"
+                );
+
+            const name =
+                input.value.trim();
+
+
+            if (name === "") {
+
+                alert(
+                    "캐릭터명을 입력해주세요."
+                );
+
+                input.focus();
+
+                return;
+
+            }
+
+
+            data.epicDungeon.push({
+
+                name: name,
+
+                done: false
+
+            });
+
+
+            input.value = "";
+
+            saveData();
+
+            renderAll();
+
+            input.focus();
+
+        }
+
+
+        /* ==================================================
+           삭제
+        ================================================== */
+
+        function deleteCharacter(type, index) {
+
+            let list;
+
+
+            if (type === "dailyQuest") {
+
+                list =
+                    data.dailyQuest;
+
+            } else if (
+                type === "monsterPark"
+            ) {
+
+                list =
+                    data.monsterPark;
+
+            } else if (
+                type === "flag"
+            ) {
+
+                list =
+                    data.flag;
+
+            } else if (
+                type === "waterway"
+            ) {
+
+                list =
+                    data.waterway;
+
+            } else if (
+                type === "epicDungeon"
+            ) {
+
+                list =
+                    data.epicDungeon;
+
+            } else {
+
+                return;
+
+            }
+
+
+            const character =
+                list[index];
+
+
+            if (!character) {
+                return;
             }
 
 
             if (
-                !Array.isArray(
-                    character.days
+                !confirm(
+                    `"${character.name}" 캐릭터를 삭제할까요?`
                 )
             ) {
 
-                character.days =
-                    [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        false
-                    ];
+                return;
 
+            }
+
+
+            list.splice(
+                index,
+                1
+            );
+
+
+            saveData();
+
+            renderAll();
+
+        }
+
+
+        /* ==================================================
+           데일리 O / X
+        ================================================== */
+
+        function toggleDailyStatus(
+            type,
+            characterIndex,
+            dayIndex
+        ) {
+
+            let list;
+
+
+            if (
+                type === "dailyQuest"
+            ) {
+
+                list =
+                    data.dailyQuest;
+
+            } else if (
+                type === "monsterPark"
+            ) {
+
+                list =
+                    data.monsterPark;
+
+            } else {
+
+                return;
+
+            }
+
+
+            const character =
+                list[characterIndex];
+
+
+            if (!character) {
+                return;
             }
 
 
@@ -1135,127 +1574,183 @@
                 );
 
 
-            saveDailyCharacters();
+            saveData();
 
-            renderDailyTable();
+            renderAll();
 
         }
 
 
-        /* =========================
-           위클리 O / X 변경
-        ========================= */
+        /* ==================================================
+           위클리 O / X
+        ================================================== */
 
         function toggleWeeklyStatus(
-            characterIndex,
-            taskIndex
+            type,
+            index
         ) {
 
-            const character =
-                weeklyCharacters[
-                    characterIndex
-                ];
+            let character;
 
 
-            if (!character) {
+            if (type === "flag") {
+
+                character =
+                    data.flag[index];
+
+            } else if (
+                type === "waterway"
+            ) {
+
+                character =
+                    data.waterway[index];
+
+            } else if (
+                type === "epicDungeon"
+            ) {
+
+                character =
+                    data.epicDungeon[index];
+
+            } else {
 
                 return;
 
             }
 
 
+            if (!character) {
+                return;
+            }
+
+
+            character.done =
+                !Boolean(
+                    character.done
+                );
+
+
+            saveData();
+
+            renderAll();
+
+        }
+
+
+        /* ==================================================
+           수로 점수
+        ================================================== */
+
+        function updateWaterwayScore(
+            index,
+            value
+        ) {
+
+            const character =
+                data.waterway[index];
+
+
+            if (!character) {
+                return;
+            }
+
+
+            /*
+             * 숫자와 콤마만 허용
+             */
+
+            const cleaned =
+                value.replace(
+                    /[^0-9]/g,
+                    ""
+                );
+
+
+            character.score =
+                cleaned;
+
+
+            saveData();
+
+        }
+
+
+        function formatScore(value) {
+
             if (
-                !Array.isArray(
-                    character.status
-                )
+                value === "" ||
+                value === null ||
+                value === undefined
             ) {
 
-                character.status =
-                    [
-                        false,
-                        false,
-                        false
-                    ];
+                return "";
 
             }
 
 
-            character.status[taskIndex] =
-                !Boolean(
-                    character.status[taskIndex]
+            const number =
+                Number(
+                    String(value).replace(
+                        /,/g,
+                        ""
+                    )
                 );
 
 
-            saveWeeklyCharacters();
+            if (
+                Number.isNaN(number)
+            ) {
 
-            renderWeeklyTable();
+                return "";
+
+            }
+
+
+            return number.toLocaleString(
+                "ko-KR"
+            );
 
         }
 
 
-        /* =========================
-           O / X 버튼 생성
-        ========================= */
+        /* ==================================================
+           데일리 표 생성
+        ================================================== */
 
-        function createStatusButton(
-            isDone,
-            clickHandler
+        function renderDailyTable(
+            type,
+            tableId
         ) {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.type =
-                "button";
-
-
-            button.textContent =
-                isDone
-                    ? "O"
-                    : "X";
-
-
-            button.className =
-                "status-button " +
-                (
-                    isDone
-                        ? "done"
-                        : "not-done"
-                );
-
-
-            button.onclick =
-                clickHandler;
-
-
-            return button;
-
-        }
-
-
-        /* =========================
-           데일리 표 출력
-        ========================= */
-
-        function renderDailyTable() {
 
             const table =
                 document.getElementById(
-                    "dailyCharacterTable"
+                    tableId
                 );
 
 
             table.innerHTML = "";
 
 
-            dailyCharacters.forEach(
-                function(
-                    character,
-                    characterIndex
-                ) {
+            let list;
+
+
+            if (
+                type === "dailyQuest"
+            ) {
+
+                list =
+                    data.dailyQuest;
+
+            } else {
+
+                list =
+                    data.monsterPark;
+
+            }
+
+
+            list.forEach(
+                (character, characterIndex) => {
 
                     const row =
                         document.createElement(
@@ -1263,7 +1758,9 @@
                         );
 
 
-                    /* 캐릭터명 */
+                    /*
+                     * 캐릭터 이름
+                     */
 
                     const nameCell =
                         document.createElement(
@@ -1271,39 +1768,52 @@
                         );
 
 
-                    nameCell.textContent =
+                    const nameSpan =
+                        document.createElement(
+                            "span"
+                        );
+
+                    nameSpan.className =
+                        "character-name";
+
+                    nameSpan.textContent =
                         character.name;
 
-
-                    /* 삭제 버튼 */
 
                     const deleteButton =
                         document.createElement(
                             "button"
                         );
 
-
                     deleteButton.type =
                         "button";
 
+                    deleteButton.className =
+                        "delete-character";
 
                     deleteButton.textContent =
-                        "삭제";
+                        "×";
 
-
-                    deleteButton.className =
-                        "delete-button";
+                    deleteButton.title =
+                        "캐릭터 삭제";
 
 
                     deleteButton.onclick =
-                        function() {
+                        event => {
 
-                            deleteDailyCharacter(
+                            event.stopPropagation();
+
+                            deleteCharacter(
+                                type,
                                 characterIndex
                             );
 
                         };
 
+
+                    nameCell.appendChild(
+                        nameSpan
+                    );
 
                     nameCell.appendChild(
                         deleteButton
@@ -1315,7 +1825,9 @@
                     );
 
 
-                    /* 목 ~ 수 */
+                    /*
+                     * 목 ~ 수
+                     */
 
                     for (
                         let dayIndex = 0;
@@ -1329,33 +1841,52 @@
                             );
 
 
-                        const isDone =
-                            Array.isArray(
-                                character.days
-                            ) &&
-                            character.days[
-                                dayIndex
-                            ] === true;
-
-
                         const button =
-                            createStatusButton(
-                                isDone,
-                                function() {
-
-                                    toggleDailyDay(
-                                        characterIndex,
-                                        dayIndex
-                                    );
-
-                                }
+                            document.createElement(
+                                "button"
                             );
+
+
+                        const isDone =
+                            Boolean(
+                                character.days[
+                                    dayIndex
+                                ]
+                            );
+
+
+                        button.type =
+                            "button";
+
+                        button.className =
+                            "status-button " +
+                            (
+                                isDone
+                                    ? "done"
+                                    : "not-done"
+                            );
+
+                        button.textContent =
+                            isDone
+                                ? "O"
+                                : "X";
+
+
+                        button.onclick =
+                            () => {
+
+                                toggleDailyStatus(
+                                    type,
+                                    characterIndex,
+                                    dayIndex
+                                );
+
+                            };
 
 
                         cell.appendChild(
                             button
                         );
-
 
                         row.appendChild(
                             cell
@@ -1374,26 +1905,23 @@
         }
 
 
-        /* =========================
-           위클리 표 출력
-        ========================= */
+        /* ==================================================
+           플래그 표
+        ================================================== */
 
-        function renderWeeklyTable() {
+        function renderFlagTable() {
 
             const table =
                 document.getElementById(
-                    "weeklyCharacterTable"
+                    "flagTable"
                 );
 
 
             table.innerHTML = "";
 
 
-            weeklyCharacters.forEach(
-                function(
-                    character,
-                    characterIndex
-                ) {
+            data.flag.forEach(
+                (character, index) => {
 
                     const row =
                         document.createElement(
@@ -1401,51 +1929,12 @@
                         );
 
 
-                    /* 캐릭터명 */
-
                     const nameCell =
-                        document.createElement(
-                            "td"
+                        createNameCell(
+                            "flag",
+                            character.name,
+                            index
                         );
-
-
-                    nameCell.textContent =
-                        character.name;
-
-
-                    /* 삭제 버튼 */
-
-                    const deleteButton =
-                        document.createElement(
-                            "button"
-                        );
-
-
-                    deleteButton.type =
-                        "button";
-
-
-                    deleteButton.textContent =
-                        "삭제";
-
-
-                    deleteButton.className =
-                        "delete-button";
-
-
-                    deleteButton.onclick =
-                        function() {
-
-                            deleteWeeklyCharacter(
-                                characterIndex
-                            );
-
-                        };
-
-
-                    nameCell.appendChild(
-                        deleteButton
-                    );
 
 
                     row.appendChild(
@@ -1453,53 +1942,30 @@
                     );
 
 
-                    /* 플래그 / 수로 / 에픽던전 */
-
-                    for (
-                        let taskIndex = 0;
-                        taskIndex < 3;
-                        taskIndex++
-                    ) {
-
-                        const cell =
-                            document.createElement(
-                                "td"
-                            );
-
-
-                        const isDone =
-                            Array.isArray(
-                                character.status
-                            ) &&
-                            character.status[
-                                taskIndex
-                            ] === true;
-
-
-                        const button =
-                            createStatusButton(
-                                isDone,
-                                function() {
-
-                                    toggleWeeklyStatus(
-                                        characterIndex,
-                                        taskIndex
-                                    );
-
-                                }
-                            );
-
-
-                        cell.appendChild(
-                            button
+                    const statusCell =
+                        document.createElement(
+                            "td"
                         );
 
 
-                        row.appendChild(
-                            cell
-                        );
+                    statusCell.appendChild(
+                        createStatusButton(
+                            character.done,
+                            () => {
 
-                    }
+                                toggleWeeklyStatus(
+                                    "flag",
+                                    index
+                                );
+
+                            }
+                        )
+                    );
+
+
+                    row.appendChild(
+                        statusCell
+                    );
 
 
                     table.appendChild(
@@ -1512,9 +1978,370 @@
         }
 
 
-        /* =========================
-           스케줄러 메뉴
-        ========================= */
+        /* ==================================================
+           수로 표
+        ================================================== */
+
+        function renderWaterwayTable() {
+
+            const table =
+                document.getElementById(
+                    "waterwayTable"
+                );
+
+
+            table.innerHTML = "";
+
+
+            data.waterway.forEach(
+                (character, index) => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    /*
+                     * 캐릭터
+                     */
+
+                    const nameCell =
+                        createNameCell(
+                            "waterway",
+                            character.name,
+                            index
+                        );
+
+
+                    row.appendChild(
+                        nameCell
+                    );
+
+
+                    /*
+                     * 점수
+                     */
+
+                    const scoreCell =
+                        document.createElement(
+                            "td"
+                        );
+
+
+                    const scoreInput =
+                        document.createElement(
+                            "input"
+                        );
+
+                    scoreInput.type =
+                        "text";
+
+                    scoreInput.className =
+                        "score-input";
+
+                    scoreInput.inputMode =
+                        "numeric";
+
+                    scoreInput.placeholder =
+                        "점수";
+
+                    scoreInput.value =
+                        formatScore(
+                            character.score
+                        );
+
+
+                    scoreInput.addEventListener(
+                        "input",
+                        event => {
+
+                            updateWaterwayScore(
+                                index,
+                                event.target.value
+                            );
+
+                            event.target.value =
+                                formatScore(
+                                    data.waterway[
+                                        index
+                                    ].score
+                                );
+
+                        }
+                    );
+
+
+                    scoreCell.appendChild(
+                        scoreInput
+                    );
+
+
+                    row.appendChild(
+                        scoreCell
+                    );
+
+
+                    /*
+                     * 여부
+                     */
+
+                    const statusCell =
+                        document.createElement(
+                            "td"
+                        );
+
+
+                    statusCell.appendChild(
+                        createStatusButton(
+                            character.done,
+                            () => {
+
+                                toggleWeeklyStatus(
+                                    "waterway",
+                                    index
+                                );
+
+                            }
+                        )
+                    );
+
+
+                    row.appendChild(
+                        statusCell
+                    );
+
+
+                    table.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ==================================================
+           에픽던전 표
+        ================================================== */
+
+        function renderEpicDungeonTable() {
+
+            const table =
+                document.getElementById(
+                    "epicDungeonTable"
+                );
+
+
+            table.innerHTML = "";
+
+
+            data.epicDungeon.forEach(
+                (character, index) => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    const nameCell =
+                        createNameCell(
+                            "epicDungeon",
+                            character.name,
+                            index
+                        );
+
+
+                    row.appendChild(
+                        nameCell
+                    );
+
+
+                    const statusCell =
+                        document.createElement(
+                            "td"
+                        );
+
+
+                    statusCell.appendChild(
+                        createStatusButton(
+                            character.done,
+                            () => {
+
+                                toggleWeeklyStatus(
+                                    "epicDungeon",
+                                    index
+                                );
+
+                            }
+                        )
+                    );
+
+
+                    row.appendChild(
+                        statusCell
+                    );
+
+
+                    table.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ==================================================
+           공통 캐릭터 셀
+        ================================================== */
+
+        function createNameCell(
+            type,
+            name,
+            index
+        ) {
+
+            const cell =
+                document.createElement(
+                    "td"
+                );
+
+
+            const nameSpan =
+                document.createElement(
+                    "span"
+                );
+
+            nameSpan.className =
+                "character-name";
+
+            nameSpan.textContent =
+                name;
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+            deleteButton.type =
+                "button";
+
+            deleteButton.className =
+                "delete-character";
+
+            deleteButton.textContent =
+                "×";
+
+            deleteButton.title =
+                "캐릭터 삭제";
+
+
+            deleteButton.onclick =
+                event => {
+
+                    event.stopPropagation();
+
+                    deleteCharacter(
+                        type,
+                        index
+                    );
+
+                };
+
+
+            cell.appendChild(
+                nameSpan
+            );
+
+            cell.appendChild(
+                deleteButton
+            );
+
+
+            return cell;
+
+        }
+
+
+        /* ==================================================
+           공통 O / X 버튼
+        ================================================== */
+
+        function createStatusButton(
+            done,
+            callback
+        ) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+            button.className =
+                "status-button " +
+                (
+                    done
+                        ? "done"
+                        : "not-done"
+                );
+
+            button.textContent =
+                done
+                    ? "O"
+                    : "X";
+
+
+            button.onclick =
+                callback;
+
+
+            return button;
+
+        }
+
+
+        /* ==================================================
+           전체 화면 출력
+        ================================================== */
+
+        function renderAll() {
+
+            normalizeData();
+
+
+            renderDailyTable(
+                "dailyQuest",
+                "dailyQuestTable"
+            );
+
+
+            renderDailyTable(
+                "monsterPark",
+                "monsterParkTable"
+            );
+
+
+            renderFlagTable();
+
+            renderWaterwayTable();
+
+            renderEpicDungeonTable();
+
+        }
+
+
+        /* ==================================================
+           상단 메뉴
+        ================================================== */
 
         function toggleSchedulerMenu() {
 
@@ -1530,10 +2357,6 @@
 
         }
 
-
-        /* =========================
-           메뉴 바깥 클릭
-        ========================= */
 
         document.addEventListener(
             "click",
@@ -1561,12 +2384,12 @@
         );
 
 
-        /* =========================
-           데일리 엔터키
-        ========================= */
+        /* ==================================================
+           Enter 키
+        ================================================== */
 
         document.getElementById(
-            "dailyCharacterInput"
+            "dailyQuestInput"
         ).addEventListener(
             "keydown",
             function(event) {
@@ -1575,7 +2398,7 @@
                     event.key === "Enter"
                 ) {
 
-                    addDailyCharacter();
+                    addDailyQuestCharacter();
 
                 }
 
@@ -1583,12 +2406,8 @@
         );
 
 
-        /* =========================
-           위클리 엔터키
-        ========================= */
-
         document.getElementById(
-            "weeklyCharacterInput"
+            "monsterParkInput"
         ).addEventListener(
             "keydown",
             function(event) {
@@ -1597,7 +2416,7 @@
                     event.key === "Enter"
                 ) {
 
-                    addWeeklyCharacter();
+                    addMonsterParkCharacter();
 
                 }
 
@@ -1605,23 +2424,71 @@
         );
 
 
-        /* =========================
+        document.getElementById(
+            "flagInput"
+        ).addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    addFlagCharacter();
+
+                }
+
+            }
+        );
+
+
+        document.getElementById(
+            "waterwayInput"
+        ).addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    addWaterwayCharacter();
+
+                }
+
+            }
+        );
+
+
+        document.getElementById(
+            "epicDungeonInput"
+        ).addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    addEpicDungeonCharacter();
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
            초기 실행
-        ========================= */
+        ================================================== */
 
-        normalizeDailyCharacters();
+        normalizeData();
 
-        normalizeWeeklyCharacters();
-
-        saveDailyCharacters();
-
-        saveWeeklyCharacters();
+        saveData();
 
         displayWeek();
 
-        renderDailyTable();
-
-        renderWeeklyTable();
+        renderAll();
 
     </script>
 
