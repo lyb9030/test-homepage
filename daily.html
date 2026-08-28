@@ -1,328 +1,363 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>일퀘 스케줄러</title>
+    <title>일퀘 스케줄러</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-        color: #222;
-    }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
 
-    /* =========================
-       상단 메뉴
-    ========================= */
+        /* =========================
+           상단 메뉴
+        ========================= */
 
-    .top-menu {
-        width: 100%;
-        background: #222;
-    }
+        .top-menu {
+            width: 100%;
+            background: #222;
+        }
 
-    .menu-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
+        .menu-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    .home-button {
-        display: inline-block;
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        padding: 15px 20px;
-    }
+        .home-button,
+        .menu-button {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 15px 20px;
+        }
 
-    .home-button:hover {
-        background: #444;
-    }
+        .menu-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
-    .menu-item {
-        position: relative;
-        display: inline-block;
-    }
+        .home-button:hover,
+        .menu-button:hover {
+            background: #444;
+        }
 
-    .menu-button {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 18px;
-        padding: 15px 20px;
-        cursor: pointer;
-    }
+        .menu-item {
+            position: relative;
+            display: inline-block;
+        }
 
-    .menu-button:hover {
-        background: #444;
-    }
+        /* =========================
+           스케줄러 하위 메뉴
+        ========================= */
 
-    /* =========================
-       스케줄러 하위 메뉴
-    ========================= */
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 140px;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            z-index: 100;
+        }
 
-    .submenu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        min-width: 140px;
-        background: white;
-        border-radius: 0 0 8px 8px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-        overflow: hidden;
-        z-index: 100;
-    }
+        .menu-item.active .submenu {
+            display: block;
+        }
 
-    .menu-item.active .submenu {
-        display: block;
-    }
+        .submenu a {
+            display: block;
+            padding: 12px 20px;
+            color: #222;
+            text-decoration: none;
+            text-align: left;
+            font-size: 16px;
+        }
 
-    .submenu a {
-        display: block;
-        padding: 12px 20px;
-        color: #222;
-        text-decoration: none;
-        text-align: left;
-        font-size: 16px;
-    }
+        .submenu a:hover {
+            background: #f0f0f0;
+        }
 
-    .submenu a:hover {
-        background: #f0f0f0;
-    }
+        /* =========================
+           메인 컨테이너
+        ========================= */
 
-    /* =========================
-       메인 컨테이너
-    ========================= */
-
-    .container {
-        max-width: 1100px;
-        margin: 50px auto;
-        padding: 0 20px;
-    }
-
-    .scheduler-box {
-        background: white;
-        padding: 35px;
-        border-radius: 20px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    h1 {
-        margin-top: 0;
-        font-size: 32px;
-    }
-
-    /* =========================
-       주차 정보
-    ========================= */
-
-    .week-info {
-        margin: 20px 0 30px;
-        padding: 15px;
-        background: #f5f5f5;
-        border-radius: 10px;
-        font-size: 17px;
-        font-weight: bold;
-    }
-
-    /* =========================
-       캐릭터 추가
-    ========================= */
-
-    .character-add {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 25px;
-    }
-
-    .character-add input {
-        flex: 1;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 16px;
-        outline: none;
-    }
-
-    .character-add input:focus {
-        border-color: #888;
-    }
-
-    .character-add button {
-        padding: 12px 20px;
-        border: none;
-        border-radius: 8px;
-        background: #222;
-        color: white;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .character-add button:hover {
-        background: #444;
-    }
-
-    /* =========================
-       일퀘 표
-    ========================= */
-
-    .table-wrapper {
-        overflow-x: auto;
-    }
-
-    table {
-        width: 100%;
-        min-width: 750px;
-        border-collapse: collapse;
-    }
-
-    th,
-    td {
-        border: 1px solid #ddd;
-        text-align: center;
-        padding: 12px 8px;
-    }
-
-    th {
-        background: #f0f0f0;
-        font-weight: bold;
-    }
-
-    th:first-child,
-    td:first-child {
-        width: 160px;
-    }
-
-    /* =========================
-       O / X 버튼
-    ========================= */
-
-    .status-button {
-        width: 42px;
-        height: 36px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 17px;
-        font-weight: bold;
-    }
-
-    .status-button.done {
-        background: #222;
-        color: white;
-    }
-
-    .status-button.not-done {
-        background: #eee;
-        color: #888;
-    }
-
-    .status-button:hover {
-        opacity: 0.75;
-    }
-
-    /* =========================
-       캐릭터 삭제
-    ========================= */
-
-    .delete-button {
-        margin-left: 8px;
-        padding: 5px 8px;
-        border: none;
-        border-radius: 5px;
-        background: #eee;
-        color: #666;
-        cursor: pointer;
-    }
-
-    .delete-button:hover {
-        background: #ddd;
-    }
-
-    /* =========================
-       안내 문구
-    ========================= */
-
-    .guide {
-        margin-top: 25px;
-        color: #777;
-        font-size: 14px;
-    }
-
-    /* =========================
-       모바일
-    ========================= */
-
-    @media (max-width: 600px) {
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
 
         .scheduler-box {
-            padding: 20px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
         h1 {
-            font-size: 26px;
+            margin-top: 0;
+            font-size: 32px;
         }
 
+        /* =========================
+           주차 정보
+        ========================= */
+
+        .week-info {
+            margin: 20px 0 30px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           스케줄 구역
+        ========================= */
+
+        .schedule-section {
+            margin-top: 35px;
+        }
+
+        .schedule-section:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title {
+            margin: 0 0 15px;
+            padding: 12px 15px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .section-subtitle {
+            margin: -5px 0 15px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* =========================
+           캐릭터 추가
+        ========================= */
+
         .character-add {
-            flex-direction: column;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .character-add input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .character-add input:focus {
+            border-color: #888;
         }
 
         .character-add button {
-            width: 100%;
-        }
-
-        .menu-button,
-        .home-button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            cursor: pointer;
             font-size: 16px;
-            padding: 14px;
         }
-    }
-</style>
-```
 
+        .character-add button:hover {
+            background: #444;
+        }
+
+        /* =========================
+           표
+        ========================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 750px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 12px 8px;
+        }
+
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        th:first-child,
+        td:first-child {
+            width: 160px;
+        }
+
+        /* =========================
+           O / X 버튼
+        ========================= */
+
+        .status-button {
+            width: 42px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .status-button.done {
+            background: #222;
+            color: white;
+        }
+
+        .status-button.not-done {
+            background: #eee;
+            color: #888;
+        }
+
+        .status-button:hover {
+            opacity: 0.75;
+        }
+
+        /* =========================
+           캐릭터 삭제
+        ========================= */
+
+        .delete-button {
+            margin-left: 8px;
+            padding: 5px 8px;
+            border: none;
+            border-radius: 5px;
+            background: #eee;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background: #ddd;
+        }
+
+        /* =========================
+           구역 구분선
+        ========================= */
+
+        .section-divider {
+            margin: 40px 0 0;
+            border: none;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        /* =========================
+           안내 문구
+        ========================= */
+
+        .guide {
+            margin-top: 25px;
+            color: #777;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           모바일
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .scheduler-box {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .section-title {
+                font-size: 19px;
+            }
+
+            .character-add {
+                flex-direction: column;
+            }
+
+            .character-add button {
+                width: 100%;
+            }
+
+            .menu-button,
+            .home-button {
+                font-size: 16px;
+                padding: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-```
-<!-- =========================
-     상단 메뉴
-========================= -->
+    <!-- =========================
+         상단 메뉴
+    ========================= -->
 
-<div class="top-menu">
+    <div class="top-menu">
 
-    <div class="menu-container">
+        <div class="menu-container">
 
-        <a href="index.html" class="home-button">
-            홈
-        </a>
+            <a href="index.html" class="home-button">
+                홈
+            </a>
 
-        <div class="menu-item" id="schedulerMenu">
+            <div class="menu-item" id="schedulerMenu">
 
-            <button
-                class="menu-button"
-                onclick="toggleSchedulerMenu()"
-            >
-                스케줄러 ▼
-            </button>
+                <button
+                    class="menu-button"
+                    onclick="toggleSchedulerMenu()"
+                >
+                    스케줄러 ▼
+                </button>
 
-            <div class="submenu">
+                <div class="submenu">
 
-                <a href="daily.html">
-                    일퀘
-                </a>
+                    <a href="daily.html">
+                        일퀘
+                    </a>
 
-                <a href="boss.html">
-                    보스
-                </a>
+                    <a href="boss.html">
+                        보스
+                    </a>
+
+                </div>
 
             </div>
 
@@ -330,372 +365,569 @@
 
     </div>
 
-</div>
 
+    <!-- =========================
+         메인
+    ========================= -->
 
-<!-- =========================
-     일퀘 스케줄러
-========================= -->
+    <div class="container">
 
-<div class="container">
+        <div class="scheduler-box">
 
-    <div class="scheduler-box">
+            <h1>일퀘 스케줄러</h1>
 
-        <h1>일퀘 스케줄러</h1>
-
-        <div
-            class="week-info"
-            id="weekInfo"
-        >
-            주차 정보를 불러오는 중...
-        </div>
-
-
-        <!-- 캐릭터 추가 -->
-
-        <div class="character-add">
-
-            <input
-                type="text"
-                id="characterInput"
-                placeholder="캐릭터명을 입력하세요"
-                maxlength="20"
+            <div
+                class="week-info"
+                id="weekInfo"
             >
-
-            <button
-                type="button"
-                onclick="addCharacter()"
-            >
-                캐릭터 추가
-            </button>
-
-        </div>
+                주차 정보를 불러오는 중...
+            </div>
 
 
-        <!-- 일퀘 표 -->
+            <!-- =========================
+                 데일리 스케줄
+            ========================= -->
 
-        <div class="table-wrapper">
+            <div class="schedule-section">
 
-            <table>
+                <h2 class="section-title">
+                    데일리 스케줄
+                </h2>
 
-                <thead>
-
-                    <tr>
-                        <th>캐릭터</th>
-                        <th>목</th>
-                        <th>금</th>
-                        <th>토</th>
-                        <th>일</th>
-                        <th>월</th>
-                        <th>화</th>
-                        <th>수</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="characterTable">
-                </tbody>
-
-            </table>
-
-        </div>
+                <div class="section-subtitle">
+                    일일퀘스트 및 몬스터파크
+                </div>
 
 
-        <div class="guide">
-            O / X 버튼을 클릭하여 일일 퀘스트 완료 여부를 변경할 수 있습니다.
+                <!-- 데일리 캐릭터 추가 -->
+
+                <div class="character-add">
+
+                    <input
+                        type="text"
+                        id="dailyCharacterInput"
+                        placeholder="데일리 캐릭터명을 입력하세요"
+                        maxlength="20"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="addDailyCharacter()"
+                    >
+                        캐릭터 추가
+                    </button>
+
+                </div>
+
+
+                <!-- 데일리 표 -->
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>캐릭터</th>
+                                <th>목</th>
+                                <th>금</th>
+                                <th>토</th>
+                                <th>일</th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="dailyCharacterTable">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <hr class="section-divider">
+
+
+            <!-- =========================
+                 위클리 스케줄
+            ========================= -->
+
+            <div class="schedule-section">
+
+                <h2 class="section-title">
+                    위클리 스케줄
+                </h2>
+
+                <div class="section-subtitle">
+                    플래그, 수로, 에픽던전
+                </div>
+
+
+                <!-- 위클리 캐릭터 추가 -->
+
+                <div class="character-add">
+
+                    <input
+                        type="text"
+                        id="weeklyCharacterInput"
+                        placeholder="위클리 캐릭터명을 입력하세요"
+                        maxlength="20"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="addWeeklyCharacter()"
+                    >
+                        캐릭터 추가
+                    </button>
+
+                </div>
+
+
+                <!-- 위클리 표 -->
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>캐릭터</th>
+                                <th>플래그</th>
+                                <th>수로</th>
+                                <th>에픽던전</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="weeklyCharacterTable">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 안내
+            ========================= -->
+
+            <div class="guide">
+
+                • 데일리 스케줄과 위클리 스케줄의 캐릭터는 서로 독립적으로 관리됩니다.
+                <br>
+                • 데일리 스케줄은 목요일~수요일 기준으로 매일 완료 여부를 기록합니다.
+                <br>
+                • 위클리 스케줄은 목요일~수요일 주차별로 완료 여부를 기록합니다.
+                <br>
+                • O / X 버튼을 클릭하여 완료 여부를 변경할 수 있습니다.
+                <br>
+                • 캐릭터 삭제 시 해당 스케줄에서만 삭제됩니다.
+
+            </div>
+
         </div>
 
     </div>
 
-</div>
 
+    <script>
 
-<script>
+        /* =========================
+           주차 계산
+           목요일 ~ 수요일
+        ========================= */
 
-    /* =========================
-       주차 계산
-       목요일 ~ 수요일
-    ========================= */
+        function getWeekStart(date) {
 
-    function getWeekStart(date) {
+            const result =
+                new Date(date);
 
-        const result = new Date(date);
+            const day =
+                result.getDay();
 
-        const day = result.getDay();
+            let difference =
+                day - 4;
 
-        let difference = day - 4;
+            if (difference < 0) {
+                difference += 7;
+            }
 
-        if (difference < 0) {
-            difference += 7;
-        }
-
-        result.setDate(
-            result.getDate() - difference
-        );
-
-        result.setHours(
-            0,
-            0,
-            0,
-            0
-        );
-
-        return result;
-    }
-
-
-    /* =========================
-       날짜 표시
-    ========================= */
-
-    function formatDate(date) {
-
-        const year =
-            date.getFullYear();
-
-        const month =
-            String(
-                date.getMonth() + 1
-            ).padStart(2, "0");
-
-        const day =
-            String(
-                date.getDate()
-            ).padStart(2, "0");
-
-        return `${year}.${month}.${day}`;
-    }
-
-
-    /* =========================
-       현재 주차 표시
-    ========================= */
-
-    function displayWeek() {
-
-        const today =
-            new Date();
-
-        const start =
-            getWeekStart(today);
-
-        const end =
-            new Date(start);
-
-        end.setDate(
-            start.getDate() + 6
-        );
-
-        document.getElementById(
-            "weekInfo"
-        ).textContent =
-            `${formatDate(start)} (목) ~ ${formatDate(end)} (수)`;
-    }
-
-
-    /* =========================
-       저장 키
-    ========================= */
-
-    const weekKey =
-        formatDate(
-            getWeekStart(
-                new Date()
-            )
-        );
-
-    const storageKey =
-        "dailyScheduler_" + weekKey;
-
-
-    /* =========================
-       저장 데이터 불러오기
-    ========================= */
-
-    let characters = [];
-
-    try {
-
-        const savedData =
-            localStorage.getItem(
-                storageKey
+            result.setDate(
+                result.getDate() - difference
             );
 
-        if (savedData) {
+            result.setHours(
+                0,
+                0,
+                0,
+                0
+            );
 
-            const parsedData =
-                JSON.parse(savedData);
+            return result;
+        }
 
-            if (Array.isArray(parsedData)) {
 
-                characters =
-                    parsedData;
+        /* =========================
+           날짜 표시
+        ========================= */
+
+        function formatDate(date) {
+
+            const year =
+                date.getFullYear();
+
+            const month =
+                String(
+                    date.getMonth() + 1
+                ).padStart(2, "0");
+
+            const day =
+                String(
+                    date.getDate()
+                ).padStart(2, "0");
+
+            return `${year}.${month}.${day}`;
+        }
+
+
+        /* =========================
+           현재 주차 표시
+        ========================= */
+
+        function displayWeek() {
+
+            const today =
+                new Date();
+
+            const start =
+                getWeekStart(today);
+
+            const end =
+                new Date(start);
+
+            end.setDate(
+                start.getDate() + 6
+            );
+
+            document.getElementById(
+                "weekInfo"
+            ).textContent =
+                `${formatDate(start)} (목) ~ ${formatDate(end)} (수)`;
+        }
+
+
+        /* =========================
+           저장 키
+        ========================= */
+
+        const weekKey =
+            formatDate(
+                getWeekStart(
+                    new Date()
+                )
+            );
+
+
+        const dailyStorageKey =
+            "dailyScheduler_" + weekKey;
+
+        const weeklyStorageKey =
+            "weeklyScheduler_" + weekKey;
+
+
+        /* =========================
+           데일리 데이터
+        ========================= */
+
+        let dailyCharacters = [];
+
+
+        try {
+
+            const savedDailyData =
+                localStorage.getItem(
+                    dailyStorageKey
+                );
+
+
+            if (savedDailyData) {
+
+                const parsedDailyData =
+                    JSON.parse(
+                        savedDailyData
+                    );
+
+
+                if (
+                    Array.isArray(
+                        parsedDailyData
+                    )
+                ) {
+
+                    dailyCharacters =
+                        parsedDailyData;
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "데일리 저장 데이터를 불러오지 못했습니다.",
+                error
+            );
+
+            dailyCharacters = [];
+
+        }
+
+
+        /* =========================
+           위클리 데이터
+        ========================= */
+
+        let weeklyCharacters = [];
+
+
+        try {
+
+            const savedWeeklyData =
+                localStorage.getItem(
+                    weeklyStorageKey
+                );
+
+
+            if (savedWeeklyData) {
+
+                const parsedWeeklyData =
+                    JSON.parse(
+                        savedWeeklyData
+                    );
+
+
+                if (
+                    Array.isArray(
+                        parsedWeeklyData
+                    )
+                ) {
+
+                    weeklyCharacters =
+                        parsedWeeklyData;
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "위클리 저장 데이터를 불러오지 못했습니다.",
+                error
+            );
+
+            weeklyCharacters = [];
+
+        }
+
+
+        /* =========================
+           데일리 데이터 정리
+        ========================= */
+
+        function normalizeDailyCharacters() {
+
+            dailyCharacters.forEach(
+                function(character) {
+
+                    if (
+                        !Array.isArray(
+                            character.days
+                        )
+                    ) {
+
+                        character.days =
+                            [
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false
+                            ];
+
+                    }
+
+
+                    while (
+                        character.days.length < 7
+                    ) {
+
+                        character.days.push(
+                            false
+                        );
+
+                    }
+
+
+                    character.days =
+                        character.days.slice(
+                            0,
+                            7
+                        );
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           위클리 데이터 정리
+        ========================= */
+
+        function normalizeWeeklyCharacters() {
+
+            weeklyCharacters.forEach(
+                function(character) {
+
+                    if (
+                        !Array.isArray(
+                            character.status
+                        )
+                    ) {
+
+                        character.status =
+                            [
+                                false,
+                                false,
+                                false
+                            ];
+
+                    }
+
+
+                    while (
+                        character.status.length < 3
+                    ) {
+
+                        character.status.push(
+                            false
+                        );
+
+                    }
+
+
+                    character.status =
+                        character.status.slice(
+                            0,
+                            3
+                        );
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           데일리 저장
+        ========================= */
+
+        function saveDailyCharacters() {
+
+            try {
+
+                localStorage.setItem(
+                    dailyStorageKey,
+                    JSON.stringify(
+                        dailyCharacters
+                    )
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "데일리 데이터 저장에 실패했습니다.",
+                    error
+                );
 
             }
 
         }
 
-    } catch (error) {
 
-        console.error(
-            "저장된 데이터를 불러오지 못했습니다.",
-            error
-        );
+        /* =========================
+           위클리 저장
+        ========================= */
 
-        characters = [];
+        function saveWeeklyCharacters() {
 
-    }
+            try {
 
+                localStorage.setItem(
+                    weeklyStorageKey,
+                    JSON.stringify(
+                        weeklyCharacters
+                    )
+                );
 
-    /* =========================
-       데이터 저장
-    ========================= */
+            } catch (error) {
 
-    function saveCharacters() {
+                console.error(
+                    "위클리 데이터 저장에 실패했습니다.",
+                    error
+                );
 
-        try {
-
-            localStorage.setItem(
-                storageKey,
-                JSON.stringify(characters)
-            );
-
-        } catch (error) {
-
-            console.error(
-                "데이터 저장에 실패했습니다.",
-                error
-            );
-
-        }
-
-    }
-
-
-    /* =========================
-       캐릭터 추가
-    ========================= */
-
-    function addCharacter() {
-
-        const input =
-            document.getElementById(
-                "characterInput"
-            );
-
-        const name =
-            input.value.trim();
-
-
-        if (name === "") {
-
-            alert(
-                "캐릭터명을 입력해주세요."
-            );
-
-            input.focus();
-
-            return;
+            }
 
         }
 
 
-        characters.push({
+        /* =========================
+           데일리 캐릭터 추가
+        ========================= */
 
-            name: name,
+        function addDailyCharacter() {
 
-            days: [
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false
-            ]
+            const input =
+                document.getElementById(
+                    "dailyCharacterInput"
+                );
 
-        });
+            const name =
+                input.value.trim();
 
 
-        saveCharacters();
+            if (name === "") {
 
-        input.value = "";
+                alert(
+                    "데일리 캐릭터명을 입력해주세요."
+                );
 
-        input.focus();
+                input.focus();
 
-        renderTable();
+                return;
 
-    }
-
-
-    /* =========================
-       캐릭터 삭제
-    ========================= */
-
-    function deleteCharacter(index) {
-
-        const character =
-            characters[index];
+            }
 
 
-        if (!character) {
+            dailyCharacters.push({
 
-            return;
+                name: name,
 
-        }
-
-
-        const result =
-            confirm(
-                `"${character.name}" 캐릭터를 삭제할까요?`
-            );
-
-
-        if (!result) {
-
-            return;
-
-        }
-
-
-        characters.splice(
-            index,
-            1
-        );
-
-        saveCharacters();
-
-        renderTable();
-
-    }
-
-
-    /* =========================
-       O / X 변경
-    ========================= */
-
-    function toggleDay(
-        characterIndex,
-        dayIndex
-    ) {
-
-        if (
-            !characters[characterIndex]
-        ) {
-
-            return;
-
-        }
-
-
-        if (
-            !Array.isArray(
-                characters[characterIndex].days
-            )
-        ) {
-
-            characters[characterIndex].days =
-                [
+                days: [
                     false,
                     false,
                     false,
@@ -703,195 +935,588 @@
                     false,
                     false,
                     false
-                ];
+                ]
+
+            });
+
+
+            saveDailyCharacters();
+
+            input.value = "";
+
+            input.focus();
+
+            renderDailyTable();
 
         }
 
 
-        characters[characterIndex].days[dayIndex] =
-            !characters[characterIndex].days[dayIndex];
+        /* =========================
+           위클리 캐릭터 추가
+        ========================= */
+
+        function addWeeklyCharacter() {
+
+            const input =
+                document.getElementById(
+                    "weeklyCharacterInput"
+                );
+
+            const name =
+                input.value.trim();
 
 
-        saveCharacters();
+            if (name === "") {
 
-        renderTable();
+                alert(
+                    "위클리 캐릭터명을 입력해주세요."
+                );
 
-    }
+                input.focus();
+
+                return;
+
+            }
 
 
-    /* =========================
-       표 출력
-    ========================= */
+            weeklyCharacters.push({
 
-    function renderTable() {
+                name: name,
 
-        const table =
-            document.getElementById(
-                "characterTable"
+                status: [
+                    false,
+                    false,
+                    false
+                ]
+
+            });
+
+
+            saveWeeklyCharacters();
+
+            input.value = "";
+
+            input.focus();
+
+            renderWeeklyTable();
+
+        }
+
+
+        /* =========================
+           데일리 캐릭터 삭제
+        ========================= */
+
+        function deleteDailyCharacter(index) {
+
+            const character =
+                dailyCharacters[index];
+
+
+            if (!character) {
+
+                return;
+
+            }
+
+
+            const result =
+                confirm(
+                    `"${character.name}" 데일리 캐릭터를 삭제할까요?`
+                );
+
+
+            if (!result) {
+
+                return;
+
+            }
+
+
+            dailyCharacters.splice(
+                index,
+                1
             );
 
+            saveDailyCharacters();
 
-        table.innerHTML = "";
+            renderDailyTable();
+
+        }
 
 
-        characters.forEach(
-            function(
-                character,
-                characterIndex
+        /* =========================
+           위클리 캐릭터 삭제
+        ========================= */
+
+        function deleteWeeklyCharacter(index) {
+
+            const character =
+                weeklyCharacters[index];
+
+
+            if (!character) {
+
+                return;
+
+            }
+
+
+            const result =
+                confirm(
+                    `"${character.name}" 위클리 캐릭터를 삭제할까요?`
+                );
+
+
+            if (!result) {
+
+                return;
+
+            }
+
+
+            weeklyCharacters.splice(
+                index,
+                1
+            );
+
+            saveWeeklyCharacters();
+
+            renderWeeklyTable();
+
+        }
+
+
+        /* =========================
+           데일리 O / X 변경
+        ========================= */
+
+        function toggleDailyDay(
+            characterIndex,
+            dayIndex
+        ) {
+
+            const character =
+                dailyCharacters[
+                    characterIndex
+                ];
+
+
+            if (!character) {
+
+                return;
+
+            }
+
+
+            if (
+                !Array.isArray(
+                    character.days
+                )
             ) {
 
-                const row =
-                    document.createElement(
-                        "tr"
-                    );
+                character.days =
+                    [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false
+                    ];
+
+            }
 
 
-                /* 캐릭터명 */
-
-                const nameCell =
-                    document.createElement(
-                        "td"
-                    );
-
-                nameCell.textContent =
-                    character.name;
-
-
-                /* 삭제 버튼 */
-
-                const deleteButton =
-                    document.createElement(
-                        "button"
-                    );
-
-                deleteButton.type =
-                    "button";
-
-                deleteButton.textContent =
-                    "삭제";
-
-                deleteButton.className =
-                    "delete-button";
-
-                deleteButton.onclick =
-                    function() {
-
-                        deleteCharacter(
-                            characterIndex
-                        );
-
-                    };
-
-
-                nameCell.appendChild(
-                    deleteButton
-                );
-
-                row.appendChild(
-                    nameCell
+            character.days[dayIndex] =
+                !Boolean(
+                    character.days[dayIndex]
                 );
 
 
-                /* 목 ~ 수 */
+            saveDailyCharacters();
 
-                for (
-                    let dayIndex = 0;
-                    dayIndex < 7;
-                    dayIndex++
+            renderDailyTable();
+
+        }
+
+
+        /* =========================
+           위클리 O / X 변경
+        ========================= */
+
+        function toggleWeeklyStatus(
+            characterIndex,
+            taskIndex
+        ) {
+
+            const character =
+                weeklyCharacters[
+                    characterIndex
+                ];
+
+
+            if (!character) {
+
+                return;
+
+            }
+
+
+            if (
+                !Array.isArray(
+                    character.status
+                )
+            ) {
+
+                character.status =
+                    [
+                        false,
+                        false,
+                        false
+                    ];
+
+            }
+
+
+            character.status[taskIndex] =
+                !Boolean(
+                    character.status[taskIndex]
+                );
+
+
+            saveWeeklyCharacters();
+
+            renderWeeklyTable();
+
+        }
+
+
+        /* =========================
+           O / X 버튼 생성
+        ========================= */
+
+        function createStatusButton(
+            isDone,
+            clickHandler
+        ) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.textContent =
+                isDone
+                    ? "O"
+                    : "X";
+
+
+            button.className =
+                "status-button " +
+                (
+                    isDone
+                        ? "done"
+                        : "not-done"
+                );
+
+
+            button.onclick =
+                clickHandler;
+
+
+            return button;
+
+        }
+
+
+        /* =========================
+           데일리 표 출력
+        ========================= */
+
+        function renderDailyTable() {
+
+            const table =
+                document.getElementById(
+                    "dailyCharacterTable"
+                );
+
+
+            table.innerHTML = "";
+
+
+            dailyCharacters.forEach(
+                function(
+                    character,
+                    characterIndex
                 ) {
 
-                    const cell =
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    /* 캐릭터명 */
+
+                    const nameCell =
                         document.createElement(
                             "td"
                         );
 
 
-                    const button =
+                    nameCell.textContent =
+                        character.name;
+
+
+                    /* 삭제 버튼 */
+
+                    const deleteButton =
                         document.createElement(
                             "button"
                         );
 
-                    button.type =
+
+                    deleteButton.type =
                         "button";
 
 
-                    const isDone =
-                        Array.isArray(
-                            character.days
-                        ) &&
-                        character.days[dayIndex] === true;
+                    deleteButton.textContent =
+                        "삭제";
 
 
-                    button.textContent =
-                        isDone ? "O" : "X";
+                    deleteButton.className =
+                        "delete-button";
 
 
-                    button.className =
-                        "status-button " +
-                        (
-                            isDone
-                                ? "done"
-                                : "not-done"
-                        );
-
-
-                    button.onclick =
+                    deleteButton.onclick =
                         function() {
 
-                            toggleDay(
-                                characterIndex,
-                                dayIndex
+                            deleteDailyCharacter(
+                                characterIndex
                             );
 
                         };
 
 
-                    cell.appendChild(
-                        button
+                    nameCell.appendChild(
+                        deleteButton
                     );
 
+
                     row.appendChild(
-                        cell
+                        nameCell
+                    );
+
+
+                    /* 목 ~ 수 */
+
+                    for (
+                        let dayIndex = 0;
+                        dayIndex < 7;
+                        dayIndex++
+                    ) {
+
+                        const cell =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        const isDone =
+                            Array.isArray(
+                                character.days
+                            ) &&
+                            character.days[
+                                dayIndex
+                            ] === true;
+
+
+                        const button =
+                            createStatusButton(
+                                isDone,
+                                function() {
+
+                                    toggleDailyDay(
+                                        characterIndex,
+                                        dayIndex
+                                    );
+
+                                }
+                            );
+
+
+                        cell.appendChild(
+                            button
+                        );
+
+
+                        row.appendChild(
+                            cell
+                        );
+
+                    }
+
+
+                    table.appendChild(
+                        row
                     );
 
                 }
-
-
-                table.appendChild(
-                    row
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =========================
-       스케줄러 메뉴
-    ========================= */
-
-    function toggleSchedulerMenu() {
-
-        const menu =
-            document.getElementById(
-                "schedulerMenu"
             );
 
-        menu.classList.toggle(
-            "active"
-        );
-
-    }
+        }
 
 
-    /* =========================
-       메뉴 바깥 클릭
-    ========================= */
+        /* =========================
+           위클리 표 출력
+        ========================= */
 
-    document.addEventListener(
-        "click",
-        function(event) {
+        function renderWeeklyTable() {
+
+            const table =
+                document.getElementById(
+                    "weeklyCharacterTable"
+                );
+
+
+            table.innerHTML = "";
+
+
+            weeklyCharacters.forEach(
+                function(
+                    character,
+                    characterIndex
+                ) {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    /* 캐릭터명 */
+
+                    const nameCell =
+                        document.createElement(
+                            "td"
+                        );
+
+
+                    nameCell.textContent =
+                        character.name;
+
+
+                    /* 삭제 버튼 */
+
+                    const deleteButton =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    deleteButton.type =
+                        "button";
+
+
+                    deleteButton.textContent =
+                        "삭제";
+
+
+                    deleteButton.className =
+                        "delete-button";
+
+
+                    deleteButton.onclick =
+                        function() {
+
+                            deleteWeeklyCharacter(
+                                characterIndex
+                            );
+
+                        };
+
+
+                    nameCell.appendChild(
+                        deleteButton
+                    );
+
+
+                    row.appendChild(
+                        nameCell
+                    );
+
+
+                    /* 플래그 / 수로 / 에픽던전 */
+
+                    for (
+                        let taskIndex = 0;
+                        taskIndex < 3;
+                        taskIndex++
+                    ) {
+
+                        const cell =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        const isDone =
+                            Array.isArray(
+                                character.status
+                            ) &&
+                            character.status[
+                                taskIndex
+                            ] === true;
+
+
+                        const button =
+                            createStatusButton(
+                                isDone,
+                                function() {
+
+                                    toggleWeeklyStatus(
+                                        characterIndex,
+                                        taskIndex
+                                    );
+
+                                }
+                            );
+
+
+                        cell.appendChild(
+                            button
+                        );
+
+
+                        row.appendChild(
+                            cell
+                        );
+
+                    }
+
+
+                    table.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           스케줄러 메뉴
+        ========================= */
+
+        function toggleSchedulerMenu() {
 
             const menu =
                 document.getElementById(
@@ -899,53 +1524,106 @@
                 );
 
 
-            if (
-                !menu.contains(
-                    event.target
-                )
-            ) {
-
-                menu.classList.remove(
-                    "active"
-                );
-
-            }
+            menu.classList.toggle(
+                "active"
+            );
 
         }
-    );
 
 
-    /* =========================
-       엔터키로 캐릭터 추가
-    ========================= */
+        /* =========================
+           메뉴 바깥 클릭
+        ========================= */
 
-    document.getElementById(
-        "characterInput"
-    ).addEventListener(
-        "keydown",
-        function(event) {
+        document.addEventListener(
+            "click",
+            function(event) {
 
-            if (
-                event.key === "Enter"
-            ) {
+                const menu =
+                    document.getElementById(
+                        "schedulerMenu"
+                    );
 
-                addCharacter();
+
+                if (
+                    !menu.contains(
+                        event.target
+                    )
+                ) {
+
+                    menu.classList.remove(
+                        "active"
+                    );
+
+                }
 
             }
-
-        }
-    );
+        );
 
 
-    /* =========================
-       초기 실행
-    ========================= */
+        /* =========================
+           데일리 엔터키
+        ========================= */
 
-    displayWeek();
+        document.getElementById(
+            "dailyCharacterInput"
+        ).addEventListener(
+            "keydown",
+            function(event) {
 
-    renderTable();
+                if (
+                    event.key === "Enter"
+                ) {
 
-</script>
+                    addDailyCharacter();
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           위클리 엔터키
+        ========================= */
+
+        document.getElementById(
+            "weeklyCharacterInput"
+        ).addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    addWeeklyCharacter();
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           초기 실행
+        ========================= */
+
+        normalizeDailyCharacters();
+
+        normalizeWeeklyCharacters();
+
+        saveDailyCharacters();
+
+        saveWeeklyCharacters();
+
+        displayWeek();
+
+        renderDailyTable();
+
+        renderWeeklyTable();
+
+    </script>
 
 </body>
 </html>
