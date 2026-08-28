@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>일퀘 스케줄러</title>
 
     <style>
@@ -17,10 +16,6 @@
             background: #f5f5f5;
             color: #222;
         }
-
-        /* =========================
-           상단 메뉴
-        ========================= */
 
         .top-menu {
             width: 100%;
@@ -93,10 +88,6 @@
             background: #f5f5f5;
         }
 
-        /* =========================
-           전체 영역
-        ========================= */
-
         .container {
             width: min(98vw, 1600px);
             margin: 30px auto;
@@ -115,7 +106,7 @@
         }
 
         .week-info {
-            margin-bottom: 24px;
+            margin-bottom: 25px;
             padding: 12px;
             background: #f5f5f5;
             border-radius: 8px;
@@ -123,224 +114,261 @@
             font-weight: bold;
         }
 
-        /* =========================
-           스케줄 구역
-        ========================= */
-
-        .schedule-section {
-            margin-top: 30px;
+        .section-title {
+            margin: 28px 0 18px;
+            padding-left: 10px;
+            border-left: 5px solid #222;
+            font-size: 24px;
         }
 
-        .schedule-section:first-of-type {
-            margin-top: 0;
+        .sub-title {
+            margin: 22px 0 10px;
+            font-size: 18px;
         }
 
-        .schedule-title {
-            margin: 0 0 18px;
-            padding: 11px 15px;
-            background: #eeeeee;
-            border-radius: 9px;
-            font-size: 22px;
-            font-weight: bold;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
-        .schedule-item {
-            margin-bottom: 28px;
+        .section-header .sub-title {
+            margin: 0;
         }
 
-        .schedule-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .item-title {
-            margin-bottom: 9px;
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        /* =========================
-           캐릭터 추가 영역
-        ========================= */
-
-        .character-add-area {
+        .add-area {
             display: flex;
             gap: 8px;
-            margin-bottom: 10px;
             align-items: center;
         }
 
-        .character-add-area input {
-            width: 250px;
-            padding: 9px 11px;
+        .add-area input {
+            width: 160px;
+            padding: 8px 10px;
             border: 1px solid #ddd;
-            border-radius: 7px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 13px;
             outline: none;
         }
 
-        .character-add-area input:focus {
-            border-color: #888;
-        }
-
-        .character-add-area button {
-            padding: 9px 15px;
-            border: none;
-            border-radius: 7px;
-            background: #222;
-            color: white;
+        .add-area button {
+            padding: 8px 13px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            color: #222;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .character-add-area button:hover {
-            background: #444;
+        .add-area button:hover {
+            background: #f5f5f5;
         }
-
-        /* =========================
-           표
-        ========================= */
 
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
+            margin-bottom: 25px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             table-layout: fixed;
-            min-width: 650px;
         }
 
         th,
         td {
-            border: 1px solid #bbb;
-            padding: 6px 4px;
+            border: 1px solid #ccc;
+            padding: 7px 5px;
             text-align: center;
             vertical-align: middle;
             font-size: 13px;
         }
 
         th {
-            background: #eeeeee;
-            font-weight: bold;
-        }
-
-        .character-column {
-            width: 150px;
-        }
-
-        .character-name {
-            display: inline-block;
-            max-width: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            vertical-align: middle;
-            font-weight: bold;
-        }
-
-        .delete-character {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            width: 19px;
-            height: 19px;
-
-            margin-left: 5px;
-            padding: 0;
-
-            border: 1px solid #ddd;
-            border-radius: 50%;
-
-            background: white;
-            color: #999;
-
-            cursor: pointer;
-
-            font-size: 13px;
-            font-weight: bold;
-            line-height: 1;
-        }
-
-        .delete-character:hover {
             background: #f0f0f0;
-            color: #555;
-            border-color: #bbb;
+            font-weight: bold;
         }
 
-        /* =========================
-           O / X
-        ========================= */
+        .daily-table {
+            min-width: 900px;
+        }
+
+        .daily-table th:first-child,
+        .daily-table td:first-child {
+            width: 100px;
+        }
+
+        .daily-table th:nth-child(2),
+        .daily-table td:nth-child(2) {
+            width: 100px;
+        }
 
         .status-button {
-            width: 38px;
-            height: 29px;
-
+            width: 34px;
+            height: 28px;
             border: none;
             border-radius: 5px;
-
+            background: white;
+            color: #222;
             cursor: pointer;
-
             font-size: 13px;
             font-weight: bold;
-        }
-
-        .status-button.done {
-            background: #fff900;
-            color: #222;
-        }
-
-        .status-button.not-done {
-            background: white;
-            color: #777;
         }
 
         .status-button:hover {
-            opacity: 0.75;
+            background: #f0f0f0;
         }
 
-        /* =========================
-           수로 점수
-        ========================= */
+        .status-button.done,
+        .status-button.not-done {
+            background: white;
+            color: #222;
+        }
+
+        .delete-button {
+            width: 22px;
+            height: 22px;
+            padding: 0;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            background: white;
+            color: #999;
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        .delete-button:hover {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        .flag-table {
+            min-width: 900px;
+        }
+
+        .flag-table th:first-child,
+        .flag-table td:first-child {
+            width: 130px;
+        }
+
+        .flag-name {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .flag-add-area {
+            margin-bottom: 10px;
+        }
+
+        .water-table {
+            width: min(100%, 650px);
+            min-width: 500px;
+        }
+
+        .water-table th:first-child,
+        .water-table td:first-child {
+            width: 130px;
+        }
 
         .score-input {
-            width: 100px;
+            width: 90px;
             padding: 6px 5px;
-
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 5px;
-
             text-align: center;
             font-size: 13px;
         }
 
-        .score-input:focus {
+        .score-input:focus,
+        .epic-input:focus {
             outline: none;
             border-color: #888;
         }
 
-        /* =========================
-           안내문
-        ========================= */
+        .automatic-status {
+            font-weight: bold;
+        }
+
+        .epic-table {
+            min-width: 850px;
+        }
+
+        .epic-table .group-title {
+            background: #f0f0f0;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .epic-table th:first-child,
+        .epic-table td:first-child {
+            width: 150px;
+        }
+
+        .epic-table th:nth-child(2),
+        .epic-table td:nth-child(2) {
+            width: 75px;
+        }
+
+        .epic-table th:nth-child(3),
+        .epic-table td:nth-child(3) {
+            width: 120px;
+        }
+
+        .epic-table th:nth-child(4),
+        .epic-table td:nth-child(4) {
+            width: 80px;
+        }
+
+        .epic-input {
+            width: 90px;
+            padding: 6px 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .epic-select {
+            width: 75px;
+            padding: 5px 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+            font-size: 12px;
+            text-align: center;
+        }
 
         .guide {
-            margin-top: 28px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-
+            margin-top: 25px;
+            padding: 14px;
+            border-radius: 8px;
+            background: #f5f5f5;
             color: #777;
             font-size: 12px;
             line-height: 1.6;
         }
 
-        /* =========================
-           모바일
-        ========================= */
+        @media (max-width: 900px) {
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .add-area {
+                width: 100%;
+            }
+
+            .add-area input {
+                flex: 1;
+            }
+        }
 
         @media (max-width: 700px) {
-
             .scheduler-box {
                 padding: 16px;
             }
@@ -349,24 +377,20 @@
                 font-size: 25px;
             }
 
-            .character-add-area {
+            .section-title {
+                font-size: 21px;
+            }
+
+            .sub-title {
+                font-size: 17px;
+            }
+
+            .add-area {
                 flex-wrap: wrap;
             }
 
-            .character-add-area input {
-                width: 100%;
-            }
-
-            .character-add-area button {
-                width: 100%;
-            }
-
-            .schedule-title {
-                font-size: 20px;
-            }
-
-            .character-column {
-                width: 120px;
+            .add-area input {
+                width: 140px;
             }
 
             .home-button,
@@ -380,21 +404,14 @@
 
 <body>
 
-    <!-- =========================
-         상단 메뉴
-    ========================= -->
-
     <div class="top-menu">
-
         <div class="menu-container">
 
-            <a href="index.html" class="home-button">
-                홈
-            </a>
+            <a href="index.html" class="home-button">홈</a>
 
             <div class="menu-item" id="schedulerMenu">
-
                 <button
+                    type="button"
                     class="menu-button"
                     onclick="toggleSchedulerMenu()"
                 >
@@ -402,397 +419,342 @@
                 </button>
 
                 <div class="submenu">
-
-                    <a href="daily.html">
-                        일퀘
-                    </a>
-
-                    <a href="boss.html">
-                        보스
-                    </a>
-
+                    <a href="daily.html">일퀘</a>
+                    <a href="boss.html">보스</a>
                 </div>
-
             </div>
 
         </div>
-
     </div>
-
-
-    <!-- =========================
-         본문
-    ========================= -->
 
     <div class="container">
 
         <div class="scheduler-box">
 
-            <h1>
-                일퀘 스케줄러
-            </h1>
+            <h1>일퀘 스케줄러</h1>
 
-            <div
-                class="week-info"
-                id="weekInfo"
-            >
+            <div class="week-info" id="weekInfo">
                 주차 정보를 불러오는 중...
             </div>
 
 
-            <!-- =========================
-                 데일리 스케줄
-            ========================= -->
+            <!-- ========================= -->
+            <!-- 데일리 스케줄 -->
+            <!-- ========================= -->
 
-            <section class="schedule-section">
-
-                <h2 class="schedule-title">
-                    데일리 스케줄
-                </h2>
+            <h2 class="section-title">
+                데일리 스케줄
+            </h2>
 
 
-                <!-- 일일퀘스트 -->
+            <!-- 일일퀘스트 -->
 
-                <div class="schedule-item">
+            <div class="section-header">
 
-                    <div class="item-title">
-                        1. 일일퀘스트
-                    </div>
+                <h3 class="sub-title">
+                    1. 일일퀘스트
+                </h3>
 
-                    <div class="character-add-area">
+                <div class="add-area">
+                    <input
+                        type="text"
+                        id="dailyQuestName"
+                        placeholder="직업"
+                        maxlength="20"
+                    >
 
-                        <input
-                            type="text"
-                            id="dailyQuestInput"
-                            placeholder="캐릭터명"
-                            maxlength="20"
-                        >
+                    <input
+                        type="text"
+                        id="dailyQuestAccount"
+                        placeholder="계정"
+                        maxlength="20"
+                    >
 
-                        <button
-                            type="button"
-                            onclick="addDailyQuestCharacter()"
-                        >
-                            캐릭터 추가
-                        </button>
+                    <button
+                        type="button"
+                        onclick="addDailyQuestCharacter()"
+                    >
+                        + 캐릭터 추가
+                    </button>
+                </div>
 
-                    </div>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="daily-table">
+
+                    <thead>
+                        <tr>
+                            <th>직업</th>
+                            <th>계정</th>
+                            <th>목</th>
+                            <th>금</th>
+                            <th>토</th>
+                            <th>일</th>
+                            <th>월</th>
+                            <th>화</th>
+                            <th>수</th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="dailyQuestTable"></tbody>
+
+                </table>
+
+            </div>
 
 
-                    <div class="table-wrapper">
+            <!-- 몬스터파크 -->
 
-                        <table>
+            <div class="section-header">
 
-                            <thead>
+                <h3 class="sub-title">
+                    2. 몬스터파크
+                </h3>
 
-                                <tr>
+                <div class="add-area">
 
-                                    <th class="character-column">
-                                        캐릭터
-                                    </th>
+                    <input
+                        type="text"
+                        id="monsterParkName"
+                        placeholder="직업"
+                        maxlength="20"
+                    >
 
-                                    <th>목</th>
-                                    <th>금</th>
-                                    <th>토</th>
-                                    <th>일</th>
-                                    <th>월</th>
-                                    <th>화</th>
-                                    <th>수</th>
+                    <input
+                        type="text"
+                        id="monsterParkAccount"
+                        placeholder="계정"
+                        maxlength="20"
+                    >
 
-                                </tr>
-
-                            </thead>
-
-                            <tbody
-                                id="dailyQuestTable"
-                            ></tbody>
-
-                        </table>
-
-                    </div>
+                    <button
+                        type="button"
+                        onclick="addMonsterParkCharacter()"
+                    >
+                        + 캐릭터 추가
+                    </button>
 
                 </div>
 
+            </div>
 
-                <!-- 몬스터파크 -->
+            <div class="table-wrapper">
 
-                <div class="schedule-item">
+                <table class="daily-table">
 
-                    <div class="item-title">
-                        2. 몬스터파크
-                    </div>
+                    <thead>
+                        <tr>
+                            <th>직업</th>
+                            <th>계정</th>
+                            <th>목</th>
+                            <th>금</th>
+                            <th>토</th>
+                            <th>일</th>
+                            <th>월</th>
+                            <th>화</th>
+                            <th>수</th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
 
-                    <div class="character-add-area">
+                    <tbody id="monsterParkTable"></tbody>
 
-                        <input
-                            type="text"
-                            id="monsterParkInput"
-                            placeholder="캐릭터명"
-                            maxlength="20"
-                        >
+                </table>
 
-                        <button
-                            type="button"
-                            onclick="addMonsterParkCharacter()"
-                        >
-                            캐릭터 추가
-                        </button>
-
-                    </div>
-
-
-                    <div class="table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th class="character-column">
-                                        캐릭터
-                                    </th>
-
-                                    <th>목</th>
-                                    <th>금</th>
-                                    <th>토</th>
-                                    <th>일</th>
-                                    <th>월</th>
-                                    <th>화</th>
-                                    <th>수</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody
-                                id="monsterParkTable"
-                            ></tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </section>
+            </div>
 
 
-            <!-- =========================
-                 위클리 스케줄
-            ========================= -->
+            <!-- ========================= -->
+            <!-- 위클리 스케줄 -->
+            <!-- ========================= -->
 
-            <section class="schedule-section">
-
-                <h2 class="schedule-title">
-                    위클리 스케줄
-                </h2>
+            <h2 class="section-title">
+                위클리 스케줄
+            </h2>
 
 
-                <!-- 플래그 -->
+            <!-- 플래그 -->
 
-                <div class="schedule-item">
+            <div class="section-header">
 
-                    <div class="item-title">
-                        1. 플래그
-                    </div>
+                <h3 class="sub-title">
+                    1. 플래그 현황
+                </h3>
 
-                    <div class="character-add-area">
+                <div class="add-area">
 
-                        <input
-                            type="text"
-                            id="flagInput"
-                            placeholder="캐릭터명"
-                            maxlength="20"
-                        >
+                    <input
+                        type="text"
+                        id="flagName"
+                        placeholder="캐릭터명"
+                        maxlength="20"
+                    >
 
-                        <button
-                            type="button"
-                            onclick="addFlagCharacter()"
-                        >
-                            캐릭터 추가
-                        </button>
-
-                    </div>
-
-
-                    <div class="table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th class="character-column">
-                                        캐릭터
-                                    </th>
-
-                                    <th>
-                                        여부
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody
-                                id="flagTable"
-                            ></tbody>
-
-                        </table>
-
-                    </div>
+                    <button
+                        type="button"
+                        onclick="addFlagCharacter()"
+                    >
+                        + 캐릭터 추가
+                    </button>
 
                 </div>
 
+            </div>
 
-                <!-- 수로 -->
+            <div class="table-wrapper">
 
-                <div class="schedule-item">
+                <table class="flag-table">
 
-                    <div class="item-title">
-                        2. 수로
-                    </div>
+                    <thead id="flagHeader"></thead>
 
-                    <div class="character-add-area">
+                    <tbody id="flagTable"></tbody>
 
-                        <input
-                            type="text"
-                            id="waterwayInput"
-                            placeholder="캐릭터명"
-                            maxlength="20"
-                        >
+                </table>
 
-                        <button
-                            type="button"
-                            onclick="addWaterwayCharacter()"
-                        >
-                            캐릭터 추가
-                        </button>
-
-                    </div>
+            </div>
 
 
-                    <div class="table-wrapper">
+            <!-- 수로 -->
 
-                        <table>
+            <div class="section-header">
 
-                            <thead>
+                <h3 class="sub-title">
+                    2. 수로 현황
+                </h3>
 
-                                <tr>
+                <div class="add-area">
 
-                                    <th class="character-column">
-                                        캐릭터
-                                    </th>
+                    <input
+                        type="text"
+                        id="waterName"
+                        placeholder="캐릭터명"
+                        maxlength="20"
+                    >
 
-                                    <th>
-                                        점수
-                                    </th>
-
-                                    <th>
-                                        여부
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody
-                                id="waterwayTable"
-                            ></tbody>
-
-                        </table>
-
-                    </div>
+                    <button
+                        type="button"
+                        onclick="addWaterCharacter()"
+                    >
+                        + 캐릭터 추가
+                    </button>
 
                 </div>
 
+            </div>
 
-                <!-- 에픽던전 -->
+            <div class="table-wrapper">
 
-                <div class="schedule-item">
+                <table class="water-table">
 
-                    <div class="item-title">
-                        3. 에픽던전
-                    </div>
+                    <thead id="waterHeader"></thead>
 
-                    <div class="character-add-area">
+                    <tbody id="waterTable"></tbody>
 
-                        <input
-                            type="text"
-                            id="epicDungeonInput"
-                            placeholder="캐릭터명"
-                            maxlength="20"
-                        >
+                </table>
 
-                        <button
-                            type="button"
-                            onclick="addEpicDungeonCharacter()"
-                        >
-                            캐릭터 추가
-                        </button>
-
-                    </div>
+            </div>
 
 
-                    <div class="table-wrapper">
+            <!-- 에픽던전 -->
 
-                        <table>
+            <div class="section-header">
 
-                            <thead>
+                <h3 class="sub-title">
+                    3. 에픽던전 현황
+                </h3>
 
-                                <tr>
+                <div class="add-area">
 
-                                    <th class="character-column">
-                                        캐릭터
-                                    </th>
+                    <input
+                        type="text"
+                        id="epicName"
+                        placeholder="에픽던전 이름"
+                        maxlength="20"
+                    >
 
-                                    <th>
-                                        여부
-                                    </th>
+                    <input
+                        type="number"
+                        id="epicLevel"
+                        placeholder="레벨"
+                        min="1"
+                        max="999"
+                    >
 
-                                </tr>
-
-                            </thead>
-
-                            <tbody
-                                id="epicDungeonTable"
-                            ></tbody>
-
-                        </table>
-
-                    </div>
+                    <button
+                        type="button"
+                        onclick="addEpicDungeon()"
+                    >
+                        + 에픽던전 추가
+                    </button>
 
                 </div>
 
-            </section>
+            </div>
 
+            <div class="table-wrapper">
 
-            <!-- =========================
-                 안내
-            ========================= -->
+                <table class="epic-table">
+
+                    <thead>
+
+                        <tr>
+                            <th colspan="2" class="group-title">
+                                에픽던전 정보
+                            </th>
+
+                            <th colspan="2" class="group-title">
+                                캐릭터 정보
+                            </th>
+
+                            <th colspan="3" class="group-title">
+                                보너스
+                            </th>
+
+                            <th rowspan="2">
+                                삭제
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>이름</th>
+                            <th>레벨</th>
+                            <th>닉네임</th>
+                            <th>여/부</th>
+                            <th>완료</th>
+                            <th>1레벨</th>
+                            <th>2레벨</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="epicTable"></tbody>
+
+                </table>
+
+            </div>
+
 
             <div class="guide">
 
-                • 데일리 스케줄은 목요일부터 수요일까지 요일별로 완료 여부를 기록합니다.
+                • 데일리 스케줄은 목요일부터 수요일까지 각각 완료 여부를 기록합니다.
                 <br>
 
-                • 일일퀘스트와 몬스터파크의 캐릭터는 각각 별도로 관리됩니다.
+                • 일일퀘스트와 몬스터파크의 캐릭터 목록은 서로 독립적으로 관리됩니다.
                 <br>
 
-                • 위클리 스케줄은 한 주간 완료 여부만 기록합니다.
+                • 플래그와 수로의 캐릭터 목록도 데일리 캐릭터와 독립적으로 관리됩니다.
                 <br>
 
-                • 플래그, 수로, 에픽던전의 캐릭터는 각각 별도로 관리됩니다.
+                • 수로는 점수를 입력하면 자동으로 여부가 결정됩니다. 0점은 X, 1점 이상은 O입니다.
                 <br>
 
-                • 수로는 완료 여부와 함께 점수를 입력할 수 있습니다.
+                • 에픽던전은 던전 정보와 캐릭터 정보, 보너스 정보를 함께 기록합니다.
                 <br>
 
-                • 캐릭터 삭제는 캐릭터명 오른쪽의 × 버튼을 이용합니다.
-                <br>
-
-                • 데이터는 목요일~수요일 주차별로 자동 저장됩니다.
+                • 모든 데이터는 목요일~수요일을 하나의 주차로 하여 현재 브라우저에 저장됩니다.
 
             </div>
 
@@ -803,20 +765,17 @@
 
     <script>
 
-        /* ==================================================
+        /* =========================================
            주차 계산
-        ================================================== */
+        ========================================= */
 
         function getWeekStart(date) {
 
-            const result =
-                new Date(date);
+            const result = new Date(date);
 
-            const day =
-                result.getDay();
+            const day = result.getDay();
 
-            let difference =
-                day - 4;
+            let difference = day - 4;
 
             if (difference < 0) {
                 difference += 7;
@@ -863,34 +822,62 @@
                 )
             );
 
-
         const storageKey =
-            "dailyScheduler_" +
-            weekKey;
+            "dailyScheduler_" + weekKey;
 
 
-        /* ==================================================
+        /* =========================================
            기본 데이터
-        ================================================== */
+        ========================================= */
 
         let data = {
 
-            dailyQuest: [],
+            dailyQuestCharacters: [],
 
-            monsterPark: [],
+            monsterParkCharacters: [],
 
-            flag: [],
+            flagCharacters: [],
 
-            waterway: [],
+            waterCharacters: [],
 
-            epicDungeon: []
+            epicDungeons: [
+                {
+                    name: "하이마운틴",
+                    level: 260,
+                    nickname: "",
+                    status: false,
+                    complete: 5000,
+                    bonus1: 7500,
+                    bonus2: 30000
+                },
+
+                {
+                    name: "앵글러컴퍼니",
+                    level: 270,
+                    nickname: "",
+                    status: false,
+                    complete: 5000,
+                    bonus1: 10000,
+                    bonus2: 40000
+                },
+
+                {
+                    name: "악몽선경",
+                    level: 280,
+                    nickname: "",
+                    status: false,
+                    complete: 5000,
+                    bonus1: 12500,
+                    bonus2: 50000
+                }
+            ]
 
         };
 
 
-        /* ==================================================
-           기존 데이터 불러오기
-        ================================================== */
+        /* =========================================
+           저장 데이터 불러오기
+        ========================================= */
 
         try {
 
@@ -899,116 +886,59 @@
                     storageKey
                 );
 
-
             if (saved) {
 
                 const parsed =
                     JSON.parse(saved);
 
-
-                /*
-                 * 새로운 데이터 구조
-                 */
+                if (
+                    parsed &&
+                    Array.isArray(
+                        parsed.dailyQuestCharacters
+                    )
+                ) {
+                    data.dailyQuestCharacters =
+                        parsed.dailyQuestCharacters;
+                }
 
                 if (
                     parsed &&
                     Array.isArray(
-                        parsed.dailyQuest
+                        parsed.monsterParkCharacters
                     )
                 ) {
-                    data.dailyQuest =
-                        parsed.dailyQuest;
+                    data.monsterParkCharacters =
+                        parsed.monsterParkCharacters;
                 }
-
 
                 if (
                     parsed &&
                     Array.isArray(
-                        parsed.monsterPark
+                        parsed.flagCharacters
                     )
                 ) {
-                    data.monsterPark =
-                        parsed.monsterPark;
+                    data.flagCharacters =
+                        parsed.flagCharacters;
                 }
-
 
                 if (
                     parsed &&
                     Array.isArray(
-                        parsed.flag
+                        parsed.waterCharacters
                     )
                 ) {
-                    data.flag =
-                        parsed.flag;
+                    data.waterCharacters =
+                        parsed.waterCharacters;
                 }
-
 
                 if (
                     parsed &&
                     Array.isArray(
-                        parsed.waterway
+                        parsed.epicDungeons
                     )
                 ) {
-                    data.waterway =
-                        parsed.waterway;
-                }
-
-
-                if (
-                    parsed &&
-                    Array.isArray(
-                        parsed.epicDungeon
-                    )
-                ) {
-                    data.epicDungeon =
-                        parsed.epicDungeon;
-                }
-
-
-                /*
-                 * 이전 버전 데이터 호환
-                 *
-                 * 이전 구조:
-                 * characters
-                 * characters[].days
-                 */
-
-                if (
-                    Array.isArray(
-                        parsed.characters
-                    )
-                ) {
-
-                    const oldCharacters =
-                        parsed.characters;
-
-
-                    /*
-                     * 새로운 데이터가 없는 경우에만
-                     * 기존 캐릭터를 일일퀘스트로 변환
-                     */
-
-                    if (
-                        data.dailyQuest.length === 0
-                    ) {
-
-                        data.dailyQuest =
-                            oldCharacters.map(
-                                character => ({
-
-                                    name:
-                                        character.name,
-
-                                    days:
-                                        normalizeDays(
-                                            character.days
-                                        )
-
-                                })
-                            );
-
-                    }
-
+                    data.epicDungeons =
+                        parsed.epicDungeons;
                 }
 
             }
@@ -1023,121 +953,126 @@
         }
 
 
-        /* ==================================================
-           요일 데이터 정리
-        ================================================== */
-
-        function normalizeDays(days) {
-
-            if (!Array.isArray(days)) {
-
-                return [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false
-                ];
-
-            }
-
-
-            const result =
-                days.slice(
-                    0,
-                    7
-                );
-
-
-            while (
-                result.length < 7
-            ) {
-
-                result.push(false);
-
-            }
-
-
-            return result.map(
-                value => Boolean(value)
-            );
-
-        }
-
-
-        /* ==================================================
+        /* =========================================
            데이터 정리
-        ================================================== */
+        ========================================= */
 
         function normalizeData() {
 
-            data.dailyQuest.forEach(
-                character => {
+            const dailyLists = [
+                data.dailyQuestCharacters,
+                data.monsterParkCharacters
+            ];
 
-                    character.days =
-                        normalizeDays(
-                            character.days
-                        );
+            dailyLists.forEach(list => {
 
-                }
-            );
-
-
-            data.monsterPark.forEach(
-                character => {
-
-                    character.days =
-                        normalizeDays(
-                            character.days
-                        );
-
-                }
-            );
-
-
-            data.flag.forEach(
-                character => {
-
-                    character.done =
-                        Boolean(
-                            character.done
-                        );
-
-                }
-            );
-
-
-            data.waterway.forEach(
-                character => {
-
-                    character.done =
-                        Boolean(
-                            character.done
-                        );
-
+                list.forEach(character => {
 
                     if (
-                        character.score === undefined ||
-                        character.score === null
+                        !Array.isArray(
+                            character.status
+                        )
                     ) {
-
-                        character.score = "";
-
+                        character.status = [];
                     }
+
+                    while (
+                        character.status.length < 7
+                    ) {
+                        character.status.push(false);
+                    }
+
+                    character.status =
+                        character.status.slice(
+                            0,
+                            7
+                        );
+
+                    if (
+                        typeof character.name !==
+                        "string"
+                    ) {
+                        character.name = "";
+                    }
+
+                    if (
+                        typeof character.account !==
+                        "string"
+                    ) {
+                        character.account = "";
+                    }
+
+                });
+
+            });
+
+
+            data.flagCharacters.forEach(
+                character => {
+
+                    if (
+                        typeof character.name !==
+                        "string"
+                    ) {
+                        character.name = "";
+                    }
+
+                    character.status =
+                        Boolean(
+                            character.status
+                        );
 
                 }
             );
 
 
-            data.epicDungeon.forEach(
+            data.waterCharacters.forEach(
                 character => {
 
-                    character.done =
-                        Boolean(
-                            character.done
+                    if (
+                        typeof character.name !==
+                        "string"
+                    ) {
+                        character.name = "";
+                    }
+
+                    const score =
+                        Number(
+                            character.score
                         );
+
+                    character.score =
+                        Number.isFinite(score)
+                            ? score
+                            : 0;
+
+                }
+            );
+
+
+            data.epicDungeons.forEach(
+                dungeon => {
+
+                    dungeon.name =
+                        dungeon.name || "";
+
+                    dungeon.level =
+                        Number(dungeon.level) || 0;
+
+                    dungeon.nickname =
+                        dungeon.nickname || "";
+
+                    dungeon.status =
+                        Boolean(dungeon.status);
+
+                    dungeon.complete =
+                        Number(dungeon.complete) || 0;
+
+                    dungeon.bonus1 =
+                        Number(dungeon.bonus1) || 0;
+
+                    dungeon.bonus2 =
+                        Number(dungeon.bonus2) || 0;
 
                 }
             );
@@ -1145,9 +1080,9 @@
         }
 
 
-        /* ==================================================
+        /* =========================================
            저장
-        ================================================== */
+        ========================================= */
 
         function saveData() {
 
@@ -1170,9 +1105,9 @@
         }
 
 
-        /* ==================================================
+        /* =========================================
            주차 표시
-        ================================================== */
+        ========================================= */
 
         function displayWeek() {
 
@@ -1188,7 +1123,6 @@
                 start.getDate() + 6
             );
 
-
             document.getElementById(
                 "weekInfo"
             ).textContent =
@@ -1197,39 +1131,81 @@
         }
 
 
-        /* ==================================================
-           캐릭터 추가 - 데일리
-        ================================================== */
+        /* =========================================
+           O / X 버튼
+        ========================================= */
+
+        function createStatusButton(
+            status,
+            onClick
+        ) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type = "button";
+
+            button.className =
+                "status-button " +
+                (
+                    status
+                        ? "done"
+                        : "not-done"
+                );
+
+            button.textContent =
+                status
+                    ? "O"
+                    : "X";
+
+            button.onclick =
+                onClick;
+
+            return button;
+
+        }
+
+
+        /* =========================================
+           일일퀘스트 캐릭터 추가
+        ========================================= */
 
         function addDailyQuestCharacter() {
 
-            const input =
+            const nameInput =
                 document.getElementById(
-                    "dailyQuestInput"
+                    "dailyQuestName"
+                );
+
+            const accountInput =
+                document.getElementById(
+                    "dailyQuestAccount"
                 );
 
             const name =
-                input.value.trim();
+                nameInput.value.trim();
 
+            const account =
+                accountInput.value.trim();
 
-            if (name === "") {
+            if (!name) {
 
                 alert(
-                    "캐릭터명을 입력해주세요."
+                    "직업을 입력해주세요."
                 );
 
-                input.focus();
-
                 return;
-
             }
 
-
-            data.dailyQuest.push({
+            data.dailyQuestCharacters.push({
 
                 name: name,
 
-                days: [
+                account: account,
+
+                status: [
                     false,
                     false,
                     false,
@@ -1241,47 +1217,53 @@
 
             });
 
-
-            input.value = "";
+            nameInput.value = "";
+            accountInput.value = "";
 
             saveData();
-
-            renderAll();
-
-            input.focus();
+            renderDailyQuest();
 
         }
 
+
+        /* =========================================
+           몬스터파크 캐릭터 추가
+        ========================================= */
 
         function addMonsterParkCharacter() {
 
-            const input =
+            const nameInput =
                 document.getElementById(
-                    "monsterParkInput"
+                    "monsterParkName"
+                );
+
+            const accountInput =
+                document.getElementById(
+                    "monsterParkAccount"
                 );
 
             const name =
-                input.value.trim();
+                nameInput.value.trim();
 
+            const account =
+                accountInput.value.trim();
 
-            if (name === "") {
+            if (!name) {
 
                 alert(
-                    "캐릭터명을 입력해주세요."
+                    "직업을 입력해주세요."
                 );
 
-                input.focus();
-
                 return;
-
             }
 
-
-            data.monsterPark.push({
+            data.monsterParkCharacters.push({
 
                 name: name,
 
-                days: [
+                account: account,
+
+                status: [
                     false,
                     false,
                     false,
@@ -1293,241 +1275,63 @@
 
             });
 
-
-            input.value = "";
+            nameInput.value = "";
+            accountInput.value = "";
 
             saveData();
-
-            renderAll();
-
-            input.focus();
+            renderMonsterPark();
 
         }
 
 
-        /* ==================================================
-           캐릭터 추가 - 위클리
-        ================================================== */
-
-        function addFlagCharacter() {
-
-            const input =
-                document.getElementById(
-                    "flagInput"
-                );
-
-            const name =
-                input.value.trim();
-
-
-            if (name === "") {
-
-                alert(
-                    "캐릭터명을 입력해주세요."
-                );
-
-                input.focus();
-
-                return;
-
-            }
-
-
-            data.flag.push({
-
-                name: name,
-
-                done: false
-
-            });
-
-
-            input.value = "";
-
-            saveData();
-
-            renderAll();
-
-            input.focus();
-
-        }
-
-
-        function addWaterwayCharacter() {
-
-            const input =
-                document.getElementById(
-                    "waterwayInput"
-                );
-
-            const name =
-                input.value.trim();
-
-
-            if (name === "") {
-
-                alert(
-                    "캐릭터명을 입력해주세요."
-                );
-
-                input.focus();
-
-                return;
-
-            }
-
-
-            data.waterway.push({
-
-                name: name,
-
-                score: "",
-
-                done: false
-
-            });
-
-
-            input.value = "";
-
-            saveData();
-
-            renderAll();
-
-            input.focus();
-
-        }
-
-
-        function addEpicDungeonCharacter() {
-
-            const input =
-                document.getElementById(
-                    "epicDungeonInput"
-                );
-
-            const name =
-                input.value.trim();
-
-
-            if (name === "") {
-
-                alert(
-                    "캐릭터명을 입력해주세요."
-                );
-
-                input.focus();
-
-                return;
-
-            }
-
-
-            data.epicDungeon.push({
-
-                name: name,
-
-                done: false
-
-            });
-
-
-            input.value = "";
-
-            saveData();
-
-            renderAll();
-
-            input.focus();
-
-        }
-
-
-        /* ==================================================
-           삭제
-        ================================================== */
-
-        function deleteCharacter(type, index) {
-
-            let list;
-
-
-            if (type === "dailyQuest") {
-
-                list =
-                    data.dailyQuest;
-
-            } else if (
-                type === "monsterPark"
-            ) {
-
-                list =
-                    data.monsterPark;
-
-            } else if (
-                type === "flag"
-            ) {
-
-                list =
-                    data.flag;
-
-            } else if (
-                type === "waterway"
-            ) {
-
-                list =
-                    data.waterway;
-
-            } else if (
-                type === "epicDungeon"
-            ) {
-
-                list =
-                    data.epicDungeon;
-
-            } else {
-
-                return;
-
-            }
-
+        /* =========================================
+           데일리 캐릭터 삭제
+        ========================================= */
+
+        function deleteDailyCharacter(
+            type,
+            index
+        ) {
+
+            const list =
+                type === "daily"
+                    ? data.dailyQuestCharacters
+                    : data.monsterParkCharacters;
 
             const character =
                 list[index];
 
-
             if (!character) {
                 return;
             }
-
 
             if (
                 !confirm(
                     `"${character.name}" 캐릭터를 삭제할까요?`
                 )
             ) {
-
                 return;
-
             }
-
 
             list.splice(
                 index,
                 1
             );
 
-
             saveData();
 
-            renderAll();
+            if (type === "daily") {
+                renderDailyQuest();
+            } else {
+                renderMonsterPark();
+            }
 
         }
 
 
-        /* ==================================================
-           데일리 O / X
-        ================================================== */
+        /* =========================================
+           데일리 상태 변경
+        ========================================= */
 
         function toggleDailyStatus(
             type,
@@ -1535,190 +1339,41 @@
             dayIndex
         ) {
 
-            let list;
-
-
-            if (
-                type === "dailyQuest"
-            ) {
-
-                list =
-                    data.dailyQuest;
-
-            } else if (
-                type === "monsterPark"
-            ) {
-
-                list =
-                    data.monsterPark;
-
-            } else {
-
-                return;
-
-            }
-
+            const list =
+                type === "daily"
+                    ? data.dailyQuestCharacters
+                    : data.monsterParkCharacters;
 
             const character =
                 list[characterIndex];
 
-
             if (!character) {
                 return;
             }
 
-
-            character.days[dayIndex] =
+            character.status[dayIndex] =
                 !Boolean(
-                    character.days[dayIndex]
+                    character.status[dayIndex]
                 );
-
 
             saveData();
 
-            renderAll();
-
-        }
-
-
-        /* ==================================================
-           위클리 O / X
-        ================================================== */
-
-        function toggleWeeklyStatus(
-            type,
-            index
-        ) {
-
-            let character;
-
-
-            if (type === "flag") {
-
-                character =
-                    data.flag[index];
-
-            } else if (
-                type === "waterway"
-            ) {
-
-                character =
-                    data.waterway[index];
-
-            } else if (
-                type === "epicDungeon"
-            ) {
-
-                character =
-                    data.epicDungeon[index];
-
+            if (type === "daily") {
+                renderDailyQuest();
             } else {
-
-                return;
-
+                renderMonsterPark();
             }
-
-
-            if (!character) {
-                return;
-            }
-
-
-            character.done =
-                !Boolean(
-                    character.done
-                );
-
-
-            saveData();
-
-            renderAll();
 
         }
 
 
-        /* ==================================================
-           수로 점수
-        ================================================== */
-
-        function updateWaterwayScore(
-            index,
-            value
-        ) {
-
-            const character =
-                data.waterway[index];
-
-
-            if (!character) {
-                return;
-            }
-
-
-            /*
-             * 숫자와 콤마만 허용
-             */
-
-            const cleaned =
-                value.replace(
-                    /[^0-9]/g,
-                    ""
-                );
-
-
-            character.score =
-                cleaned;
-
-
-            saveData();
-
-        }
-
-
-        function formatScore(value) {
-
-            if (
-                value === "" ||
-                value === null ||
-                value === undefined
-            ) {
-
-                return "";
-
-            }
-
-
-            const number =
-                Number(
-                    String(value).replace(
-                        /,/g,
-                        ""
-                    )
-                );
-
-
-            if (
-                Number.isNaN(number)
-            ) {
-
-                return "";
-
-            }
-
-
-            return number.toLocaleString(
-                "ko-KR"
-            );
-
-        }
-
-
-        /* ==================================================
-           데일리 표 생성
-        ================================================== */
+        /* =========================================
+           데일리 테이블 생성
+        ========================================= */
 
         function renderDailyTable(
             type,
+            list,
             tableId
         ) {
 
@@ -1727,27 +1382,7 @@
                     tableId
                 );
 
-
             table.innerHTML = "";
-
-
-            let list;
-
-
-            if (
-                type === "dailyQuest"
-            ) {
-
-                list =
-                    data.dailyQuest;
-
-            } else {
-
-                list =
-                    data.monsterPark;
-
-            }
-
 
             list.forEach(
                 (character, characterIndex) => {
@@ -1758,76 +1393,31 @@
                         );
 
 
-                    /*
-                     * 캐릭터 이름
-                     */
-
                     const nameCell =
                         document.createElement(
                             "td"
                         );
 
-
-                    const nameSpan =
-                        document.createElement(
-                            "span"
-                        );
-
-                    nameSpan.className =
-                        "character-name";
-
-                    nameSpan.textContent =
+                    nameCell.textContent =
                         character.name;
-
-
-                    const deleteButton =
-                        document.createElement(
-                            "button"
-                        );
-
-                    deleteButton.type =
-                        "button";
-
-                    deleteButton.className =
-                        "delete-character";
-
-                    deleteButton.textContent =
-                        "×";
-
-                    deleteButton.title =
-                        "캐릭터 삭제";
-
-
-                    deleteButton.onclick =
-                        event => {
-
-                            event.stopPropagation();
-
-                            deleteCharacter(
-                                type,
-                                characterIndex
-                            );
-
-                        };
-
-
-                    nameCell.appendChild(
-                        nameSpan
-                    );
-
-                    nameCell.appendChild(
-                        deleteButton
-                    );
-
 
                     row.appendChild(
                         nameCell
                     );
 
 
-                    /*
-                     * 목 ~ 수
-                     */
+                    const accountCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    accountCell.textContent =
+                        character.account || "";
+
+                    row.appendChild(
+                        accountCell
+                    );
+
 
                     for (
                         let dayIndex = 0;
@@ -1840,49 +1430,21 @@
                                 "td"
                             );
 
-
                         const button =
-                            document.createElement(
-                                "button"
-                            );
-
-
-                        const isDone =
-                            Boolean(
-                                character.days[
+                            createStatusButton(
+                                character.status[
                                     dayIndex
-                                ]
+                                ],
+                                () => {
+
+                                    toggleDailyStatus(
+                                        type,
+                                        characterIndex,
+                                        dayIndex
+                                    );
+
+                                }
                             );
-
-
-                        button.type =
-                            "button";
-
-                        button.className =
-                            "status-button " +
-                            (
-                                isDone
-                                    ? "done"
-                                    : "not-done"
-                            );
-
-                        button.textContent =
-                            isDone
-                                ? "O"
-                                : "X";
-
-
-                        button.onclick =
-                            () => {
-
-                                toggleDailyStatus(
-                                    type,
-                                    characterIndex,
-                                    dayIndex
-                                );
-
-                            };
-
 
                         cell.appendChild(
                             button
@@ -1895,6 +1457,46 @@
                     }
 
 
+                    const deleteCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const deleteButton =
+                        document.createElement(
+                            "button"
+                        );
+
+                    deleteButton.type =
+                        "button";
+
+                    deleteButton.className =
+                        "delete-button";
+
+                    deleteButton.textContent =
+                        "×";
+
+                    deleteButton.title =
+                        "캐릭터 삭제";
+
+                    deleteButton.onclick =
+                        () => {
+
+                            deleteDailyCharacter(
+                                type,
+                                characterIndex
+                            );
+
+                        };
+
+                    deleteCell.appendChild(
+                        deleteButton
+                    );
+
+                    row.appendChild(
+                        deleteCell
+                    );
+
                     table.appendChild(
                         row
                     );
@@ -1905,443 +1507,1075 @@
         }
 
 
-        /* ==================================================
-           플래그 표
-        ================================================== */
+        function renderDailyQuest() {
 
-        function renderFlagTable() {
+            renderDailyTable(
+                "daily",
+                data.dailyQuestCharacters,
+                "dailyQuestTable"
+            );
+
+        }
+
+
+        function renderMonsterPark() {
+
+            renderDailyTable(
+                "monster",
+                data.monsterParkCharacters,
+                "monsterParkTable"
+            );
+
+        }
+
+
+        /* =========================================
+           플래그 캐릭터 추가
+        ========================================= */
+
+        function addFlagCharacter() {
+
+            const input =
+                document.getElementById(
+                    "flagName"
+                );
+
+            const name =
+                input.value.trim();
+
+            if (!name) {
+
+                alert(
+                    "캐릭터명을 입력해주세요."
+                );
+
+                return;
+            }
+
+            data.flagCharacters.push({
+
+                name: name,
+
+                status: false
+
+            });
+
+            input.value = "";
+
+            saveData();
+            renderFlag();
+
+        }
+
+
+        function toggleFlag(index) {
+
+            const character =
+                data.flagCharacters[index];
+
+            if (!character) {
+                return;
+            }
+
+            character.status =
+                !Boolean(
+                    character.status
+                );
+
+            saveData();
+            renderFlag();
+
+        }
+
+
+        function deleteFlagCharacter(index) {
+
+            data.flagCharacters.splice(
+                index,
+                1
+            );
+
+            saveData();
+            renderFlag();
+
+        }
+
+
+        /* =========================================
+           플래그 렌더링
+        ========================================= */
+
+        function renderFlag() {
+
+            const header =
+                document.getElementById(
+                    "flagHeader"
+                );
 
             const table =
                 document.getElementById(
                     "flagTable"
                 );
 
-
+            header.innerHTML = "";
             table.innerHTML = "";
 
 
-            data.flag.forEach(
-                (character, index) => {
-
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    const nameCell =
-                        createNameCell(
-                            "flag",
-                            character.name,
-                            index
-                        );
-
-
-                    row.appendChild(
-                        nameCell
-                    );
-
-
-                    const statusCell =
-                        document.createElement(
-                            "td"
-                        );
-
-
-                    statusCell.appendChild(
-                        createStatusButton(
-                            character.done,
-                            () => {
-
-                                toggleWeeklyStatus(
-                                    "flag",
-                                    index
-                                );
-
-                            }
-                        )
-                    );
-
-
-                    row.appendChild(
-                        statusCell
-                    );
-
-
-                    table.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ==================================================
-           수로 표
-        ================================================== */
-
-        function renderWaterwayTable() {
-
-            const table =
-                document.getElementById(
-                    "waterwayTable"
+            const headerRow =
+                document.createElement(
+                    "tr"
                 );
 
 
-            table.innerHTML = "";
+            const firstHeader =
+                document.createElement(
+                    "th"
+                );
+
+            firstHeader.textContent =
+                "직업 (" +
+                data.flagCharacters.length +
+                "캐릭터)";
+
+            headerRow.appendChild(
+                firstHeader
+            );
 
 
-            data.waterway.forEach(
-                (character, index) => {
+            data.flagCharacters.forEach(
+                character => {
 
-                    const row =
+                    const th =
                         document.createElement(
-                            "tr"
+                            "th"
                         );
 
+                    th.className =
+                        "flag-name";
 
-                    /*
-                     * 캐릭터
-                     */
+                    th.textContent =
+                        character.name;
 
-                    const nameCell =
-                        createNameCell(
-                            "waterway",
-                            character.name,
-                            index
-                        );
-
-
-                    row.appendChild(
-                        nameCell
-                    );
-
-
-                    /*
-                     * 점수
-                     */
-
-                    const scoreCell =
-                        document.createElement(
-                            "td"
-                        );
-
-
-                    const scoreInput =
-                        document.createElement(
-                            "input"
-                        );
-
-                    scoreInput.type =
-                        "text";
-
-                    scoreInput.className =
-                        "score-input";
-
-                    scoreInput.inputMode =
-                        "numeric";
-
-                    scoreInput.placeholder =
-                        "점수";
-
-                    scoreInput.value =
-                        formatScore(
-                            character.score
-                        );
-
-
-                    scoreInput.addEventListener(
-                        "input",
-                        event => {
-
-                            updateWaterwayScore(
-                                index,
-                                event.target.value
-                            );
-
-                            event.target.value =
-                                formatScore(
-                                    data.waterway[
-                                        index
-                                    ].score
-                                );
-
-                        }
-                    );
-
-
-                    scoreCell.appendChild(
-                        scoreInput
-                    );
-
-
-                    row.appendChild(
-                        scoreCell
-                    );
-
-
-                    /*
-                     * 여부
-                     */
-
-                    const statusCell =
-                        document.createElement(
-                            "td"
-                        );
-
-
-                    statusCell.appendChild(
-                        createStatusButton(
-                            character.done,
-                            () => {
-
-                                toggleWeeklyStatus(
-                                    "waterway",
-                                    index
-                                );
-
-                            }
-                        )
-                    );
-
-
-                    row.appendChild(
-                        statusCell
-                    );
-
-
-                    table.appendChild(
-                        row
+                    headerRow.appendChild(
+                        th
                     );
 
                 }
             );
 
-        }
+
+            const deleteHeader =
+                document.createElement(
+                    "th"
+                );
+
+            deleteHeader.textContent =
+                "삭제";
+
+            deleteHeader.style.width =
+                "55px";
+
+            headerRow.appendChild(
+                deleteHeader
+            );
 
 
-        /* ==================================================
-           에픽던전 표
-        ================================================== */
+            header.appendChild(
+                headerRow
+            );
 
-        function renderEpicDungeonTable() {
 
-            const table =
-                document.getElementById(
-                    "epicDungeonTable"
+            const statusRow =
+                document.createElement(
+                    "tr"
                 );
 
 
-            table.innerHTML = "";
+            const statusTitle =
+                document.createElement(
+                    "th"
+                );
+
+            statusTitle.textContent =
+                "여/부";
+
+            statusRow.appendChild(
+                statusTitle
+            );
 
 
-            data.epicDungeon.forEach(
+            data.flagCharacters.forEach(
                 (character, index) => {
 
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    const nameCell =
-                        createNameCell(
-                            "epicDungeon",
-                            character.name,
-                            index
-                        );
-
-
-                    row.appendChild(
-                        nameCell
-                    );
-
-
-                    const statusCell =
+                    const td =
                         document.createElement(
                             "td"
                         );
 
-
-                    statusCell.appendChild(
+                    const button =
                         createStatusButton(
-                            character.done,
+                            character.status,
                             () => {
-
-                                toggleWeeklyStatus(
-                                    "epicDungeon",
-                                    index
-                                );
-
+                                toggleFlag(index);
                             }
-                        )
+                        );
+
+                    td.appendChild(
+                        button
                     );
 
-
-                    row.appendChild(
-                        statusCell
-                    );
-
-
-                    table.appendChild(
-                        row
+                    statusRow.appendChild(
+                        td
                     );
 
                 }
             );
 
-        }
 
-
-        /* ==================================================
-           공통 캐릭터 셀
-        ================================================== */
-
-        function createNameCell(
-            type,
-            name,
-            index
-        ) {
-
-            const cell =
+            const blank =
                 document.createElement(
                     "td"
                 );
 
-
-            const nameSpan =
-                document.createElement(
-                    "span"
-                );
-
-            nameSpan.className =
-                "character-name";
-
-            nameSpan.textContent =
-                name;
-
-
-            const deleteButton =
-                document.createElement(
-                    "button"
-                );
-
-            deleteButton.type =
-                "button";
-
-            deleteButton.className =
-                "delete-character";
-
-            deleteButton.textContent =
-                "×";
-
-            deleteButton.title =
-                "캐릭터 삭제";
-
-
-            deleteButton.onclick =
-                event => {
-
-                    event.stopPropagation();
-
-                    deleteCharacter(
-                        type,
-                        index
-                    );
-
-                };
-
-
-            cell.appendChild(
-                nameSpan
-            );
-
-            cell.appendChild(
-                deleteButton
+            statusRow.appendChild(
+                blank
             );
 
 
-            return cell;
+            table.appendChild(
+                statusRow
+            );
 
         }
 
 
-        /* ==================================================
-           공통 O / X 버튼
-        ================================================== */
+        /* =========================================
+           수로 캐릭터 추가
+        ========================================= */
 
-        function createStatusButton(
-            done,
-            callback
+        function addWaterCharacter() {
+
+            const input =
+                document.getElementById(
+                    "waterName"
+                );
+
+            const name =
+                input.value.trim();
+
+            if (!name) {
+
+                alert(
+                    "캐릭터명을 입력해주세요."
+                );
+
+                return;
+            }
+
+            data.waterCharacters.push({
+
+                name: name,
+
+                score: 0
+
+            });
+
+            input.value = "";
+
+            saveData();
+            renderWater();
+
+        }
+
+
+        function updateWaterScore(
+            index,
+            value
         ) {
 
-            const button =
+            let score =
+                Number(
+                    value
+                );
+
+            if (
+                value === "" ||
+                !Number.isFinite(score)
+            ) {
+                score = 0;
+            }
+
+            if (score < 0) {
+                score = 0;
+            }
+
+            data.waterCharacters[index].score =
+                score;
+
+            saveData();
+            renderWater();
+
+        }
+
+
+        function deleteWaterCharacter(index) {
+
+            data.waterCharacters.splice(
+                index,
+                1
+            );
+
+            saveData();
+            renderWater();
+
+        }
+
+
+        /* =========================================
+           수로 렌더링
+        ========================================= */
+
+        function renderWater() {
+
+            const header =
+                document.getElementById(
+                    "waterHeader"
+                );
+
+            const table =
+                document.getElementById(
+                    "waterTable"
+                );
+
+            header.innerHTML = "";
+            table.innerHTML = "";
+
+
+            const headerRow =
                 document.createElement(
-                    "button"
+                    "tr"
                 );
 
 
-            button.type =
-                "button";
-
-            button.className =
-                "status-button " +
-                (
-                    done
-                        ? "done"
-                        : "not-done"
+            const firstHeader =
+                document.createElement(
+                    "th"
                 );
 
-            button.textContent =
-                done
-                    ? "O"
-                    : "X";
+            firstHeader.textContent =
+                "직업 (" +
+                data.waterCharacters.length +
+                "캐릭터)";
+
+            headerRow.appendChild(
+                firstHeader
+            );
 
 
-            button.onclick =
-                callback;
+            data.waterCharacters.forEach(
+                character => {
+
+                    const th =
+                        document.createElement(
+                            "th"
+                        );
+
+                    th.textContent =
+                        character.name;
+
+                    headerRow.appendChild(
+                        th
+                    );
+
+                }
+            );
 
 
-            return button;
+            const deleteHeader =
+                document.createElement(
+                    "th"
+                );
+
+            deleteHeader.textContent =
+                "삭제";
+
+            deleteHeader.style.width =
+                "55px";
+
+            headerRow.appendChild(
+                deleteHeader
+            );
+
+
+            header.appendChild(
+                headerRow
+            );
+
+
+            const scoreRow =
+                document.createElement(
+                    "tr"
+                );
+
+            const scoreTitle =
+                document.createElement(
+                    "th"
+                );
+
+            scoreTitle.textContent =
+                "점수";
+
+            scoreRow.appendChild(
+                scoreTitle
+            );
+
+
+            data.waterCharacters.forEach(
+                (character, index) => {
+
+                    const td =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const input =
+                        document.createElement(
+                            "input"
+                        );
+
+                    input.type =
+                        "number";
+
+                    input.min =
+                        "0";
+
+                    input.className =
+                        "score-input";
+
+                    input.value =
+                        character.score || "";
+
+                    input.addEventListener(
+                        "change",
+                        event => {
+
+                            updateWaterScore(
+                                index,
+                                event.target.value
+                            );
+
+                        }
+                    );
+
+                    td.appendChild(
+                        input
+                    );
+
+                    scoreRow.appendChild(
+                        td
+                    );
+
+                }
+            );
+
+
+            const scoreDelete =
+                document.createElement(
+                    "td"
+                );
+
+            scoreRow.appendChild(
+                scoreDelete
+            );
+
+            table.appendChild(
+                scoreRow
+            );
+
+
+            const statusRow =
+                document.createElement(
+                    "tr"
+                );
+
+            const statusTitle =
+                document.createElement(
+                    "th"
+                );
+
+            statusTitle.textContent =
+                "여/부";
+
+            statusRow.appendChild(
+                statusTitle
+            );
+
+
+            data.waterCharacters.forEach(
+                character => {
+
+                    const td =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const span =
+                        document.createElement(
+                            "span"
+                        );
+
+                    span.className =
+                        "automatic-status";
+
+                    span.textContent =
+                        Number(
+                            character.score
+                        ) > 0
+                            ? "O"
+                            : "X";
+
+                    td.appendChild(
+                        span
+                    );
+
+                    statusRow.appendChild(
+                        td
+                    );
+
+                }
+            );
+
+
+            const statusDelete =
+                document.createElement(
+                    "td"
+                );
+
+            statusRow.appendChild(
+                statusDelete
+            );
+
+            table.appendChild(
+                statusRow
+            );
+
+
+            const deleteRow =
+                document.createElement(
+                    "tr"
+                );
+
+            const deleteTitle =
+                document.createElement(
+                    "th"
+                );
+
+            deleteTitle.textContent =
+                "관리";
+
+            deleteRow.appendChild(
+                deleteTitle
+            );
+
+
+            data.waterCharacters.forEach(
+                (character, index) => {
+
+                    const td =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+                    button.type =
+                        "button";
+
+                    button.className =
+                        "delete-button";
+
+                    button.textContent =
+                        "×";
+
+                    button.onclick =
+                        () => {
+
+                            deleteWaterCharacter(
+                                index
+                            );
+
+                        };
+
+                    td.appendChild(
+                        button
+                    );
+
+                    deleteRow.appendChild(
+                        td
+                    );
+
+                }
+            );
+
+
+            const finalCell =
+                document.createElement(
+                    "td"
+                );
+
+            deleteRow.appendChild(
+                finalCell
+            );
+
+            table.appendChild(
+                deleteRow
+            );
 
         }
 
 
-        /* ==================================================
-           전체 화면 출력
-        ================================================== */
+        /* =========================================
+           에픽던전 추가
+        ========================================= */
 
-        function renderAll() {
+        function addEpicDungeon() {
 
-            normalizeData();
+            const nameInput =
+                document.getElementById(
+                    "epicName"
+                );
 
+            const levelInput =
+                document.getElementById(
+                    "epicLevel"
+                );
 
-            renderDailyTable(
-                "dailyQuest",
-                "dailyQuestTable"
-            );
+            const name =
+                nameInput.value.trim();
 
+            const level =
+                Number(
+                    levelInput.value
+                );
 
-            renderDailyTable(
-                "monsterPark",
-                "monsterParkTable"
-            );
+            if (!name) {
 
+                alert(
+                    "에픽던전 이름을 입력해주세요."
+                );
 
-            renderFlagTable();
+                return;
+            }
 
-            renderWaterwayTable();
+            data.epicDungeons.push({
 
-            renderEpicDungeonTable();
+                name: name,
+
+                level:
+                    Number.isFinite(level)
+                        ? level
+                        : 0,
+
+                nickname: "",
+
+                status: false,
+
+                complete: 0,
+
+                bonus1: 0,
+
+                bonus2: 0
+
+            });
+
+            nameInput.value = "";
+            levelInput.value = "";
+
+            saveData();
+            renderEpicDungeon();
 
         }
 
 
-        /* ==================================================
+        function deleteEpicDungeon(index) {
+
+            data.epicDungeons.splice(
+                index,
+                1
+            );
+
+            saveData();
+            renderEpicDungeon();
+
+        }
+
+
+        function updateEpicDungeon(
+            index,
+            field,
+            value
+        ) {
+
+            if (
+                field === "level" ||
+                field === "complete" ||
+                field === "bonus1" ||
+                field === "bonus2"
+            ) {
+
+                value =
+                    Number(value) || 0;
+
+            }
+
+            data.epicDungeons[index][field] =
+                value;
+
+            saveData();
+
+        }
+
+
+        function toggleEpicStatus(index) {
+
+            data.epicDungeons[index].status =
+                !Boolean(
+                    data.epicDungeons[index].status
+                );
+
+            saveData();
+            renderEpicDungeon();
+
+        }
+
+
+        /* =========================================
+           에픽던전 렌더링
+        ========================================= */
+
+        function renderEpicDungeon() {
+
+            const table =
+                document.getElementById(
+                    "epicTable"
+                );
+
+            table.innerHTML = "";
+
+
+            data.epicDungeons.forEach(
+                (dungeon, index) => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    const nameCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const nameInput =
+                        document.createElement(
+                            "input"
+                        );
+
+                    nameInput.className =
+                        "epic-input";
+
+                    nameInput.value =
+                        dungeon.name;
+
+                    nameInput.addEventListener(
+                        "change",
+                        event => {
+
+                            updateEpicDungeon(
+                                index,
+                                "name",
+                                event.target.value
+                            );
+
+                        }
+                    );
+
+                    nameCell.appendChild(
+                        nameInput
+                    );
+
+                    row.appendChild(
+                        nameCell
+                    );
+
+
+                    const levelCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const levelInput =
+                        document.createElement(
+                            "input"
+                        );
+
+                    levelInput.type =
+                        "number";
+
+                    levelInput.className =
+                        "epic-input";
+
+                    levelInput.value =
+                        dungeon.level;
+
+                    levelInput.addEventListener(
+                        "change",
+                        event => {
+
+                            updateEpicDungeon(
+                                index,
+                                "level",
+                                event.target.value
+                            );
+
+                        }
+                    );
+
+                    levelCell.appendChild(
+                        levelInput
+                    );
+
+                    row.appendChild(
+                        levelCell
+                    );
+
+
+                    const nicknameCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const nicknameInput =
+                        document.createElement(
+                            "input"
+                        );
+
+                    nicknameInput.className =
+                        "epic-input";
+
+                    nicknameInput.placeholder =
+                        "닉네임";
+
+                    nicknameInput.value =
+                        dungeon.nickname;
+
+                    nicknameInput.addEventListener(
+                        "change",
+                        event => {
+
+                            updateEpicDungeon(
+                                index,
+                                "nickname",
+                                event.target.value
+                            );
+
+                        }
+                    );
+
+                    nicknameCell.appendChild(
+                        nicknameInput
+                    );
+
+                    row.appendChild(
+                        nicknameCell
+                    );
+
+
+                    const statusCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const statusSelect =
+                        document.createElement(
+                            "select"
+                        );
+
+                    statusSelect.className =
+                        "epic-select";
+
+                    const optionX =
+                        document.createElement(
+                            "option"
+                        );
+
+                    optionX.value =
+                        "false";
+
+                    optionX.textContent =
+                        "X";
+
+                    const optionO =
+                        document.createElement(
+                            "option"
+                        );
+
+                    optionO.value =
+                        "true";
+
+                    optionO.textContent =
+                        "O";
+
+                    statusSelect.appendChild(
+                        optionX
+                    );
+
+                    statusSelect.appendChild(
+                        optionO
+                    );
+
+                    statusSelect.value =
+                        String(
+                            dungeon.status
+                        );
+
+                    statusSelect.addEventListener(
+                        "change",
+                        event => {
+
+                            updateEpicDungeon(
+                                index,
+                                "status",
+                                event.target.value ===
+                                    "true"
+                            );
+
+                        }
+                    );
+
+                    statusCell.appendChild(
+                        statusSelect
+                    );
+
+                    row.appendChild(
+                        statusCell
+                    );
+
+
+                    const completeCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    completeCell.textContent =
+                        formatNumber(
+                            dungeon.complete
+                        );
+
+                    row.appendChild(
+                        completeCell
+                    );
+
+
+                    const bonus1Cell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    bonus1Cell.textContent =
+                        formatNumber(
+                            dungeon.bonus1
+                        );
+
+                    row.appendChild(
+                        bonus1Cell
+                    );
+
+
+                    const bonus2Cell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    bonus2Cell.textContent =
+                        formatNumber(
+                            dungeon.bonus2
+                        );
+
+                    row.appendChild(
+                        bonus2Cell
+                    );
+
+
+                    const deleteCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const deleteButton =
+                        document.createElement(
+                            "button"
+                        );
+
+                    deleteButton.type =
+                        "button";
+
+                    deleteButton.className =
+                        "delete-button";
+
+                    deleteButton.textContent =
+                        "×";
+
+                    deleteButton.onclick =
+                        () => {
+
+                            deleteEpicDungeon(
+                                index
+                            );
+
+                        };
+
+                    deleteCell.appendChild(
+                        deleteButton
+                    );
+
+                    row.appendChild(
+                        deleteCell
+                    );
+
+
+                    table.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           숫자 표시
+        ========================================= */
+
+        function formatNumber(number) {
+
+            return Number(
+                number || 0
+            ).toLocaleString(
+                "ko-KR"
+            );
+
+        }
+
+
+        /* =========================================
            상단 메뉴
-        ================================================== */
+        ========================================= */
 
         function toggleSchedulerMenu() {
 
@@ -2349,7 +2583,6 @@
                 document.getElementById(
                     "schedulerMenu"
                 );
-
 
             menu.classList.toggle(
                 "active"
@@ -2360,13 +2593,12 @@
 
         document.addEventListener(
             "click",
-            function(event) {
+            event => {
 
                 const menu =
                     document.getElementById(
                         "schedulerMenu"
                     );
-
 
                 if (
                     !menu.contains(
@@ -2384,22 +2616,20 @@
         );
 
 
-        /* ==================================================
-           Enter 키
-        ================================================== */
+        /* =========================================
+           Enter로 캐릭터 추가
+        ========================================= */
 
         document.getElementById(
-            "dailyQuestInput"
+            "dailyQuestName"
         ).addEventListener(
             "keydown",
-            function(event) {
+            event => {
 
                 if (
                     event.key === "Enter"
                 ) {
-
                     addDailyQuestCharacter();
-
                 }
 
             }
@@ -2407,17 +2637,15 @@
 
 
         document.getElementById(
-            "monsterParkInput"
+            "monsterParkName"
         ).addEventListener(
             "keydown",
-            function(event) {
+            event => {
 
                 if (
                     event.key === "Enter"
                 ) {
-
                     addMonsterParkCharacter();
-
                 }
 
             }
@@ -2425,17 +2653,15 @@
 
 
         document.getElementById(
-            "flagInput"
+            "flagName"
         ).addEventListener(
             "keydown",
-            function(event) {
+            event => {
 
                 if (
                     event.key === "Enter"
                 ) {
-
                     addFlagCharacter();
-
                 }
 
             }
@@ -2443,52 +2669,35 @@
 
 
         document.getElementById(
-            "waterwayInput"
+            "waterName"
         ).addEventListener(
             "keydown",
-            function(event) {
+            event => {
 
                 if (
                     event.key === "Enter"
                 ) {
-
-                    addWaterwayCharacter();
-
+                    addWaterCharacter();
                 }
 
             }
         );
 
 
-        document.getElementById(
-            "epicDungeonInput"
-        ).addEventListener(
-            "keydown",
-            function(event) {
-
-                if (
-                    event.key === "Enter"
-                ) {
-
-                    addEpicDungeonCharacter();
-
-                }
-
-            }
-        );
-
-
-        /* ==================================================
+        /* =========================================
            초기 실행
-        ================================================== */
+        ========================================= */
 
         normalizeData();
-
         saveData();
 
         displayWeek();
 
-        renderAll();
+        renderDailyQuest();
+        renderMonsterPark();
+        renderFlag();
+        renderWater();
+        renderEpicDungeon();
 
     </script>
 
