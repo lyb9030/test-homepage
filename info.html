@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>정보 - My Homepage</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+
+        /* =========================
+           상단 메뉴
+        ========================= */
+
+        .top-menu {
+            width: 100%;
+            background: #222;
+        }
+
+        .menu-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+
+            display: flex;
+            align-items: center;
+        }
+
+
+        .home-button {
+            display: inline-block;
+
+            padding: 15px 20px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 18px;
+        }
+
+        .home-button:hover {
+            background: #444;
+        }
+
+
+        /* =========================
+           정보 화면
+        ========================= */
+
+        .info-container {
+            max-width: 1100px;
+
+            margin: 70px auto;
+
+            padding: 0 20px;
+        }
+
+
+        .info-title {
+            margin: 0 0 40px;
+
+            font-size: 42px;
+        }
+
+
+        /* =========================
+           정보 카드
+        ========================= */
+
+        .info-card {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .info-card h2 {
+            margin: 0 0 10px;
+
+            font-size: 27px;
+        }
+
+
+        .info-card p {
+            margin: 0 0 25px;
+
+            color: #666;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           조회 버튼
+        ========================= */
+
+        .search-button {
+            padding: 12px 22px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #222;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+
+        .search-button:hover {
+            background: #444;
+        }
+
+
+        .search-button:disabled {
+            background: #999;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================
+           결과 영역
+        ========================= */
+
+        .result-area {
+            margin-top: 30px;
+        }
+
+
+        .result-area h3 {
+            margin: 0 0 15px;
+
+            font-size: 20px;
+        }
+
+
+        .character-list {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 12px;
+        }
+
+
+        .character-item {
+            padding: 15px;
+
+            background: #f5f5f5;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+        }
+
+
+        .status {
+            margin-top: 20px;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           모바일
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .menu-container {
+                padding: 0 10px;
+            }
+
+            .home-button {
+                padding: 14px 12px;
+
+                font-size: 16px;
+            }
+
+
+            .info-container {
+                margin: 45px auto;
+            }
+
+
+            .info-title {
+                font-size: 32px;
+            }
+
+
+            .info-card {
+                padding: 28px;
+            }
+
+
+            .character-list {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     상단 메뉴
+========================= -->
+
+<div class="top-menu">
+
+    <div class="menu-container">
+
+        <a
+            href="index.html"
+            class="home-button"
+        >
+            홈
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     정보 화면
+========================= -->
+
+<main class="info-container">
+
+
+    <h1 class="info-title">
+        정보
+    </h1>
+
+
+    <!-- 캐릭터 목록 조회 -->
+
+    <section class="info-card">
+
+        <h2>
+            캐릭터 목록 조회
+        </h2>
+
+        <p>
+            메이플스토리 계정에 등록된 캐릭터 목록을 조회합니다.
+        </p>
+
+
+        <button
+            class="search-button"
+            id="searchButton"
+            onclick="getCharacterList()"
+        >
+            캐릭터 목록 불러오기
+        </button>
+
+
+        <!-- 결과 -->
+
+        <div
+            class="result-area"
+            id="resultArea"
+            style="display: none;"
+        >
+
+            <h3>
+                조회 결과
+            </h3>
+
+
+            <div
+                class="character-list"
+                id="characterList"
+            ></div>
+
+
+            <div
+                class="status"
+                id="status"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     JavaScript
+========================= -->
+
+<script>
+
+
+    /* =========================
+       API 설정
+    ========================= */
+
+    const API_KEY =
+        "여기에_API_KEY_입력";
+
+
+    const API_URL =
+        "https://open.api.nexon.com/maplestory/v1/character/list";
+
+
+
+    /* =========================
+       캐릭터 목록 조회
+    ========================= */
+
+    async function getCharacterList() {
+
+        const button =
+            document.getElementById(
+                "searchButton"
+            );
+
+        const resultArea =
+            document.getElementById(
+                "resultArea"
+            );
+
+        const characterList =
+            document.getElementById(
+                "characterList"
+            );
+
+        const status =
+            document.getElementById(
+                "status"
+            );
+
+
+        /* API Key 확인 */
+
+        if (
+            API_KEY ===
+            "여기에_API_KEY_입력"
+        ) {
+
+            alert(
+                "API Key를 입력해주세요."
+            );
+
+            return;
+
+        }
+
+
+        /* 조회 시작 */
+
+        button.disabled = true;
+
+        button.textContent =
+            "조회 중...";
+
+
+        resultArea.style.display =
+            "block";
+
+        characterList.innerHTML =
+            "";
+
+        status.textContent =
+            "캐릭터 목록을 불러오는 중입니다.";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "GET",
+
+                        headers: {
+                            "x-nxopen-api-key":
+                                API_KEY
+                        }
+                    }
+                );
+
+
+            /* HTTP 오류 확인 */
+
+            if (
+                !response.ok
+            ) {
+
+                const errorData =
+                    await response.json()
+                    .catch(
+                        () => null
+                    );
+
+
+                if (
+                    errorData &&
+                    errorData.error
+                ) {
+
+                    throw new Error(
+                        errorData.error.message ||
+                        "API 요청에 실패했습니다."
+                    );
+
+                }
+
+
+                throw new Error(
+                    "API 요청에 실패했습니다. " +
+                    "HTTP 상태 코드: " +
+                    response.status
+                );
+
+            }
+
+
+            /* JSON 데이터 변환 */
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "API 응답:",
+                data
+            );
+
+
+            /* 캐릭터 목록 표시 */
+
+            if (
+                !data ||
+                !data.character_list ||
+                data.character_list.length === 0
+            ) {
+
+                characterList.innerHTML =
+                    "<div class='character-item'>" +
+                    "조회된 캐릭터가 없습니다." +
+                    "</div>";
+
+                status.textContent =
+                    "조회는 정상적으로 완료되었습니다.";
+
+                return;
+
+            }
+
+
+            data.character_list.forEach(
+                function(character) {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+                    item.className =
+                        "character-item";
+
+                    item.textContent =
+                        character.character_name;
+
+                    characterList.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+
+            status.textContent =
+                "총 " +
+                data.character_list.length +
+                "개의 캐릭터를 조회했습니다.";
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "API 오류:",
+                error
+            );
+
+
+            characterList.innerHTML =
+                "<div class='character-item'>" +
+                "캐릭터 목록을 불러오지 못했습니다." +
+                "</div>";
+
+
+            status.textContent =
+                "오류: " +
+                error.message;
+
+        }
+
+
+        finally {
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "캐릭터 목록 불러오기";
+
+        }
+
+    }
+
+</script>
+
+
+</body>
+</html>
