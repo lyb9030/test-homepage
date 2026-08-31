@@ -307,6 +307,22 @@
                     "main-header"
                 ).innerHTML = html;
 
+
+                /* 헤더가 불러온 후
+                   헤더 JavaScript 실행 */
+
+                const script =
+                    document.createElement(
+                        "script"
+                    );
+
+                script.src =
+                    "main-header.js";
+
+                document.body.appendChild(
+                    script
+                );
+
             }
         )
         .catch(
@@ -321,8 +337,6 @@
         );
 
 </script>
-
-    <script src="main-header.js"></script>
 
 </body>
 </html>
