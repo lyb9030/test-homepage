@@ -1,0 +1,335 @@
+```html
+<!-- =========================
+     공통 상단 메뉴
+========================= -->
+
+<style>
+
+    /* =========================
+       상단 메뉴
+    ========================= */
+
+    .top-menu {
+        width: 100%;
+        background: #222;
+    }
+
+    .menu-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+
+        display: flex;
+        align-items: center;
+    }
+
+
+    /* =========================
+       홈
+    ========================= */
+
+    .home-button {
+        display: inline-block;
+
+        padding: 15px 20px;
+
+        color: white;
+        text-decoration: none;
+
+        font-size: 18px;
+    }
+
+    .home-button:hover {
+        background: #444;
+    }
+
+
+    /* =========================
+       드롭다운 메뉴
+    ========================= */
+
+    .menu-item {
+        position: relative;
+        display: inline-block;
+    }
+
+
+    .menu-button {
+        background: none;
+        border: none;
+
+        color: white;
+
+        font-size: 18px;
+
+        padding: 15px 20px;
+
+        cursor: pointer;
+    }
+
+
+    .menu-button:hover {
+        background: #444;
+    }
+
+
+    /* =========================
+       하위 메뉴
+    ========================= */
+
+    .submenu {
+        display: none;
+
+        position: absolute;
+
+        top: calc(100% + 8px);
+        left: 0;
+
+        width: 220px;
+
+        background: white;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.15);
+
+        overflow: hidden;
+
+        z-index: 100;
+    }
+
+
+    .menu-item.active .submenu {
+        display: block;
+    }
+
+
+    .submenu a {
+        display: block;
+
+        padding: 18px 20px;
+
+        color: #222;
+
+        text-decoration: none;
+
+        text-align: left;
+
+        font-size: 17px;
+
+        font-weight: bold;
+
+        border-bottom: 1px solid #eee;
+
+        transition:
+            background 0.2s,
+            padding-left 0.2s;
+    }
+
+
+    .submenu a:last-child {
+        border-bottom: none;
+    }
+
+
+    .submenu a:hover {
+        background: #f5f5f5;
+
+        padding-left: 25px;
+    }
+
+
+    /* =========================
+       모바일
+    ========================= */
+
+    @media (max-width: 700px) {
+
+        .menu-container {
+            padding: 0 10px;
+        }
+
+        .home-button,
+        .menu-button {
+            padding: 14px 12px;
+
+            font-size: 16px;
+        }
+
+    }
+
+</style>
+
+
+<div class="top-menu">
+
+    <div class="menu-container">
+
+
+        <!-- =========================
+             홈
+        ========================= -->
+
+        <a
+            href="index.html"
+            class="home-button"
+        >
+            홈
+        </a>
+
+
+
+        <!-- =========================
+             스케줄러
+        ========================= -->
+
+        <div
+            class="menu-item"
+            id="schedulerMenu"
+        >
+
+            <button
+                class="menu-button"
+                onclick="toggleMenu('schedulerMenu')"
+            >
+                스케줄러 ▼
+            </button>
+
+
+            <div class="submenu">
+
+                <a href="daily.html">
+                    일퀘
+                </a>
+
+                <a href="boss.html">
+                    보스
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             정보
+        ========================= -->
+
+        <div
+            class="menu-item"
+            id="infoMenu"
+        >
+
+            <button
+                class="menu-button"
+                onclick="toggleMenu('infoMenu')"
+            >
+                정보 ▼
+            </button>
+
+
+            <div class="submenu">
+
+                <a href="info.html">
+                    캐릭터정보
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    /* =========================
+       드롭다운 메뉴 열기 / 닫기
+    ========================= */
+
+    function toggleMenu(menuId) {
+
+        const menu =
+            document.getElementById(
+                menuId
+            );
+
+
+        const wasActive =
+            menu.classList.contains(
+                "active"
+            );
+
+
+        /* 모든 메뉴 닫기 */
+
+        document
+            .querySelectorAll(
+                ".menu-item"
+            )
+            .forEach(
+                function(item) {
+
+                    item.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+        /* 클릭한 메뉴 열기 */
+
+        if (!wasActive) {
+
+            menu.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+
+    /* =========================
+       메뉴 바깥 클릭 시 닫기
+    ========================= */
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                !event.target.closest(
+                    ".menu-item"
+                )
+            ) {
+
+                document
+                    .querySelectorAll(
+                        ".menu-item"
+                    )
+                    .forEach(
+                        function(item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+    );
+
+</script>
+```
